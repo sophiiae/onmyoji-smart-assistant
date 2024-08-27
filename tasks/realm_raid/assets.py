@@ -69,6 +69,12 @@ class RealmRaidAssets:
 		area=(376, 276, 108, 108),
 		file="./tasks/realm_raid/res/raid_beat.png"
 	)
+	# 挑战失败箭头 
+	I_RAID_LOSE = RuleImage(
+		roi=(398, 150, 66, 20),
+		area=(388, 140, 86, 40),
+		file="./tasks/realm_raid/res/raid_lose.png"
+	)
 	# 今天不再提示勾选 
 	I_RAID_WARNING_CHECKBOX = RuleImage(
 		roi=(538, 341, 36, 37),

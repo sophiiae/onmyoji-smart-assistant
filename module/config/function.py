@@ -2,8 +2,7 @@
 from module.config.config_model import ConfigModel
 from datetime import datetime
 
-import logging
-logger = logging.getLogger(__name__)
+from module.base.logger import logger
 
 DEFAULT_TIME = datetime(2024, 1, 1, 0, 0)
 

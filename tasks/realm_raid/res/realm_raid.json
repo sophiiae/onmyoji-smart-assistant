@@ -55,6 +55,13 @@
     "description": "破"
   },
   {
+    "name": "raid_lose",
+    "roi": "398, 150, 66, 20",
+    "area": "388, 140, 86, 40",
+    "file": "./tasks/realm_raid/res/raid_lose.png",
+    "description": "挑战失败箭头"
+  },
+  {
     "name": "raid_warning_checkbox",
     "type": "image",
     "roi": "538, 341, 36, 37",

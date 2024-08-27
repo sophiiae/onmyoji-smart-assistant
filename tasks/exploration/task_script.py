@@ -14,8 +14,9 @@ class TaskScript(General, ExplorationAssets):
     def run(self):
         config = self.config.model.exploration
 
-        # 探索页面
-        self.goto(page_exp)
+        # 进入探索页面
+        if not self.check_page_appear(page_exp):
+            self.goto(page_exp)
 
         if not self.open_chapter_entrance():
             logger.critical(":: Not able to reach Exploration page ::")

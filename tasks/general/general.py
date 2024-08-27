@@ -11,60 +11,27 @@ from tasks.task_base import TaskBase
 
 class General(TaskBase, GeneralAssets, PageMap):
     ui_current: Page = None
-    ui_pages = [
-        page_main, page_summon, page_exp,
-        page_realm_raid, page_guild_raid, page_store, page_login, page_sleep
-    ]
     ui_close = [
         GeneralAssets.I_V_EXP_TO_MAIN, GeneralAssets.I_V_GUILD_TO_MAIN,
         GeneralAssets.I_V_STORE_TO_MAIN, GeneralAssets.I_V_REALM_RAID_TO_EXP,
         MainPageAssets.I_STORE_EXIT, GeneralAssets.I_V_SLEEP_TO_MAIN
     ]
 
-    def main_to_exp(self) -> bool:
-        while 1:
-            self.screenshot()
-            if self.appear_then_click(self.I_V_MAIN_TO_EXP, interval=2):
-                continue
-            if self.appear(self.I_C_EXP):
-                break
-
-            print(self.appear(self.I_C_EXP))
-        logger.info(f'## Click {self.I_V_MAIN_TO_EXP.name}')
-        return True
-
-    def exp_to_home(self) -> bool:
-        while 1:
-            self.screenshot()
-            if self.appear_then_click(self.I_V_EXP_TO_MAIN, interval=2):
-                continue
-            if self.appear(self.I_C_MAIN_GATE):
-                break
-        logger.info(f'## Click {self.I_V_EXP_TO_MAIN.name}')
-        return True
-
-    def check_page_appear(self, page):
+    def check_page_appear(self, page, check_delay: float = 0.01):
         """
         判断当前页面是否为page
         """
-        return self.appear(page.check_button)
+        time.sleep(check_delay)
+        if not self.appear(page.check_button):
+            logger.error("Not in realm raid page")
+            return False
+        return True
 
     def is_scroll_closed(self):
         """
         判断庭院界面卷轴是否打开
         """
         return self.appear(MainPageAssets.I_SCROLL_CLOSE)
-
-    def is_button_executed(self, button):
-        """
-        确保button执行
-        """
-        if isinstance(button, RuleImage) and self.appear(button):
-            return True
-        elif callable(button) and button():
-            return True
-        else:
-            return False
 
     def get_current_page(self) -> Page:
         timeout = Timer(5, 20).start()

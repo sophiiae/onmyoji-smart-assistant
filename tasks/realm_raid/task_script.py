@@ -11,7 +11,8 @@ class TaskScript(General, RealmRaidAssets):
     def run(self):
         config = self.config.model.realm_raid
 
-        self.goto(page_realm_raid)
+        if not self.check_page_appear(page_realm_raid):
+            self.goto(page_realm_raid)
 
         image = self.screenshot()
         self.update_partition_prop(image)
@@ -84,6 +85,11 @@ class TaskScript(General, RealmRaidAssets):
             cropped = image[y: y + h, x: x + w]
             if RealmRaidAssets.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
                 part['defeated'] = True
+            else:
+                ax, ay, aw, ah = part['lose_arrow_area']
+                arrow_cropped = image[ay: ay + ah, ax: ax + aw]
+                if RealmRaidAssets.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
+                    part['lose'] = True
 
     @cached_property
     def medals(self) -> list:
@@ -109,7 +115,8 @@ class TaskScript(General, RealmRaidAssets):
                 parts.append({
                     'partition_area': (x, y, w, h),
                     'flag_area': (), 'medal_area': (),
-                    'defeated': False, 'medal': -1
+                    'defeated': False, 'medal': -1,
+                    "lose_arrow_area": (), 'lose': False
                 })
 
         # 计算勋章位置大小
@@ -128,6 +135,15 @@ class TaskScript(General, RealmRaidAssets):
             for x in xl:
                 fx, fy = x + 250, y + 12
                 parts[i]['flag_area'] = (fx, fy, fw, fh)
+                i += 1
+
+        # 计算失败箭头位置大小
+        aw, ah = 84, 40
+        i = 0
+        for y in yl:
+            for x in xl:
+                ax, ay = x + 238, y - 10
+                parts[i]['lose_arrow_area'] = (ax, ay, aw, ah)
                 i += 1
         return parts
 
@@ -166,7 +182,7 @@ class TaskScript(General, RealmRaidAssets):
         while count < quit_count and retry >= 0:
             logger.info(f"========= quit and fight count: {count}")
             time.sleep(1)
-            if self.wait_until_appear(self.I_RAID_BATTLE_EXIT, 20):
+            if self.wait_until_appear(self.I_RAID_BATTLE_EXIT, 20, threshold=0.95):
                 self.appear_then_click(self.I_RAID_BATTLE_EXIT)
                 time.sleep(1)
                 if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM, 5):
@@ -202,48 +218,61 @@ class TaskScript(General, RealmRaidAssets):
             self.click(self.I_RAID_BATTLE_EXIT)
         return True
 
+    def is_attackable(self, index):
+        return not self.partitions_prop[index]['defeated'] and not self.partitions_prop[index]['lose']
+
     def downgrade(self) -> bool:
-        if not self.wait_until_appear(self.I_C_REALM_RAID, 3):
-            logger.error("Not in realm raid page")
+        if not self.check_page_appear(page_realm_raid):
             return False
 
         image = self.screenshot()
         level = self.O_RAID_PARTITION_1_LV.digit(image)
         retry = 5
+
         if level > 57:
-            logger.info(f"-------->>> Current lowest level: {level}")
+            logger.info(
+                f"-------->>> Current lowest level: {level}  <<<----------"
+            )
             self.toggle_team_lock(False)
+
             for idx, part in enumerate(self.partitions):
-                if not self.wait_until_appear(self.I_C_REALM_RAID, 5):
-                    logger.error("Not on realm raid page")
-                    break
+                if not self.wait_until_appear(self.I_C_REALM_RAID):
+                    return False
+
+                # 已经挑战过的就skip掉
+                if not self.is_attackable(idx):
+                    continue
 
                 logger.info(f"** enter and quit for partition {idx + 1}")
-                self.click(part)
-                time.sleep(0.1)
-                if self.wait_until_appear(RealmRaidAssets.I_RAID_ATTACK, 15):
-                    self.appear_then_click(RealmRaidAssets.I_RAID_ATTACK)
-                    time.sleep(0.6)
-                    if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT, 15):
-                        self.appear_then_click(
-                            RealmRaidAssets.I_RAID_BATTLE_EXIT)
-                    time.sleep(0.1)
-                    if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM, 5):
-                        self.appear_then_click(
-                            RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM)
+                self.click(part, 0.3)
+                if self.wait_until_appear(RealmRaidAssets.I_RAID_ATTACK, 15, click=True):
+                    if not self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
+                        logger.error("Not able to exit the battle")
+                        return False
+
+                    time.sleep(0.5)
+                    if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM, click=True, click_delay=1):
                         if self.wait_until_appear(RealmRaidAssets.I_RAID_FIGHT_AGAIN):
                             self.click(RealmRaidAssets.I_RAID_BATTLE_EXIT)
                 else:
                     logger.warning(f"No attack button found for {idx}")
-            if self.wait_until_appear(RealmRaidAssets.I_RAID_REFRESH, 15):
-                self.appear_then_click(RealmRaidAssets.I_RAID_REFRESH)
-            time.sleep(0.5)
+
+            # 都退完了，刷新
+            if not self.click_refresh():
+                return False
+            time.sleep(0.3)
+
+            # 更新现在的最低等级
             image = self.screenshot()
             level = self.O_RAID_PARTITION_1_LV.digit(image)
             retry -= 1
+
         if retry < 0:
             logger.critical(f"Run out of retry for downgrade")
             return False
+
+        logger.info(f"Current level [{level}] meets requirement.")
+
         return True
 
     def click_refresh(self) -> bool:
@@ -281,7 +310,7 @@ class TaskScript(General, RealmRaidAssets):
             medal = self.medals[i]
             if medal.match_target(screenshot=image):
                 index = self.get_partition_index(medal.roi)
-                if index > 0 and not self.partitions_prop[index - 1]['defeated']:
+                if index > 0 and self.is_attackable(index - 1):
                     return (medal, index)
             i += 1
 
@@ -343,7 +372,7 @@ class TaskScript(General, RealmRaidAssets):
         return True
 
     def get_reward(self) -> bool:
-        if self.wait_until_appear(General.I_FIGHT_REWARD, wait_time=100, interval=3):
+        if self.wait_until_appear(General.I_FIGHT_REWARD, wait_time=100):
             self.random_click()
             logger.info("Got realm raid fight reward")
             return True
@@ -351,14 +380,21 @@ class TaskScript(General, RealmRaidAssets):
 
     def toggle_team_lock(self, lock: bool = True):
         # 锁定队伍
-        if self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_LOCK):
-            if not lock:
+        if not lock:
+            if self.appear(RealmRaidAssets.I_RAID_TEAM_UNLOCK):
+                return True
+            elif self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_LOCK, click=True):
                 logger.info("Lock the team")
-                self.appear_then_click(RealmRaidAssets.I_RAID_TEAM_LOCK)
-        elif self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_UNLOCK):
-            # 不锁定队伍
-            if lock:
+                self.click(RealmRaidAssets.I_RAID_TEAM_LOCK)
+                return True
+
+        # 不锁定队伍
+        if lock:
+            if self.appear(RealmRaidAssets.I_RAID_TEAM_LOCK):
+                return True
+            if self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_UNLOCK, click=True):
                 logger.info("Unlock the team")
-                self.appear_then_click(RealmRaidAssets.I_RAID_TEAM_UNLOCK)
-        else:
-            logger.error("Team lock icon not found")
+                return True
+
+        logger.error("Team lock icon not found")
+        return False

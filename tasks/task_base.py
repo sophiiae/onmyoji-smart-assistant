@@ -1,5 +1,6 @@
 from datetime import datetime
 import numpy as np
+import time
 
 from module.config.config import Config
 from module.image_processing.rule_image import RuleImage
@@ -7,10 +8,7 @@ from module.image_processing.rule_swipe import RuleSwipe
 from tasks.main_page.assets import MainPageAssets
 from module.server.device import Device
 from module.base.timer import Timer
-import time
-
-import logging
-logger = logging.getLogger(__name__)
+from module.base.logger import logger
 
 class TaskBase(MainPageAssets):
     config: Config = None
@@ -62,24 +60,33 @@ class TaskBase(MainPageAssets):
                 continue
         return True
 
-    def appear(self, target: RuleImage, threshold: float = 0.95, interval: float = None) -> bool:
+    def appear(self, target: RuleImage, threshold: float = 0.9) -> bool:
         if not isinstance(target, RuleImage):
             return False
 
-        if interval:
-            if target.name in self.interval_timer:
-                if self.interval_timer[target.name].waiting_limit != interval:
-                    self.interval_timer[target.name] = Timer(interval)
-            else:
-                self.interval_timer[target.name] = Timer(interval)
-            if not self.interval_timer[target.name].reached():
+        return target.match_target(self.device.image, threshold)
+
+    def wait_until_appear(self, target: RuleImage, waiting_limit: float = 10, retry_limit: float = 5, threshold: float = 0.9, click: bool = False, click_delay: float = 0.2):
+        if not isinstance(target, RuleImage):
+            return False
+
+        timeout = Timer(waiting_limit, retry_limit).start()
+        while 1:
+            time.sleep(0.2)
+            self.screenshot()
+            if self.appear(target, threshold=threshold):
+                logger.info(f"#### Found target: {target.name}")
+                if click:
+                    time.sleep(click_delay)
+                    x, y = target.coord()
+                    self.device.click(x, y)
+                break
+
+            if timeout.reached():
+                logger.error(f"Wait until appear {target.name} timeout")
                 return False
 
-        appear = target.match_target(self.device.image, threshold)
-        if appear and interval:
-            self.interval_timer[target.name].reset()
-
-        return appear
+        return True
 
     def appear_then_click(self,
                           target: RuleImage,
@@ -105,13 +112,13 @@ class TaskBase(MainPageAssets):
             self.device.click(x, y)
         return appear
 
-    def wait_until_appear(self,
-                          target: RuleImage,
-                          wait_time: int = 1,
-                          interval: int = 1,
-                          skip_first_screenshot=False,
-                          threshold: float = 0.9
-                          ) -> bool:
+    def wait_until_appear_old(self,
+                              target: RuleImage,
+                              wait_time: int = 1,
+                              interval: int = 1,
+                              skip_first_screenshot=False,
+                              threshold: float = 0.9
+                              ) -> bool:
         """wait until target show up
 
         Args:
@@ -183,7 +190,7 @@ class TaskBase(MainPageAssets):
             # logger.info(f'Swipe {swipe.name}')
             self.interval_timer[swipe.name].reset()
 
-    def click(self, target: RuleImage, interval: float = None) -> bool:
+    def click(self, target: RuleImage, click_delay: float = 0.2) -> bool:
         """click
 
         Args:
@@ -193,26 +200,9 @@ class TaskBase(MainPageAssets):
         Returns:
             bool:
         """
-
-        if interval:
-            if target.name in self.interval_timer:
-                # 如果传入的限制时间不一样，则替换限制新的传入的时间
-                if self.interval_timer[target.name].limit != interval:
-                    self.interval_timer[target.name] = Timer(interval)
-            else:
-                # 如果没有限制时间，则创建限制时间
-                self.interval_timer[target.name] = Timer(interval)
-            # 如果时间还没到达，则不执行
-            if not self.interval_timer[target.name].reached():
-                return False
-
+        time.sleep(click_delay)
         x, y = target.coord()
         self.device.click(x=x, y=y)
-
-        # 执行后，如果有限制时间，则重置限制时间
-        if interval:
-            self.interval_timer[target.name].reset()
-            return True
         time.sleep(0.5)
         return False
 
