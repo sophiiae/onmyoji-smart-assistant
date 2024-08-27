@@ -1,0 +1,26 @@
+[
+  {
+    "name": "raid_partition_1_lv",
+    "type": "text",
+    "roi": "160, 175, 193, 201",
+    "area": "160, 175, 193, 201",
+    "file": "",
+    "description": "突破第一格等级位置"
+  },
+  {
+    "name": "raid_ticket",
+    "type": "text",
+    "roi": "1146, 18, 1219, 46",
+    "area": "1146, 18, 1219, 46",
+    "file": "",
+    "description": "突破界面突破票标记位置"
+  },
+  {
+    "name": "raid_wait_time",
+    "type": "text",
+    "roi": "1042, 581, 1125, 618",
+    "area": "1042, 581, 1125, 618",
+    "file": "",
+    "description": "突破刷新等待时间位置"
+  }
+]

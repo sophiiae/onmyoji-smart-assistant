@@ -1,0 +1,153 @@
+[
+  {
+    "name": "exp_chapter_25",
+    "type": "image",
+    "roi": "1048, 196, 208, 103",
+    "area": "944, 144, 416, 206",
+    "file": "./tasks/exploration/res/exp_25.png",
+    "description": "第二十五章位置"
+  },
+  {
+    "name": "exp_chapter_28",
+    "type": "image",
+    "roi": "1047, 549, 209, 107",
+    "area": "942, 496, 418, 214",
+    "file": "./tasks/exploration/res/exp_28.png",
+    "description": "第二十八章位置（在最底下的时候）"
+  },
+  {
+    "name": "exp_hard_button_checked",
+    "type": "image",
+    "roi": "417, 198, 101, 61",
+    "area": "366, 168, 202, 122",
+    "file": "./tasks/exploration/res/exp_hard_button_checked.png",
+    "description": "探索困难模式按钮(已选)"
+  },
+  {
+    "name": "exp_hard_button_unchecked",
+    "type": "image",
+    "roi": "433, 205, 74, 46",
+    "area": "396, 182, 148, 92",
+    "file": "./tasks/exploration/res/exp_hard_button_unchecked.png",
+    "description": "探索困难模式按钮(未选)"
+  },
+  {
+    "name": "exp_chapter_dismiss_icon",
+    "type": "image",
+    "roi": "1024, 129, 45, 45",
+    "area": "1002, 106, 90, 90",
+    "file": "./tasks/exploration/res/exp_chapter_dismiss_icon.png",
+    "description": "取消章节探索"
+  },
+  {
+    "name": "auto_rotate_on",
+    "type": "image",
+    "roi": "104, 649, 153, 44",
+    "area": "28, 627, 306, 88",
+    "file": "./tasks/exploration/res/auto_rotate_on.png",
+    "description": "自动轮换开启"
+  },
+  {
+    "name": "auto_rotate_off",
+    "type": "image",
+    "roi": "108, 650, 150, 46",
+    "area": "33, 627, 300, 92",
+    "file": "./tasks/exploration/res/auto_rotate_off.png",
+    "description": "自动轮换关闭"
+  },
+  {
+    "name": "exp_team_unlock",
+    "type": "image",
+    "roi": "898, 654, 17, 25",
+    "area": "890, 642, 34, 50",
+    "file": "./tasks/exploration/res/exp_team_unlock.png",
+    "description": "探索队伍未锁定"
+  },
+  {
+    "name": "exp_team_lock",
+    "type": "image",
+    "roi": "895, 651, 23, 30",
+    "area": "884, 636, 46, 60",
+    "file": "./tasks/exploration/res/exp_team_lock.png",
+    "description": "探索队伍锁定"
+  },
+  {
+    "name": "exp_chapter_exit_confirm",
+    "type": "image",
+    "roi": "689, 376, 172, 57",
+    "area": "603, 348, 344, 114",
+    "file": "./tasks/exploration/res/exp_chapter_exit_confirm.png",
+    "description": "探索章节退出确认"
+  },
+  {
+    "name": "exp_button",
+    "type": "image",
+    "roi": "881, 511, 129, 56",
+    "area": "816, 483, 258, 112",
+    "file": "./tasks/exploration/res/exp_button.png",
+    "description": "探索章节确认"
+  },
+  {
+    "name": "exp_fight_button",
+    "type": "image",
+    "roi": "12, 432, 71, 60",
+    "area": "0, 0, 1276, 719",
+    "file": "./tasks/exploration/res/exp_fight_button.png",
+    "description": "探索怪物挑战图标"
+  },
+  {
+    "name": "exp_realm_raid_ticket",
+    "type": "image",
+    "roi": "414, 179, 76, 91",
+    "area": "231, 153, 1000, 446",
+    "file": "./tasks/exploration/res/exp_realm_raid_ticket.png",
+    "description": "怪物奖励突破票掉落显示区域"
+  },
+  {
+    "name": "exp_treasure_box_left",
+    "type": "image",
+    "roi": "37, 203, 65, 35",
+    "area": "4, 186, 135, 320",
+    "file": "./tasks/exploration/res/exp_treasure_box.png",
+    "description": "探索发现物品栏(左)"
+  },
+  {
+    "name": "exp_treasure_box_map",
+    "type": "image",
+    "roi": "37, 203, 65, 35",
+    "area": "400, 106, 800, 420",
+    "file": "./tasks/exploration/res/exp_treasure_box.png",
+    "description": "困28探索界面发现宝箱区域"
+  },
+  {
+    "name": "exp_boss",
+    "type": "image",
+    "roi": "606, 242, 67, 62",
+    "area": "0, 0, 1276, 719",
+    "file": "./tasks/exploration/res/exp_boss.png",
+    "description": "探索章节boss"
+  },
+  {
+    "name": "exp_battle_win",
+    "roi": "411, 122, 172, 129",
+    "area": "325, 58, 344, 258",
+    "file": "./tasks/exploration/res/exp_battle_win.png",
+    "description": ""
+  },
+  {
+    "name": "exp_gain_reward",
+    "type": "image",
+    "roi": "476, 233, 329, 42",
+    "area": "312, 212, 658, 84",
+    "file": "./tasks/exploration/res/exp_gain_reward.png",
+    "description": "获得奖励栏标"
+  },
+  {
+    "name": "exp_chap_reward",
+    "type": "image",
+    "roi": "635, 489, 33, 21",
+    "area": "430, 390, 800, 210",
+    "file": "./tasks/exploration/res/exp_chap_reward.png",
+    "description": "探索章节内发现物品"
+  }
+]

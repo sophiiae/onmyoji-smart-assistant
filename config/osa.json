@@ -1,0 +1,120 @@
+{
+  "config_name": "osa",
+  "script": {
+    "device": {
+      "serial": "127.0.0.1:16448",
+      "screenshot_method": "ADB_nc",
+      "control_method": "minitouch"
+    },
+    "optimization": {
+      "screenshot_interval": 0.3,
+      "combat_screenshot_interval": 1.0,
+      "schedule_rule": "FIFO"
+    },
+    "error_handler": {
+      "when_network_abnormal": "等待10秒",
+      "when_network_error": "重启",
+      "cache_clear_request": true
+    }
+  },
+  "daily_routine": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-16 15:03:54",
+      "priority": 0,
+      "success_interval": "01:00:00:00",
+      "failure_interval": "01:00:00:00"
+    },
+    "harvest_config": {
+      "enable_jade": true,
+      "enable_sign": true,
+      "enable_sign_999": true,
+      "enable_mail": true,
+      "enable_soul": true,
+      "enable_ap": true
+    },
+    "trifles_config": {
+      "one_summon": false,
+      "guild_wish": false,
+      "friend_love": false,
+      "store_sign": true
+    }
+  },
+  "wanted_quests": {
+    "accept_quest_config": {
+      "accept_type": "勾玉"
+    }
+  },
+  "exploration": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-26 10:34:01",
+      "priority": 5,
+      "success_interval": "00:00:30:00",
+      "failure_interval": "00:01:00:00"
+    },
+    "exploration_config": {
+      "buff_gold_50_click": false,
+      "buff_gold_100_click": false,
+      "buff_exp_50_click": true,
+      "buff_exp_100_click": false,
+      "count_max": 10,
+      "chapter": "第二十八章",
+      "auto_backup": false,
+      "backup_rarity": "素材",
+      "lock_team_enable": true
+    },
+    "scroll_mode": {
+      "scroll_mode_enable": true,
+      "scrolls_cd": "0:30:00",
+      "ticket_threshold": 25
+    }
+  },
+  "realm_raid": {
+    "scheduler": {
+      "enable": true,
+      "next_run": "2024-08-26 22:51:52",
+      "priority": 5,
+      "success_interval": "00:00:20:00",
+      "failure_interval": "00:02:00:00"
+    },
+    "raid_config": {
+      "tickets_required": 10,
+      "exit_two": true,
+      "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
+      "three_refresh": false,
+      "when_attack_fail": "Continue"
+    }
+  },
+  "goryou_realm": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-15 21:07:19",
+      "priority": 5,
+      "success_interval": "00:00:30:00",
+      "failure_interval": "00:00:10:00"
+    },
+    "goryou_config": {
+      "goryou_class": "暗孔雀",
+      "count_max": 50,
+      "level": "三层",
+      "lock_team_enable": true
+    }
+  },
+  "shikigami_activity": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-07-22 10:40:48",
+      "priority": 5,
+      "success_interval": "00:00:10:00",
+      "failure_interval": "01:00:00:00"
+    },
+    "climb_config": {
+      "enable_ap_mode": false,
+      "auto_switch": false,
+      "ticket_max": 50,
+      "ap_max": 300,
+      "lock_team_enable": true
+    }
+  }
+}

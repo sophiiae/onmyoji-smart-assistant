@@ -1,0 +1,18 @@
+[
+  {
+    "name": "fight_reward",
+    "type": "image",
+    "roi": "539, 437, 194, 184",
+    "area": "442, 345, 388, 368",
+    "file": "./tasks/general/res/fight_reward.png",
+    "description": "战斗/突破/宝箱奖励领取图标"
+  },
+  {
+    "name": "battle_ready",
+    "type": "image",
+    "roi": "1121, 548, 111, 76",
+    "area": "1066, 510, 222, 152",
+    "file": "./tasks/general/res/battle_ready.png",
+    "description": "战斗准备"
+  }
+]

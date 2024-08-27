@@ -1,0 +1,30 @@
+[
+  {
+    "name": "raid_to_end",
+    "type": "swipe",
+    "roi_start": "1121, 147, 1158, 168",
+    "roi_end": "1121, 603, 1158, 623",
+    "description": "寮突破滑到最低"
+  },
+  {
+    "name": "raid_to_top",
+    "type": "swipe",
+    "roi_start": "1121, 603, 1158, 623",
+    "roi_end": "1121, 147, 1158, 168",
+    "description": "寮突破滑到最高"
+  },
+  {
+    "name": "raid_up",
+    "type": "swipe",
+    "roi_start": "700, 300, 800, 300",
+    "roi_end": "700, 450, 800, 450",
+    "description": "往上翻"
+  },
+  {
+    "name": "raid_down",
+    "type": "swipe",
+    "roi_start": "700, 450, 800, 450",
+    "roi_end": "700, 300, 800, 300",
+    "description": "往下翻"
+  }
+]

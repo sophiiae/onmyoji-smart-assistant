@@ -1,0 +1,225 @@
+[
+  {
+    "name": "raid_win3",
+    "type": "image",
+    "roi": "419, 573, 62, 57",
+    "area": "388, 544, 124, 114",
+    "file": "./tasks/realm_raid/res/raid_win3.png",
+    "description": "三次胜利奖励"
+  },
+  {
+    "name": "raid_refresh",
+    "type": "image",
+    "roi": "963, 569, 172, 57",
+    "area": "877, 540, 344, 114",
+    "file": "./tasks/realm_raid/res/raid_refresh.png",
+    "description": "个人突破刷新"
+  },
+  {
+    "name": "raid_team_lock",
+    "type": "image",
+    "roi": "823, 581, 25, 36",
+    "area": "811, 569, 49, 60",
+    "file": "./tasks/realm_raid/res/raid_team_lock.png",
+    "description": "突破队伍锁定"
+  },
+  {
+    "name": "raid_team_unlock",
+    "type": "image",
+    "roi": "823, 581, 23, 34",
+    "area": "811, 569, 47, 58",
+    "file": "./tasks/realm_raid/res/raid_team_unlock.png",
+    "description": "突破队伍未锁定"
+  },
+  {
+    "name": "raid_attack",
+    "type": "image",
+    "roi": "987, 361, 124, 53",
+    "area": "150, 150, 1030, 569",
+    "file": "./tasks/realm_raid/res/raid_attack.png",
+    "description": "进攻"
+  },
+  {
+    "name": "raid_fight_again",
+    "type": "image",
+    "roi": "827, 476, 63, 72",
+    "area": "796, 440, 126, 144",
+    "file": "./tasks/realm_raid/res/raid_fight_again.png",
+    "description": "再次挑战"
+  },
+  {
+    "name": "raid_beat",
+    "roi": "403, 303, 54, 54",
+    "area": "376, 276, 108, 108",
+    "file": "./tasks/realm_raid/res/raid_beat.png",
+    "description": "破"
+  },
+  {
+    "name": "raid_warning_checkbox",
+    "type": "image",
+    "roi": "538, 341, 36, 37",
+    "area": "520, 322, 72, 74",
+    "file": "./tasks/realm_raid/res/raid_warning_checkbox.png",
+    "description": "今天不再提示勾选"
+  },
+  {
+    "name": "raid_again_confirm",
+    "type": "image",
+    "roi": "672, 403, 172, 57",
+    "area": "586, 374, 344, 114",
+    "file": "./tasks/realm_raid/res/raid_again_confirm.png",
+    "description": "再次挑战确认"
+  },
+  {
+    "name": "raid_battle_exit_confirm",
+    "type": "image",
+    "roi": "679, 396, 124, 52",
+    "area": "617, 370, 248, 104",
+    "file": "./tasks/realm_raid/res/raid_battle_exit_confirm.png",
+    "description": "退出战斗确认"
+  },
+  {
+    "name": "raid_battle_exit",
+    "type": "image",
+    "roi": "21, 17, 35, 33",
+    "area": "4, 0, 70, 66",
+    "file": "./tasks/realm_raid/res/raid_battle_exit.png",
+    "description": "突破战斗退出"
+  },
+  {
+    "name": "raid_partition_1_whole",
+    "type": "image",
+    "roi": "152, 151, 310, 111",
+    "area": "0, 96, 620, 222",
+    "file": "",
+    "description": "突破第一格位置(包括头像)"
+  },
+  {
+    "name": "raid_refresh_unable",
+    "type": "image",
+    "roi": "975, 578, 71, 40",
+    "area": "940, 558, 142, 80",
+    "file": "./tasks/realm_raid/res/raid_refresh_unable.png",
+    "description": "突破刷新(等待)"
+  },
+  {
+    "name": "realm_partition_1",
+    "type": "image",
+    "roi": "240, 150, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破1"
+  },
+  {
+    "name": "realm_partition_2",
+    "type": "image",
+    "roi": "574, 150, 220, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破2"
+  },
+  {
+    "name": "realm_partition_3",
+    "type": "image",
+    "roi": "903, 150, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破3"
+  },
+  {
+    "name": "realm_partition_4",
+    "type": "image",
+    "roi": "240, 285, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破4"
+  },
+  {
+    "name": "realm_partition_5",
+    "type": "image",
+    "roi": "574, 285, 220, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破5"
+  },
+  {
+    "name": "realm_partition_6",
+    "type": "image",
+    "roi": "903, 285, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破6"
+  },
+  {
+    "name": "realm_partition_7",
+    "type": "image",
+    "roi": "240, 420, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破7"
+  },
+  {
+    "name": "realm_partition_8",
+    "type": "image",
+    "roi": "574, 420, 220, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破8"
+  },
+  {
+    "name": "realm_partition_9",
+    "type": "image",
+    "roi": "903, 420, 223, 113",
+    "area": "130, 130, 1000, 420",
+    "file": "",
+    "description": "个人突破9"
+  },
+  {
+    "name": "realm_medal_0",
+    "type": "image",
+    "roi": "220, 150, 195, 38",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_0.png",
+    "description": "0个勋章"
+  },
+  {
+    "name": "realm_medal_1",
+    "type": "image",
+    "roi": "239, 350, 195, 38",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_1.png",
+    "description": "1个勋章"
+  },
+  {
+    "name": "realm_medal_2",
+    "type": "image",
+    "roi": "572, 485, 195, 38",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_2.png",
+    "description": "2个勋章"
+  },
+  {
+    "name": "realm_medal_3",
+    "type": "image",
+    "roi": "240, 485, 195, 38",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_3.png",
+    "description": "3个勋章"
+  },
+  {
+    "name": "realm_medal_4",
+    "type": "image",
+    "roi": "572, 350, 195, 38",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_4.png",
+    "description": "4个勋章"
+  },
+  {
+    "name": "realm_medal_5",
+    "type": "image",
+    "roi": "240, 216, 195, 37",
+    "area": "210, 130, 940, 400",
+    "file": "./tasks/realm_raid/res/medals/medal_5.png",
+    "description": "5个勋章"
+  }
+]
