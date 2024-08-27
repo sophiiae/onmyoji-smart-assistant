@@ -56,7 +56,7 @@ class TaskBase(MainPageAssets):
             if not self.appear(target=click_button):
                 logger.info('Deal with invitation done')
                 break
-            if self.appear_then_click(click_button, interval=0.8):
+            if self.appear_then_click(click_button):
                 continue
         return True
 
@@ -66,13 +66,13 @@ class TaskBase(MainPageAssets):
 
         return target.match_target(self.device.image, threshold)
 
-    def wait_until_appear(self, target: RuleImage, waiting_limit: float = 10, retry_limit: float = 5, threshold: float = 0.9, click: bool = False, click_delay: float = 0.2):
+    def wait_until_appear(self, target: RuleImage, waiting_limit: float = 10, retry_limit: float = 5, waiting_interval: float = 0.2, threshold: float = 0.9, click: bool = False, click_delay: float = 0.2):
         if not isinstance(target, RuleImage):
             return False
 
         timeout = Timer(waiting_limit, retry_limit).start()
         while 1:
-            time.sleep(0.2)
+            time.sleep(waiting_interval)
             self.screenshot()
             if self.appear(target, threshold=threshold):
                 logger.info(f"#### Found target: {target.name}")
@@ -91,7 +91,6 @@ class TaskBase(MainPageAssets):
     def appear_then_click(self,
                           target: RuleImage,
                           threshold: float = 0.95,
-                          interval: float = 1,
                           ) -> bool:
         """wait until appear, then click
 
@@ -106,45 +105,11 @@ class TaskBase(MainPageAssets):
         if not isinstance(target, RuleImage):
             return False
 
-        appear = self.appear(target, threshold=threshold, interval=interval)
+        appear = self.appear(target, threshold=threshold)
         if appear:
             x, y = target.coord()
             self.device.click(x, y)
         return appear
-
-    def wait_until_appear_old(self,
-                              target: RuleImage,
-                              wait_time: int = 1,
-                              interval: int = 1,
-                              skip_first_screenshot=False,
-                              threshold: float = 0.9
-                              ) -> bool:
-        """wait until target show up
-
-        Args:
-            target (RuleImage): _description_
-            wait_time (int, optional): _description_. Defaults to 1.
-            interval (int, optional): _description_. Defaults to 1.
-            skip_first_screenshot (bool, optional): _description_. Defaults to False.
-            threshold (float, optional): _description_. Defaults to 0.9.
-
-        Returns:
-            bool: _description_
-        """
-        count = 0
-        while count < wait_time:
-            time.sleep(interval)
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.screenshot()
-
-            if self.appear(target, threshold=threshold):
-                return True
-            count += interval
-
-        print(f"Wait until appear {target.name} timeout")
-        return False
 
     def screenshot(self):
         """截图 引入中间函数的目的是 为了解决如协作的这类突发的事件
@@ -206,9 +171,10 @@ class TaskBase(MainPageAssets):
         time.sleep(0.5)
         return False
 
-    def random_click(self):
+    def random_click(self, click_delay=0.2):
         """Perform random click within screen
         """
+        time.sleep(click_delay)
         x = np.random.randint(0, 1270)
         y = np.random.randint(0, 700)
         self.device.click(x=x, y=y)
@@ -224,7 +190,7 @@ class TaskBase(MainPageAssets):
             self.screenshot()
             if not self.appear(target):
                 break
-            elif self.appear_then_click(target, interval=interval):
+            elif self.wait_until_appear(target, click=True):
                 continue
 
     def set_next_run(self, task: str, finish: bool = False,

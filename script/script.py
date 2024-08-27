@@ -147,6 +147,8 @@ class Script:
                     {"schedule": self.config.get_schedule_data()}
                 )
 
+            logger.critical(f"Getting {task.name} and time: {
+                            datetime.strftime(task.next_run, "%Y-%m-%d %H:%M:%S")}")
             if task.next_run > datetime.now():
                 logger.info(f'Wait until {task.next_run} for task `{
                             task.name}`')

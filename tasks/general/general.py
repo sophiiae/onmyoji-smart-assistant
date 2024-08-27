@@ -22,8 +22,8 @@ class General(TaskBase, GeneralAssets, PageMap):
         判断当前页面是否为page
         """
         time.sleep(check_delay)
-        if not self.appear(page.check_button):
-            logger.error("Not in realm raid page")
+        if not self.appear(page.check_button, threshold=0.95):
+            logger.error(f"Not in {page.name} page")
             return False
         return True
 
@@ -54,7 +54,7 @@ class General(TaskBase, GeneralAssets, PageMap):
 
             # Try to close unknown page
             for close in self.ui_close:
-                if self.appear_then_click(close, interval=1.5):
+                if self.wait_until_appear(close, waiting_limit=0, retry_limit=0, click=True):
                     logger.warning('Trying to switch to supported page')
                     timeout = Timer(5, 10).start()
                 time.sleep(0.2)
@@ -69,11 +69,13 @@ class General(TaskBase, GeneralAssets, PageMap):
                     [p.name for p in path]}")
 
         for idx, page in enumerate(path):
-            logger.info(f"We are in page: {page.name}")
+            if self.check_page_appear(page, check_delay=0.3):
+                logger.info(f"[UI] We are in page: {page.name}")
 
             # 已经到达页面，退出
             if page == destination:
                 logger.info(f'[UI] Page arrive: {destination}')
+                time.sleep(0.5)
                 return
 
             # 路径/页面设置 出错
@@ -93,7 +95,7 @@ class General(TaskBase, GeneralAssets, PageMap):
 
                 print(page.name)
                 button = page.links[path[idx + 1]]
-                if self.appear_then_click(button, interval=3):
+                if self.wait_until_appear(button, click=True):
                     logger.info(f"[PATH] Heading from {
                                 page.name} to {path[idx + 1].name}.")
                     time.sleep(0.2)

@@ -24,7 +24,7 @@ class Page():
 
 
 # 主界面 Main
-page_main = Page(G.I_C_MAIN_QUEST)
+page_main = Page(G.I_C_MAIN)
 
 # 召唤界面 Summon
 page_summon = Page(G.I_C_SUMMON)

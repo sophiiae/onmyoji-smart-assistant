@@ -8,12 +8,11 @@
     "description": "登录界面适龄提示"
   },
   {
-    "name": "c_main_quest",
-    "type": "image",
-    "roi": "235, 337, 44, 34",
-    "area": "213, 320, 88, 68",
-    "file": "./tasks/general/res/c_main_quest.png",
-    "description": "主界面悬赏封印"
+    "name": "c_main",
+    "roi": "905, 134, 48, 48",
+    "area": "600, 110, 500, 96",
+    "file": "./tasks/general/res/c_main.png",
+    "description": "主界面"
   },
   {
     "name": "c_exp",
@@ -64,7 +63,7 @@
     "name": "v_main_to_exp",
     "type": "image",
     "roi": "655, 102, 55, 87",
-    "area": "628, 58, 110, 174",
+    "area": "490, 58, 600, 174",
     "file": "./tasks/general/res/goto/v_main_to_exp.png",
     "description": "主界面探索灯笼"
   },

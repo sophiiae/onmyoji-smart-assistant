@@ -27,11 +27,11 @@ class GeneralAssets:
 		area=(0, 528, 106, 142),
 		file="./tasks/general/res/c_login.png"
 	)
-	# 主界面悬赏封印 
-	I_C_MAIN_QUEST = RuleImage(
-		roi=(235, 337, 44, 34),
-		area=(213, 320, 88, 68),
-		file="./tasks/general/res/c_main_quest.png"
+	# 主界面 
+	I_C_MAIN = RuleImage(
+		roi=(905, 134, 48, 48),
+		area=(600, 110, 500, 96),
+		file="./tasks/general/res/c_main.png"
 	)
 	# 探索界面妖标志 
 	I_C_EXP = RuleImage(
@@ -72,7 +72,7 @@ class GeneralAssets:
 	# 主界面探索灯笼 
 	I_V_MAIN_TO_EXP = RuleImage(
 		roi=(655, 102, 55, 87),
-		area=(628, 58, 110, 174),
+		area=(490, 58, 600, 174),
 		file="./tasks/general/res/goto/v_main_to_exp.png"
 	)
 	# 探索界面返回主界面 

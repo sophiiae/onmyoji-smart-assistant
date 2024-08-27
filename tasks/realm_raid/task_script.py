@@ -1,18 +1,25 @@
 from functools import cached_property
+import random
 import time
 from module.base.logger import logger
 from module.base.exception import TaskEnd
 from tasks.general.general import General
-from tasks.realm_raid.assets import RealmRaidAssets
+from tasks.realm_raid.assets import RealmRaidAssets as RRA
 from tasks.general.page import page_realm_raid, page_main, page_exp, page_store
 
-class TaskScript(General, RealmRaidAssets):
+class TaskScript(General, RRA):
+    order = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def run(self):
         config = self.config.model.realm_raid
 
         if not self.check_page_appear(page_realm_raid):
             self.goto(page_realm_raid)
+
+        if not self.check_ticket(config.raid_config.tickets_required):
+            self.goto(page_main)
+            self.set_next_run(task='RealmRaid', success=False, finish=False)
+            raise TaskEnd
 
         image = self.screenshot()
         self.update_partition_prop(image)
@@ -22,73 +29,61 @@ class TaskScript(General, RealmRaidAssets):
         self.toggle_team_lock()
 
         success = True
-        index = 1
+        # attack_index = 1
+        attack_list = self.order.copy
+        random.shuffle(attack_list)
 
         while 1:
-            if not self.wait_until_appear(self.I_C_REALM_RAID, 10):
-                logger.error("Not in realm raid page")
-                break
-
             # 查看突破票数量
             if not self.check_ticket(config.raid_config.tickets_required):
                 break
 
-            # --------------------------开始进攻
-            # medal, index = self.find_one()
-            # if not medal and not index:
-            #     if self.click_refresh():
-            #         self.update_partition_prop(image)
-            #         continue
-            #     else:
-            #         success = False
-            #         break
+            attack_index = attack_list.pop()
 
-            print(index)
-            if index == 2:
+            if self.is_defeated(attack_index - 1) or self.is_lose(attack_index - 1):
+                continue
+
+            if attack_index == 9:
                 # 最后一个退2次再打， 卡57
                 logger.info("attacking last one")
                 self.toggle_team_lock(False)  # 解锁队伍
-                quit_satified = self.quit_and_fight(index)
-                if not quit_satified:
+
+                if not self.quit_and_fight(attack_index):
                     logger.critical("Realm Raid quit went wrong.")
                     break
                 self.toggle_team_lock()  # 锁上
-            elif not self.partitions_prop[index - 1]['defeated']:
-                self.start_fight(index)
-
-            index += 1
+            else:
+                self.start_fight(attack_index)
 
             # 如果勾选了拿了三次战斗奖励就刷新 >> 刷新
-            if config.raid_config.three_refresh and self.appear(self.I_RAID_WIN3):
-                if self.click_refresh():
-                    index = 1
-                    continue
-                else:
-                    success = False
-                    break
+            self.three_win_refresh(config.raid_config.three_refresh)
 
-            if index > 9:
-                if self.click_refresh():
-                    index = 1
-                    continue
-                else:
-                    break
+            if attack_index > 9:
+                logger.error("Realm Raid stuck.")
 
-        self.get_current_page()
+            if len(attack_list) < 1:
+                attack_list = self.order.copy()
+                random.shuffle(attack_list)
+
         self.goto(page_main)
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd
+
+    def three_win_refresh(self, refresh=True):
+        if refresh and self.appear(self.I_RAID_WIN3):
+            return self.click_refresh()
+        return refresh
 
     def update_partition_prop(self, image):
         for part in self.partitions_prop:
             x, y, w, h = part['flag_area']
             cropped = image[y: y + h, x: x + w]
-            if RealmRaidAssets.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
+            if RRA.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
                 part['defeated'] = True
             else:
                 ax, ay, aw, ah = part['lose_arrow_area']
                 arrow_cropped = image[ay: ay + ah, ax: ax + aw]
-                if RealmRaidAssets.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
+                if RRA.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
                     part['lose'] = True
 
     @cached_property
@@ -147,79 +142,73 @@ class TaskScript(General, RealmRaidAssets):
                 i += 1
         return parts
 
-    def start_fight(self, index, quit_mode=False) -> bool:
-        if not self.wait_until_appear(self.I_C_REALM_RAID, 3):
-            logger.error("Not in realm raid page")
-            return False
-
+    def start_fight(self, index) -> bool:
         logger.info(f"----- Attacking index {index}.")
         self.click(self.partitions[index - 1])
-        if self.wait_until_appear(self.I_RAID_ATTACK, 5):
-            self.appear_then_click(self.I_RAID_ATTACK)
-            if self.wait_until_appear(self.I_BATTLE_READY, 5):
-                self.appear_then_click(self.I_BATTLE_READY)
-            time.sleep(12)
-            if not quit_mode:
-                self.get_reward()
+        if self.wait_until_appear(self.I_RAID_ATTACK, click=True):
+            self.wait_until_appear(self.I_BATTLE_READY, click=True)
+            time.sleep(13)
+            self.get_reward()
             return True
         logger.error("No attack button found")
         return False
 
     def quit_and_fight(self, index, quit_count=2) -> bool:
-        if not self.wait_until_appear(self.I_C_REALM_RAID, 3):
-            logger.error("Not in realm raid page")
-            return False
-
         logger.info(f"Starting quit and fight for {quit_count} times.")
 
         # 进入战斗
         self.click(self.partitions[index - 1])
-        if self.wait_until_appear(self.I_RAID_ATTACK, 5):
-            self.appear_then_click(self.I_RAID_ATTACK)
+        if not self.wait_until_appear(RRA.I_RAID_ATTACK, 15, click=True):
+            logger.error("Not able to enter battle")
+            return False
 
-        retry = 4
-        count = 0
-        while count < quit_count and retry >= 0:
+        count = 1
+        while count < quit_count:
             logger.info(f"========= quit and fight count: {count}")
             time.sleep(1)
-            if self.wait_until_appear(self.I_RAID_BATTLE_EXIT, 20, threshold=0.95):
-                self.appear_then_click(self.I_RAID_BATTLE_EXIT)
-                time.sleep(1)
-                if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM, 5):
-                    self.appear_then_click(
-                        RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM)
-            else:
-                retry -= 1
-                continue
+            if self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
+                if not self.wait_until_appear(
+                    RRA.I_RAID_BATTLE_EXIT_CONFIRM,
+                    click=True, click_delay=0.7
+                ):
+                    logger.error("Stuck in battle exit")
+                    return False
+
             time.sleep(1)
-            if self.wait_until_appear(self.I_RAID_FIGHT_AGAIN, 5):
-                self.appear_then_click(self.I_RAID_FIGHT_AGAIN)
-                time.sleep(0.5)
-                if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM, 5):
+            if self.wait_until_appear(RRA.I_RAID_FIGHT_AGAIN, click=True, click_delay=1):
+                if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM):
                     time.sleep(0.5)
-                    if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM, 3):
-                        self.appear_then_click(self.I_RAID_WARNING_CHECKBOX)
-                        self.appear_then_click(self.I_RAID_AGAIN_CONFIRM)
+                    if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM):
+                        self.wait_until_appear(
+                            self.I_RAID_WARNING_CHECKBOX, click=True)
+                        self.wait_until_appear(
+                            self.I_RAID_AGAIN_CONFIRM, click=True)
                     else:
-                        self.appear_then_click(self.I_RAID_AGAIN_CONFIRM)
+                        self.wait_until_appear(
+                            self.I_RAID_AGAIN_CONFIRM, click=True)
                 else:
-                    retry -= 1
                     logger.warning("Fight again failed. Will retry")
                     continue
             count += 1
 
-        if retry < 0:
-            logger.error("Not able to quit and fight again")
-            return False
-
         # 退出战斗，不再次挑战
-        time.sleep(0.3)
-        if self.wait_until_appear(self.I_RAID_FIGHT_AGAIN, 5):
+        if self.wait_until_appear(self.I_RAID_FIGHT_AGAIN):
             self.click(self.I_RAID_BATTLE_EXIT)
-        return True
+            if self.wait_until_appear(self.I_RAID_BATTLE_EXIT, click=True):
+                if not self.wait_until_appear(
+                    RRA.I_RAID_BATTLE_EXIT_CONFIRM,
+                    click=True, click_delay=0.7
+                ):
+                    logger.error("Stuck in battle exit")
+                    return False
 
-    def is_attackable(self, index):
-        return not self.partitions_prop[index]['defeated'] and not self.partitions_prop[index]['lose']
+        return self.start_fight(index)
+
+    def is_defeated(self, index):
+        return self.partitions_prop[index]['defeated']
+
+    def is_lose(self, index):
+        return self.partitions_prop[index]['lose']
 
     def downgrade(self) -> bool:
         if not self.check_page_appear(page_realm_raid):
@@ -240,20 +229,20 @@ class TaskScript(General, RealmRaidAssets):
                     return False
 
                 # 已经挑战过的就skip掉
-                if not self.is_attackable(idx):
+                if not self.is_defeated(idx) or not self.is_lose(idx):
                     continue
 
                 logger.info(f"** enter and quit for partition {idx + 1}")
                 self.click(part, 0.3)
-                if self.wait_until_appear(RealmRaidAssets.I_RAID_ATTACK, 15, click=True):
-                    if not self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
+                if self.wait_until_appear(RRA.I_RAID_ATTACK, 15, click=True):
+                    if not self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
                         logger.error("Not able to exit the battle")
                         return False
 
                     time.sleep(0.5)
-                    if self.wait_until_appear(RealmRaidAssets.I_RAID_BATTLE_EXIT_CONFIRM, click=True, click_delay=1):
-                        if self.wait_until_appear(RealmRaidAssets.I_RAID_FIGHT_AGAIN):
-                            self.click(RealmRaidAssets.I_RAID_BATTLE_EXIT)
+                    if self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT_CONFIRM, click=True, click_delay=1):
+                        if self.wait_until_appear(RRA.I_RAID_FIGHT_AGAIN):
+                            self.click(RRA.I_RAID_BATTLE_EXIT)
                 else:
                     logger.warning(f"No attack button found for {idx}")
 
@@ -282,7 +271,7 @@ class TaskScript(General, RealmRaidAssets):
         如果在CD中, 就返回False
         :return:
         """
-        if self.appear_then_click(self.I_RAID_REFRESH, threshold=0.95):
+        if self.wait_until_appear(self.I_RAID_REFRESH, threshold=0.95, click=True):
             if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM):
                 self.click(self.I_RAID_AGAIN_CONFIRM)
             return True
@@ -310,7 +299,7 @@ class TaskScript(General, RealmRaidAssets):
             medal = self.medals[i]
             if medal.match_target(screenshot=image):
                 index = self.get_partition_index(medal.roi)
-                if index > 0 and self.is_attackable(index - 1):
+                if index > 0:
                     return (medal, index)
             i += 1
 
@@ -354,7 +343,6 @@ class TaskScript(General, RealmRaidAssets):
             logger.warning(f'It is not a valid base: {tickets_required}')
             tickets_required = 0
 
-        self.wait_until_appear(General.I_C_REALM_RAID)
         image = self.screenshot()
         count, total = self.O_RAID_TICKET.digit_counter(image)
         if total == 0:
@@ -372,28 +360,29 @@ class TaskScript(General, RealmRaidAssets):
         return True
 
     def get_reward(self) -> bool:
-        if self.wait_until_appear(General.I_FIGHT_REWARD, wait_time=100):
-            self.random_click()
+        if self.wait_until_appear(General.I_FIGHT_REWARD, 100):
+            self.random_click(1)
             logger.info("Got realm raid fight reward")
+
+            time.sleep(1)
+            # 检查是否有自动领取额外奖励
+            if self.wait_until_appear(General.I_FIGHT_REWARD, 3, retry_limit=1):
+                logger.info("Got 3 / 6 / 9 extra reward")
+
             return True
         return False
 
     def toggle_team_lock(self, lock: bool = True):
         # 锁定队伍
         if not lock:
-            if self.appear(RealmRaidAssets.I_RAID_TEAM_UNLOCK):
-                return True
-            elif self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_LOCK, click=True):
-                logger.info("Lock the team")
-                self.click(RealmRaidAssets.I_RAID_TEAM_LOCK)
+            if self.wait_until_appear(RRA.I_RAID_TEAM_LOCK, waiting_limit=2, retry_limit=2, threshold=0.95, click=True):
+                logger.info("Unlock the team")
                 return True
 
         # 不锁定队伍
         if lock:
-            if self.appear(RealmRaidAssets.I_RAID_TEAM_LOCK):
-                return True
-            if self.wait_until_appear(RealmRaidAssets.I_RAID_TEAM_UNLOCK, click=True):
-                logger.info("Unlock the team")
+            if self.wait_until_appear(RRA.I_RAID_TEAM_UNLOCK, waiting_limit=2, retry_limit=2, threshold=0.95, click=True):
+                logger.info("Lock the team")
                 return True
 
         logger.error("Team lock icon not found")
