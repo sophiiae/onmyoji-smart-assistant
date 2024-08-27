@@ -62,13 +62,13 @@ class TaskBase(MainPageAssets):
                 continue
         return True
 
-    def appear(self, target: RuleImage, threshold: float = 0.9, interval: float = None) -> bool:
+    def appear(self, target: RuleImage, threshold: float = 0.95, interval: float = None) -> bool:
         if not isinstance(target, RuleImage):
             return False
 
         if interval:
             if target.name in self.interval_timer:
-                if self.interval_timer[target.name].limit != interval:
+                if self.interval_timer[target.name].waiting_limit != interval:
                     self.interval_timer[target.name] = Timer(interval)
             else:
                 self.interval_timer[target.name] = Timer(interval)
@@ -83,7 +83,7 @@ class TaskBase(MainPageAssets):
 
     def appear_then_click(self,
                           target: RuleImage,
-                          threshold: float = 0.9,
+                          threshold: float = 0.95,
                           interval: float = 1,
                           ) -> bool:
         """wait until appear, then click

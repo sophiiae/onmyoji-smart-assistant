@@ -117,16 +117,16 @@ class GeneralAssets:
 		area=(222, 609, 116, 104),
 		file="./tasks/general/res/goto/v_exp_to_realm_raid.png"
 	)
-	# 个人突破结界突破标志 
+	# 个人突破结界突破点亮标志 
 	I_C_REALM_RAID = RuleImage(
-		roi=(566, 76, 187, 40),
-		area=(546, 56, 227, 80),
+		roi=(1196, 231, 69, 112),
+		area=(1162, 197, 137, 180),
 		file="./tasks/general/res/c_realm_raid.png"
 	)
-	# 阴阳寮突破记录标志 
+	# 阴阳寮突破突破点亮标志 
 	I_C_GUILD_RAID = RuleImage(
-		roi=(69, 634, 55, 35),
-		area=(42, 616, 110, 70),
+		roi=(1196, 355, 69, 111),
+		area=(1162, 321, 137, 179),
 		file="./tasks/general/res/c_guild_raid.png"
 	)
 	# 退出个人突破 

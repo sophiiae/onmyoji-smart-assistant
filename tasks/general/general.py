@@ -5,10 +5,11 @@ from module.base.timer import Timer
 from module.image_processing.rule_image import RuleImage
 from tasks.general.assets import GeneralAssets
 from tasks.general.page import *
+from tasks.general.page_map import PageMap
 from tasks.main_page.assets import MainPageAssets
 from tasks.task_base import TaskBase
 
-class General(TaskBase, GeneralAssets):
+class General(TaskBase, GeneralAssets, PageMap):
     ui_current: Page = None
     ui_pages = [
         page_main, page_summon, page_exp,
@@ -65,104 +66,75 @@ class General(TaskBase, GeneralAssets):
         else:
             return False
 
-    def get_current_page(self, skip_first_screenshot=True) -> Page:
-        timeout = Timer(10, count=20).start()
+    def get_current_page(self) -> Page:
+        timeout = Timer(5, 20).start()
+        logger.info("Getting current page")
+
         while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-                if not hasattr(self.device, "image") or self.device.image is None:
-                    self.screenshot()
-            else:
-                self.screenshot()
+            self.screenshot()
 
             # 如果20S还没有到底，那么就抛出异常
             if timeout.reached():
                 break
 
-            # Known pages
-            for page in self.ui_pages:
+            for page in self.MAP.keys():
                 if page.check_button is None:
                     continue
                 if self.check_page_appear(page=page):
                     logger.info(f"[UI]: {page.name}")
                     self.ui_current = page
-                    if page == page_main and self.is_scroll_closed():
-                        logger.warning("[UI]: main page scroll closed")
-                        self.click_until_disappear(
-                            MainPageAssets.I_SCROLL_CLOSE)
                     return page
 
             # Try to close unknown page
             for close in self.ui_close:
                 if self.appear_then_click(close, interval=1.5):
                     logger.warning('Trying to switch to supported page')
-                    timeout = Timer(10, count=10).start()
-
+                    timeout = Timer(5, 10).start()
+                time.sleep(0.2)
         logger.critical("Starting from current page is not supported")
         raise GamePageUnknownError
 
-    def goto(self, destination: Page, confirm_wait=0, skip_first_screenshot=True):
-        # Reset connection
-        for page in self.ui_pages:
-            page.parent = None
+    def goto(self, destination: Page, waiting_limit=0):
+        self.get_current_page()
+        path = self.find_path(self.ui_current, destination)
 
-        # Create connection
-        visited = [destination]
-        visited = set(visited)
-        # 广度优先搜索
-        while 1:
-            new = visited.copy()
-            for page in visited:
-                for link in self.ui_pages:
-                    if link in visited:
-                        continue
-                    if page in link.links:
-                        link.parent = page
-                        new.add(link)
-            # 没有新的页面加入，说明已经遍历完毕
-            if len(new) == len(visited):
-                break
-            visited = new
-        logger.info(f"[UI goto]: {destination}")
-        confirm_timer = Timer(confirm_wait, count=int(
-            confirm_wait // 0.5)).start()
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
+        logger.info(f"[PATH] Start following the path: {
+                    [p.name for p in path]}")
+
+        for idx, page in enumerate(path):
+            logger.info(f"We are in page: {page.name}")
+
+            # 已经到达页面，退出
+            if page == destination:
+                logger.info(f'[UI] Page arrive: {destination}')
+                return
+
+            # 路径/页面设置 出错
+            if not self.wait_until_appear(page.check_button, 3):
+                logger.error(f"[PATH] Current page not match page {page.name}")
+                return
+
+            goto_timer = Timer(waiting_limit, int(
+                waiting_limit // 2)).start()
+
+            while 1:
                 self.screenshot()
+                if page.check_button is None:
+                    logger.error(
+                        f"[PATH] Not able to find check_button for page {page.name}")
+                    return
 
-            # Destination page
-            if self.wait_until_appear(destination.check_button):
-                if confirm_timer.reached():
-                    logger.info(f'[UI] Page arrive: {destination}')
+                print(page.name)
+                button = page.links[path[idx + 1]]
+                if self.appear_then_click(button, interval=3):
+                    logger.info(f"[PATH] Heading from {
+                                page.name} to {path[idx + 1].name}.")
+                    time.sleep(0.2)
                     break
-            else:
-                confirm_timer.reset()
 
-            # Other pages
-            clicked = False
-            for page in visited:
-                if page.parent is None or page.check_button is None:
-                    continue
-
-                # 获取当前页面的要点击的按钮
-                if self.appear(page.check_button, interval=4):
-                    logger.info(f'[UI] Page switch: {page} -> {page.parent}')
-                    button = page.links[page.parent]
-                    if self.appear_then_click(button, interval=2):
-                        confirm_timer.reset()
-                        clicked = True
-                        break
-
-            if clicked:
-                continue
-
-        # Reset connection
-        for page in self.ui_pages:
-            page.parent = None
-
-        time.sleep(1)
+                if goto_timer.reached():
+                    logger.error(f"[PATH] {page.name} is not reachable.")
+                    return
 
 
 if __name__ == '__main__':

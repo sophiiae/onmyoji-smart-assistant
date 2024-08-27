@@ -14,7 +14,6 @@ class TaskScript(General, ExplorationAssets):
     def run(self):
         config = self.config.model.exploration
 
-        self.get_current_page()
         # 探索页面
         self.goto(page_exp)
 

@@ -2,7 +2,7 @@
   "config_name": "osa",
   "script": {
     "device": {
-      "serial": "127.0.0.1:16448",
+      "serial": "127.0.0.1:16384",
       "screenshot_method": "ADB_nc",
       "control_method": "minitouch"
     },

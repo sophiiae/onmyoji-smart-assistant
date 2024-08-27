@@ -4,22 +4,14 @@ from module.base.logger import logger
 from module.base.exception import TaskEnd
 from tasks.general.general import General
 from tasks.realm_raid.assets import RealmRaidAssets
-from tasks.general.page import page_realm_raid, page_main, page_exp
+from tasks.general.page import page_realm_raid, page_main, page_exp, page_store
 
 class TaskScript(General, RealmRaidAssets):
 
     def run(self):
         config = self.config.model.realm_raid
 
-        page = self.get_current_page()
-
-        if page == page_main:
-            self.goto(page_exp)
-            self.goto(page_realm_raid)
-        elif page == page_exp:
-            self.goto(page_realm_raid)
-        else:
-            logger.critical("Go to exp or main before start realm raid.")
+        self.goto(page_realm_raid)
 
         image = self.screenshot()
         self.update_partition_prop(image)

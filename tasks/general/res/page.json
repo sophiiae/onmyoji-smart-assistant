@@ -125,17 +125,17 @@
   },
   {
     "name": "c_realm_raid",
-    "roi": "566, 76, 187, 40",
-    "area": "546, 56, 227, 80",
+    "roi": "1196, 231, 69, 112",
+    "area": "1162, 197, 137, 180",
     "file": "./tasks/general/res/c_realm_raid.png",
-    "description": "个人突破结界突破标志"
+    "description": "个人突破结界突破点亮标志"
   },
   {
     "name": "c_guild_raid",
-    "roi": "69, 634, 55, 35",
-    "area": "42, 616, 110, 70",
+    "roi": "1196, 355, 69, 111",
+    "area": "1162, 321, 137, 179",
     "file": "./tasks/general/res/c_guild_raid.png",
-    "description": "阴阳寮突破记录标志"
+    "description": "阴阳寮突破突破点亮标志"
   },
   {
     "name": "v_realm_raid_to_exp",
