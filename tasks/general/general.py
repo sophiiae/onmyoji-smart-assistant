@@ -7,6 +7,7 @@ from tasks.general.assets import GeneralAssets
 from tasks.general.page import *
 from tasks.general.page_map import PageMap
 from tasks.main_page.assets import MainPageAssets
+from tasks.exploration.assets import ExplorationAssets
 from tasks.task_base import TaskBase
 
 class General(TaskBase, GeneralAssets, PageMap):
@@ -14,7 +15,8 @@ class General(TaskBase, GeneralAssets, PageMap):
     ui_close = [
         GeneralAssets.I_V_EXP_TO_MAIN, GeneralAssets.I_V_GUILD_TO_MAIN,
         GeneralAssets.I_V_STORE_TO_MAIN, GeneralAssets.I_V_REALM_RAID_TO_EXP,
-        MainPageAssets.I_STORE_EXIT, GeneralAssets.I_V_SLEEP_TO_MAIN
+        MainPageAssets.I_STORE_EXIT, GeneralAssets.I_V_SLEEP_TO_MAIN,
+        ExplorationAssets.I_EXP_CHAPTER_DISMISS_ICON
     ]
 
     def check_page_appear(self, page, check_delay: float = 0.01):
@@ -22,7 +24,7 @@ class General(TaskBase, GeneralAssets, PageMap):
         判断当前页面是否为page
         """
         time.sleep(check_delay)
-        if not self.appear(page.check_button, threshold=0.95):
+        if not self.appear(page.check_button, threshold=0.90):
             logger.error(f"Not in {page.name} page")
             return False
         return True

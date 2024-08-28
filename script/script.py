@@ -107,7 +107,7 @@ class Script:
             if success:
                 del self.config
                 continue
-            elif self.config.script.error.handle_error:
+            elif self.config.model.script.error_handler.cache_clear_request:
                 del self.config
                 continue
             else:

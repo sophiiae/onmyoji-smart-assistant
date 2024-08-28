@@ -1,14 +1,18 @@
 class GamePageUnknownError(Exception):
-    pass
+    def __init__(self, message, errors):
+        exit()
 
 class RequestHumanTakeover(Exception):
     # Request human takeover
     # Alas is unable to handle such error, probably because of wrong settings.
-    pass
+
+    def __init__(self, message, errors):
+        exit()
 
 class TaskEnd(Exception):
     pass
 
 class ScriptError(Exception):
     # This is likely to be a mistake of developers, but sometimes a random issue
-    pass
+    def __init__(self, message, errors):
+        exit()

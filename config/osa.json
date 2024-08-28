@@ -2,7 +2,7 @@
   "config_name": "osa",
   "script": {
     "device": {
-      "serial": "127.0.0.1:16384",
+      "serial": "127.0.0.1:16448",
       "screenshot_method": "ADB_nc",
       "control_method": "minitouch"
     },
@@ -48,7 +48,7 @@
   "exploration": {
     "scheduler": {
       "enable": true,
-      "next_run": "2024-08-26 10:34:01",
+      "next_run": "2024-08-28 00:02:42",
       "priority": 5,
       "success_interval": "00:00:30:00",
       "failure_interval": "00:01:00:00"
@@ -67,19 +67,19 @@
     "scroll_mode": {
       "scroll_mode_enable": true,
       "scrolls_cd": "0:30:00",
-      "ticket_threshold": 25
+      "ticket_threshold": 20
     }
   },
   "realm_raid": {
     "scheduler": {
       "enable": true,
-      "next_run": "2024-08-27 15:47:03",
+      "next_run": "2024-08-28 00:03:40",
       "priority": 5,
       "success_interval": "00:00:20:00",
       "failure_interval": "00:02:00:00"
     },
     "raid_config": {
-      "tickets_required": 10,
+      "tickets_required": 20,
       "exit_two": true,
       "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
       "three_refresh": false,

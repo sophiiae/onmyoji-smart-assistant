@@ -2,6 +2,7 @@ from datetime import datetime
 import numpy as np
 import time
 
+from module.base.exception import RequestHumanTakeover
 from module.config.config import Config
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe
@@ -66,33 +67,47 @@ class TaskBase(MainPageAssets):
 
         return target.match_target(self.device.image, threshold)
 
-    def wait_until_appear(self, target: RuleImage, waiting_limit: float = 10, retry_limit: float = 5, waiting_interval: float = 0.2, threshold: float = 0.9, click: bool = False, click_delay: float = 0.2):
+    def wait_until_appear(self,
+                          target: RuleImage, waiting_limit: float = 10,
+                          retry_limit: float = 5, waiting_interval: float = 0.3,
+                          threshold: float = 0.9, click: bool = False, click_delay: float = 0.2
+                          ) -> bool:
+        """等待出现了再点击，比如需要等过场动画，减少没必要的运行消耗
+
+        Args:
+            target (RuleImage):
+            waiting_limit (float, optional): Defaults to 10.
+            retry_limit (float, optional): Defaults to 5.
+            waiting_interval (float, optional): Defaults to 0.2.
+            threshold (float, optional): Defaults to 0.9.
+            click (bool, optional): Defaults to False.
+            click_delay (float, optional): Defaults to 0.2.
+
+        Returns:
+            bool: _description_
+        """
         if not isinstance(target, RuleImage):
             return False
 
         timeout = Timer(waiting_limit, retry_limit).start()
-        while 1:
+        while not timeout.reached():
             time.sleep(waiting_interval)
             self.screenshot()
             if self.appear(target, threshold=threshold):
-                logger.info(f"#### Found target: {target.name}")
+                logger.info(f"---- Found target: {target.name}")
                 if click:
                     time.sleep(click_delay)
-                    x, y = target.coord()
-                    self.device.click(x, y)
-                break
+                    self.click(target)
+                return True
 
-            if timeout.reached():
-                logger.error(f"Wait until appear {target.name} timeout")
-                return False
-
-        return True
+        logger.warning(f"Wait until appear {target.name} timeout")
+        return False
 
     def appear_then_click(self,
                           target: RuleImage,
-                          threshold: float = 0.95,
+                          threshold: float = 0.9,
                           ) -> bool:
-        """wait until appear, then click
+        """出现就点击，用于会移动的怪物/图标
 
         Args:
             target (RuleImage): _description_
@@ -111,6 +126,27 @@ class TaskBase(MainPageAssets):
             self.device.click(x, y)
         return appear
 
+    def wait_for_result(self, pass_t: RuleImage, fail_t: RuleImage,
+                        waiting_limit: float = 10,
+                        waiting_interval: float = 0.3) -> bool:
+
+        timeout = Timer(waiting_limit).start()
+        while not timeout.reached():
+            time.sleep(waiting_interval)
+
+            self.screenshot()
+            if self.appear(pass_t):
+                logger.info(f"---- Got Action Success Target: {pass_t.name}")
+                return True
+            if self.appear(fail_t):
+                logger.info(f"---- Got Action failed Target: {fail_t.name}")
+                return False
+
+        logger.warning(
+            f"Wait until appear {pass_t.name} or {fail_t.name} timeout")
+
+        raise RequestHumanTakeover
+
     def screenshot(self):
         """截图 引入中间函数的目的是 为了解决如协作的这类突发的事件
 
@@ -122,7 +158,7 @@ class TaskBase(MainPageAssets):
         self._burst()
         return self.device.image
 
-    def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 300) -> None:
+    def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 400) -> None:
         """swipe
 
         Args:
@@ -145,7 +181,7 @@ class TaskBase(MainPageAssets):
             if not self.interval_timer[swipe.name].reached():
                 return
 
-        print(f"Executing Swipe for {swipe.name}")
+        logger.info(f"Executing Swipe for {swipe.name}")
         sx, sy, ex, ey = swipe.coord()
         self.device.swipe(start_x=sx, start_y=sy, end_x=ex,
                           end_y=ey, duration=duration)

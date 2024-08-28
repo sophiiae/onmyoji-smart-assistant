@@ -166,7 +166,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if len(sys.argv) == 2:
             target = sys.argv[1]   # paht of target image
-            config = Config("osa")
+            config = Config("backup")
             cn = Connection(config)
             screenshot = cn.get_screenshot()
         else:
@@ -177,16 +177,8 @@ if __name__ == "__main__":
         result = pro.parse_image_file(target)
         print(json.dumps(result))
         pro.write_output(f"output")
-        # pro.parse_image_file('./quest.png')
-        # pro.write_output(filename="output1")
     else:
-        # screenshot = cv2.imread('./test.png')
-        # pro = ImageProcessor(screenshot)
-        # result = pro.parse_dir('../../tasks/exploration', draw_output=True)
-        # pro.write_json(result, "exploration")
-        # pro.write_output('oot')
-
-        config = Config("osa")
+        config = Config("backup")
         cn = Connection(config)
         screenshot = cn.get_screenshot()
         pro = ImageProcessor(screenshot)
