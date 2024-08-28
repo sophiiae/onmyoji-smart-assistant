@@ -4,37 +4,29 @@
     "type": "image",
     "roi": "13, 563, 53, 71",
     "area": "0, 528, 106, 142",
-    "file": "./tasks/general/res/c_login.png",
+    "file": "./tasks/general/res/check/c_login.png",
     "description": "登录界面适龄提示"
   },
   {
     "name": "c_main",
     "roi": "905, 134, 48, 48",
     "area": "600, 110, 500, 96",
-    "file": "./tasks/general/res/c_main.png",
+    "file": "./tasks/general/res/check/c_main.png",
     "description": "主界面"
   },
   {
     "name": "c_exp",
-    "roi": "1129, 120, 54, 54",
-    "area": "1102, 93, 108, 108",
-    "file": "./tasks/general/res/c_exp.png",
+    "roi": "1143, 134, 28, 40",
+    "area": "1129, 120, 56, 68",
+    "file": "./tasks/general/res/check/c_exp.png",
     "description": "探索界面妖标志"
   },
   {
     "name": "c_market",
     "roi": "258, 470, 58, 44",
     "area": "229, 448, 116, 88",
-    "file": "./tasks/general/res/c_market.png",
+    "file": "./tasks/general/res/check/c_market.png",
     "description": "商店街建筑"
-  },
-  {
-    "name": "v_store_to_main",
-    "type": "image",
-    "roi": "24, 36, 53, 44",
-    "area": "0, 14, 106, 88",
-    "file": "./tasks/general/res/goto/v_store_to_main.png",
-    "description": "商店界面退出"
   },
   {
     "name": "v_main_to_store",
@@ -46,10 +38,32 @@
   },
   {
     "name": "c_summon",
-    "roi": "595, 604, 68, 61",
-    "area": "561, 574, 136, 122",
-    "file": "./tasks/general/res/c_summon.png",
+    "roi": "597, 606, 64, 59",
+    "area": "567, 576, 124, 119",
+    "file": "./tasks/general/res/check/c_summon.png",
     "description": "召唤界面蓝票"
+  },
+  {
+    "name": "c_realm_raid",
+    "roi": "1196, 231, 69, 112",
+    "area": "1162, 197, 137, 180",
+    "file": "./tasks/general/res/check/c_realm_raid.png",
+    "description": "个人突破结界突破点亮标志"
+  },
+  {
+    "name": "c_guild_raid",
+    "roi": "1196, 355, 69, 111",
+    "area": "1162, 321, 137, 179",
+    "file": "./tasks/general/res/check/c_guild_raid.png",
+    "description": "阴阳寮突破突破点亮标志"
+  },
+  {
+    "name": "c_sleep",
+    "type": "image",
+    "roi": "1182, 637, 57, 45",
+    "area": "1154, 614, 114, 90",
+    "file": "./tasks/general/res/check/c_sleep.png",
+    "description": "休眠模式音乐按钮"
   },
   {
     "name": "v_login_to_main",
@@ -58,6 +72,14 @@
     "area": "484, 558, 306, 74",
     "file": "",
     "description": "登录界面进入游戏"
+  },
+  {
+    "name": "v_store_to_main",
+    "type": "image",
+    "roi": "24, 36, 53, 44",
+    "area": "0, 14, 106, 88",
+    "file": "./tasks/general/res/goto/v_store_to_main.png",
+    "description": "商店界面退出"
   },
   {
     "name": "v_main_to_exp",
@@ -123,20 +145,6 @@
     "description": "探索界面寮突破入口"
   },
   {
-    "name": "c_realm_raid",
-    "roi": "1196, 231, 69, 112",
-    "area": "1162, 197, 137, 180",
-    "file": "./tasks/general/res/c_realm_raid.png",
-    "description": "个人突破结界突破点亮标志"
-  },
-  {
-    "name": "c_guild_raid",
-    "roi": "1196, 355, 69, 111",
-    "area": "1162, 321, 137, 179",
-    "file": "./tasks/general/res/c_guild_raid.png",
-    "description": "阴阳寮突破突破点亮标志"
-  },
-  {
     "name": "v_realm_raid_to_exp",
     "roi": "1184, 112, 46, 46",
     "area": "1161, 89, 92, 92",
@@ -164,13 +172,5 @@
     "area": "8, 10, 76, 72",
     "file": "./tasks/general/res/goto/v_sleep_to_main.png",
     "description": "休眠模式退出"
-  },
-  {
-    "name": "c_sleep",
-    "type": "image",
-    "roi": "1182, 637, 57, 45",
-    "area": "1154, 614, 114, 90",
-    "file": "./tasks/general/res/c_sleep.png",
-    "description": "休眠模式音乐按钮"
   }
 ]

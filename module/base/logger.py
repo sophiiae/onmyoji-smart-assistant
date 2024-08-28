@@ -39,6 +39,3 @@ logger.addHandler(console_handler)
 if debug_mode:
     logging.basicConfig(level=logging.DEBUG, filename="app.log",
                         filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-    # file_handler = logging.FileHandler("app.log", mode="a", encoding="utf-8")
-    # file_handler.setLevel(logging.DEBUG)
-    # logger.addHandler(file_handler)

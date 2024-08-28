@@ -9,15 +9,35 @@ class GeneralAssets:
 	# Image Rule Assets
 	# 战斗/突破/宝箱奖励领取图标 
 	I_FIGHT_REWARD = RuleImage(
-		roi=(539, 437, 194, 184),
-		area=(442, 345, 388, 368),
+		roi=(565, 444, 137, 165),
+		area=(497, 376, 273, 301),
 		file="./tasks/general/res/fight_reward.png"
 	)
 	# 战斗准备 
 	I_BATTLE_READY = RuleImage(
-		roi=(1121, 548, 111, 76),
-		area=(1066, 510, 222, 152),
+		roi=(1135, 565, 87, 46),
+		area=(1112, 542, 133, 92),
 		file="./tasks/general/res/battle_ready.png"
+	)
+	# 普通召唤 
+	I_REG_SUMMON = RuleImage(
+		roi=(448, 605, 42, 58),
+		area=(427, 584, 84, 100),
+		file="./tasks/general/res/reg_summon.png"
+	)
+	# 再次召唤 
+	I_SUMMON_AGAIN = RuleImage(
+		roi=(691, 621, 168, 53),
+		area=(665, 595, 220, 105),
+		file="./tasks/general/res/summon_again.png"
+	)
+
+	# Ocr Rule Assets
+	# 普通召唤票数量 
+	O_REG_SUMMON_TICKET = RuleOcr(
+		roi=(565, 15, 80, 29),
+		area=(565, 15, 80, 29),
+		name="reg_summon_ticket"
 	)
 
 	# Image Rule Assets
@@ -25,31 +45,25 @@ class GeneralAssets:
 	I_C_LOGIN = RuleImage(
 		roi=(13, 563, 53, 71),
 		area=(0, 528, 106, 142),
-		file="./tasks/general/res/c_login.png"
+		file="./tasks/general/res/check/c_login.png"
 	)
 	# 主界面 
 	I_C_MAIN = RuleImage(
 		roi=(905, 134, 48, 48),
 		area=(600, 110, 500, 96),
-		file="./tasks/general/res/c_main.png"
+		file="./tasks/general/res/check/c_main.png"
 	)
 	# 探索界面妖标志 
 	I_C_EXP = RuleImage(
-		roi=(1129, 120, 54, 54),
-		area=(1102, 93, 108, 108),
-		file="./tasks/general/res/c_exp.png"
+		roi=(1143, 134, 28, 40),
+		area=(1129, 120, 56, 68),
+		file="./tasks/general/res/check/c_exp.png"
 	)
 	# 商店街建筑 
 	I_C_MARKET = RuleImage(
 		roi=(258, 470, 58, 44),
 		area=(229, 448, 116, 88),
-		file="./tasks/general/res/c_market.png"
-	)
-	# 商店界面退出 
-	I_V_STORE_TO_MAIN = RuleImage(
-		roi=(24, 36, 53, 44),
-		area=(0, 14, 106, 88),
-		file="./tasks/general/res/goto/v_store_to_main.png"
+		file="./tasks/general/res/check/c_market.png"
 	)
 	# 商店入口 
 	I_V_MAIN_TO_STORE = RuleImage(
@@ -59,15 +73,39 @@ class GeneralAssets:
 	)
 	# 召唤界面蓝票 
 	I_C_SUMMON = RuleImage(
-		roi=(595, 604, 68, 61),
-		area=(561, 574, 136, 122),
-		file="./tasks/general/res/c_summon.png"
+		roi=(597, 606, 64, 59),
+		area=(567, 576, 124, 119),
+		file="./tasks/general/res/check/c_summon.png"
+	)
+	# 个人突破结界突破点亮标志 
+	I_C_REALM_RAID = RuleImage(
+		roi=(1196, 231, 69, 112),
+		area=(1162, 197, 137, 180),
+		file="./tasks/general/res/check/c_realm_raid.png"
+	)
+	# 阴阳寮突破突破点亮标志 
+	I_C_GUILD_RAID = RuleImage(
+		roi=(1196, 355, 69, 111),
+		area=(1162, 321, 137, 179),
+		file="./tasks/general/res/check/c_guild_raid.png"
+	)
+	# 休眠模式音乐按钮 
+	I_C_SLEEP = RuleImage(
+		roi=(1182, 637, 57, 45),
+		area=(1154, 614, 114, 90),
+		file="./tasks/general/res/check/c_sleep.png"
 	)
 	# 登录界面进入游戏 
 	I_V_LOGIN_TO_MAIN = RuleImage(
 		roi=(561, 577, 153, 37),
 		area=(484, 558, 306, 74),
 		file=""
+	)
+	# 商店界面退出 
+	I_V_STORE_TO_MAIN = RuleImage(
+		roi=(24, 36, 53, 44),
+		area=(0, 14, 106, 88),
+		file="./tasks/general/res/goto/v_store_to_main.png"
 	)
 	# 主界面探索灯笼 
 	I_V_MAIN_TO_EXP = RuleImage(
@@ -117,18 +155,6 @@ class GeneralAssets:
 		area=(222, 609, 116, 104),
 		file="./tasks/general/res/goto/v_exp_to_realm_raid.png"
 	)
-	# 个人突破结界突破点亮标志 
-	I_C_REALM_RAID = RuleImage(
-		roi=(1196, 231, 69, 112),
-		area=(1162, 197, 137, 180),
-		file="./tasks/general/res/c_realm_raid.png"
-	)
-	# 阴阳寮突破突破点亮标志 
-	I_C_GUILD_RAID = RuleImage(
-		roi=(1196, 355, 69, 111),
-		area=(1162, 321, 137, 179),
-		file="./tasks/general/res/c_guild_raid.png"
-	)
 	# 退出个人突破 
 	I_V_REALM_RAID_TO_EXP = RuleImage(
 		roi=(1184, 112, 46, 46),
@@ -152,12 +178,6 @@ class GeneralAssets:
 		roi=(27, 28, 38, 36),
 		area=(8, 10, 76, 72),
 		file="./tasks/general/res/goto/v_sleep_to_main.png"
-	)
-	# 休眠模式音乐按钮 
-	I_C_SLEEP = RuleImage(
-		roi=(1182, 637, 57, 45),
-		area=(1154, 614, 114, 90),
-		file="./tasks/general/res/c_sleep.png"
 	)
 
 

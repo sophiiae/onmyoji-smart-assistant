@@ -5,7 +5,7 @@ from module.base.logger import logger
 from module.base.exception import TaskEnd
 from tasks.general.general import General
 from tasks.realm_raid.assets import RealmRaidAssets as RRA
-from tasks.general.page import page_realm_raid, page_main, page_exp, page_store
+from tasks.general.page import page_realm_raid, page_main
 
 class TaskScript(General, RRA):
     order = [1, 2, 3, 4, 5, 6, 7, 8, 9]

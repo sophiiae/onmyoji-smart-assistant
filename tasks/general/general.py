@@ -119,7 +119,6 @@ if __name__ == '__main__':
     device = Device(config)
 
     game = General(config, device)
-    game.screenshot()
     print(game.appear(game.I_V_SLEEP_TO_MAIN))
     print(game.exp_to_home())
     game.goto(page_summon)

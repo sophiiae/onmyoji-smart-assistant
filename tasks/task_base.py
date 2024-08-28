@@ -64,8 +64,10 @@ class TaskBase(MainPageAssets):
     def appear(self, target: RuleImage, threshold: float = 0.9) -> bool:
         if not isinstance(target, RuleImage):
             return False
-
-        return target.match_target(self.device.image, threshold)
+        screenshot = self.device.image
+        if screenshot is None:
+            screenshot = self.screenshot()
+        return target.match_target(screenshot, threshold)
 
     def wait_until_appear(self,
                           target: RuleImage, waiting_limit: float = 10,
