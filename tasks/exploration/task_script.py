@@ -83,6 +83,7 @@ class TaskScript(General, EA):
             raise RequestHumanTakeover
 
         self.click(EA.I_EXP_BUTTON)
+        time.sleep(0.5)
         logger.info("Start battle...")
         swipe_count = 0
         while 1:

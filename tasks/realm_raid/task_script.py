@@ -13,12 +13,12 @@ class TaskScript(General, RealmRaidAssets):
     name = "Realm Raid"
 
     def run(self):
-        self.rr_config = self.confiself.model.realm_raid.raid_config
+        self.rr_config = self.config.model.realm_raid.raid_config
 
         if not self.check_page_appear(page_realm_raid):
             self.goto(page_realm_raid)
 
-        ticket_min = self.rr_confiself.tickets_required
+        ticket_min = self.rr_config.tickets_required
 
         if not self.check_ticket(ticket_min):
             self.goto(page_main)
@@ -65,7 +65,7 @@ class TaskScript(General, RealmRaidAssets):
 
                 time.sleep(1)
                 # 最后一个退2次再打， 卡57
-                if attack_index == 3:
+                if attack_index == 9:
                     logger.info("attacking last one")
 
                     if not self.quit_and_fight(attack_index):
@@ -80,7 +80,7 @@ class TaskScript(General, RealmRaidAssets):
                         continue
 
                 # 如果勾选了拿了三次战斗奖励就刷新 >> 刷新
-                if self.rr_confiself.three_refresh:
+                if self.rr_config.three_refresh:
                     if self.wait_until_appear(self.I_RAID_WIN3, 2, 1):
                         self.click_refresh()
                         break
