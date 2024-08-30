@@ -39,7 +39,7 @@ class TaskScript(General, EA):
             self.enter_chapter()
 
             # 如果回到了探索界面 -> 检查宝箱
-            if self.wait_until_appear(self.I_C_EXP, 1, 0.5):
+            if self.wait_until_appear(self.I_C_EXP, 5):
                 self.check_treasure_box()
             else:
                 # 出现章节入口 -> 没有发现 -> 关闭
@@ -124,13 +124,12 @@ class TaskScript(General, EA):
         logger.info("Trying to find chapter reward...")
         # 章节通关奖励，好像最多只有三个
         found = False
-        time.sleep(1)
+        time.sleep(2)
         for _ in range(3):
             if self.wait_until_appear(self.I_C_EXP, 2) or self.wait_until_appear(self.I_EXP_CHAPTER_DISMISS_ICON, 1):
                 break
 
-            if self.wait_until_click(self.I_EXP_CHAP_REWARD, interval=0.5):
-                time.sleep(1)
+            if self.wait_until_click(self.I_EXP_CHAP_REWARD, interval=0.5, wait_after=1):
                 if self.wait_until_appear(self.I_EXP_GAIN_REWARD, 1):
                     self.random_click_right()
                     found = True
@@ -144,7 +143,7 @@ class TaskScript(General, EA):
         time.sleep(8)
 
         # 领取战斗奖励，需要等动画
-        if self.wait_until_appear(self.I_FIGHT_REWARD, 60, interval=0.5):
+        if self.wait_until_appear(self.I_FIGHT_REWARD, 100, interval=0.5):
             time.sleep(0.5)
             self.random_click_right()
         else:

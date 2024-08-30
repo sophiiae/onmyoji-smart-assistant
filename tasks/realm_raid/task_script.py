@@ -65,7 +65,7 @@ class TaskScript(General, RealmRaidAssets):
 
                 time.sleep(1)
                 # 最后一个退2次再打， 卡57
-                if attack_index == 9:
+                if attack_index == 3:
                     logger.info("attacking last one")
 
                     if not self.quit_and_fight(attack_index):
@@ -190,10 +190,10 @@ class TaskScript(General, RealmRaidAssets):
             logger.error("Not able to enter battle")
             raise RequestHumanTakeover
 
-        count = 0
-        while count < quit_count:
+        count = 1
+        while count <= quit_count:
             logger.info(f"========= quit and fight count: {count}")
-            time.sleep(1)
+            time.sleep(0.5)
 
             # 退1次
             if self.wait_until_click(self.I_RAID_BATTLE_EXIT, interval=0.6):
@@ -286,7 +286,7 @@ class TaskScript(General, RealmRaidAssets):
         如果在CD中, 就返回False
         :return:
         """
-        if self.wait_until_click(self.I_RAID_REFRESH):
+        if self.wait_until_click(self.I_RAID_REFRESH, wait_after=1):
             if self.wait_until_click(self.I_RAID_AGAIN_CONFIRM):
                 return True
             else:
@@ -373,12 +373,14 @@ class TaskScript(General, RealmRaidAssets):
 
     def get_reward(self, limit: float = 70) -> bool:
         if self.wait_until_appear(self.I_FIGHT_REWARD, limit, interval=0.5):
+            time.sleep(0.5)
             self.random_click_right()
             logger.info("Got realm raid fight reward")
 
             time.sleep(1)
             # 检查是否有自动领取额外奖励
             if self.wait_until_appear(self.I_FIGHT_REWARD, 2, interval=0.5):
+                time.sleep(1)
                 self.random_click_right()
                 logger.info("Got 3 / 6 / 9 extra reward")
 

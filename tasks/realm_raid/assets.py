@@ -216,17 +216,17 @@ class RealmRaidAssets:
 		roi_end=(1121, 147, 1158, 168),
 		name="raid_to_top"
 	)
-	# 往上翻 
-	S_RAID_UP = RuleSwipe(
-		roi_start=(700, 300, 800, 300),
-		roi_end=(700, 450, 800, 450),
-		name="raid_up"
-	)
 	# 往下翻 
 	S_RAID_DOWN = RuleSwipe(
-		roi_start=(700, 450, 800, 450),
-		roi_end=(700, 300, 800, 300),
+		roi_start=(700, 400, 800, 500),
+		roi_end=(700, 300, 800, 400),
 		name="raid_down"
+	)
+	# 往上翻 
+	S_RAID_UP = RuleSwipe(
+		roi_start=(700, 300, 800, 400),
+		roi_end=(700, 400, 800, 500),
+		name="raid_up"
 	)
 
 

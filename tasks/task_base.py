@@ -37,7 +37,6 @@ class TaskBase(MainPageAssets):
         游戏界面突发异常检测
         :return: 没有出现返回False, 其他True
         """
-        return
 
         appear_invitation = self.appear(self.I_QUEST_ACCEPT)
         if not appear_invitation:
@@ -47,7 +46,7 @@ class TaskBase(MainPageAssets):
         # 只接受勾协
         if self.appear(self.I_QUEST_JADE) or self.appear(self.I_QUEST_CAT) or self.appear(self.I_QUEST_DOG):
             click_button = self.I_QUEST_ACCEPT
-        elif self.appear(self.I_QUEST_VIRTUAL) and self.appear(self.I_QUEST_EP):
+        elif self.appear(self.I_QUEST_VIRTUAL):
             click_button = self.I_QUEST_ACCEPT
         else:
             click_button = self.I_QUEST_IGNORE
@@ -90,7 +89,7 @@ class TaskBase(MainPageAssets):
             time.sleep(wait_after)
             return True
 
-        logger.critical(f"Not able to find and click {target}.")
+        logger.critical(f"Not able to find and click {target.name}.")
         raise RequestHumanTakeover
 
     def wait_until_appear(self,
