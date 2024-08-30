@@ -11,65 +11,58 @@ from datetime import datetime, timedelta
 import time
 
 class TaskScript(General, EA):
+    name = "Exploration"
 
     def run(self):
-        config = self.config.model.exploration
+        self.exp_config = self.config.model.exploration
 
         # 进入探索页面
         if not self.check_page_appear(page_exp):
             self.goto(page_exp)
 
-        if not self.open_chapter_entrance():
-            logger.critical(":: Not able to reach Exploration page ::")
-            return
-
         # 判断是否开启绘卷模式
-        scroll_mode = config.scroll_mode
+        scroll_mode = self.exp_config.scroll_mode
         if scroll_mode.scroll_mode_enable:
             exp_count = 50
         else:
-            exp_count = config.exploration_config.count_max
+            exp_count = self.exp_config.exploration_config.count_max
 
         count = 0
         while exp_count > 0 and count < exp_count:
+            # 检查票数
+            self.check_ticket()
+
+            self.open_chapter_entrance()
+
             logger.info(f"======== Round {count + 1} Exp Started =========")
-            # 检测绘卷模式
-            self.activate_realm_raid(scroll_mode)
-
             # 进入章节探索
-            self.enter_battle()
+            self.enter_chapter()
 
-            if self.appear(EA.I_EXP_BUTTON, 2):
-                self.wait_until_appear(
-                    self.I_EXP_CHAPTER_DISMISS_ICON, 2, click=True)
-
-            # 查看宝箱
-            if self.wait_until_appear(self.I_C_EXP):
+            # 如果回到了探索界面 -> 检查宝箱
+            if self.wait_until_appear(self.I_C_EXP, 1, 0.5):
                 self.check_treasure_box()
-                self.open_chapter_entrance()
+            else:
+                # 出现章节入口 -> 没有发现 -> 关闭
+                self.wait_until_click(EA.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
             count += 1
 
         # 关闭章节探索提示
-        if self.wait_until_appear(self.I_EXP_CHAPTER_DISMISS_ICON, 2):
-            self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON)
+        self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
         self.goto(page_main)
         self.set_next_run(task='Exploration', success=True, finish=False)
 
-        raise TaskEnd
+        raise TaskEnd(self.name)
 
     def open_chapter_entrance(self) -> bool:
-        if self.wait_until_appear(self.I_C_EXP, threshold=0.95):
-            if not self.appear_then_click(EA.I_EXP_CHAPTER_28):
-                logger.critical(":: Fatal: CH 28 not found! ::")
+        if self.wait_until_appear(self.I_C_EXP, 2, 1):
+            if not self.wait_until_click(EA.I_EXP_CHAPTER_28):
+                logger.error(":: Fatal: CH 28 not found! ::")
                 return False
             return True
-        elif self.wait_until_appear(self.I_EXP_BUTTON):
-            self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
-            return True
 
-        logger.critical(":: Fatal: Not in Exploration page ::")
+        logger.error(":: Fatal: Not in Exploration page ::")
         return False
 
     def check_treasure_box(self):
@@ -81,31 +74,33 @@ class TaskScript(General, EA):
                 self.I_FIGHT_REWARD, 3)
             if got_reward:   # 领取宝箱物品
                 time.sleep(1)
-                self.click(self.I_FIGHT_REWARD)
+                self.random_click_right()
 
-    def enter_battle(self):
-        self.screenshot()
-
+    def enter_chapter(self):
         # 点击 “探索” 按钮进入章节
-        if self.wait_until_appear(EA.I_EXP_BUTTON):
-            self.click(EA.I_EXP_BUTTON)
-            logger.info("** Entered ch 28")
+        if not self.wait_until_appear(EA.I_EXP_BUTTON):
+            logger.error("Cannot find chapter exploration button")
+            raise RequestHumanTakeover
 
+        self.click(EA.I_EXP_BUTTON)
+        logger.info("Start battle...")
         swipe_count = 0
-
         while 1:
-            if not self.wait_until_appear(EA.I_AUTO_ROTATE_ON, 1, 0.5):
-                if not self.wait_until_appear(EA.I_AUTO_ROTATE_OFF, 1, 0.5):
-                    logger.warning(
-                        "***** Not inside chapter or battle finished.")
-                    raise RequestHumanTakeover
+            if not (self.wait_until_appear(EA.I_AUTO_ROTATE_ON, 1)
+                    or self.wait_until_appear(EA.I_AUTO_ROTATE_OFF, 1)):
+                logger.warning(
+                    "***** Not inside chapter or battle finished.")
+                raise RequestHumanTakeover
 
             # BOSS 挑战
             if self.appear(EA.I_EXP_BOSS):
-                time.sleep(0.3)
+                time.sleep(1)
                 self.appear_then_click(EA.I_EXP_BOSS)
+
                 if self.fight():
-                    if self.wait_until_appear(EA.I_EXP_CHAPTER_DISMISS_ICON, 1):
+                    if self.wait_until_appear(
+                        EA.I_EXP_CHAPTER_DISMISS_ICON, 1
+                    ) or self.appear(self.I_C_EXP, threshold=0.95):
                         return
                     else:
                         self.get_chapter_reward()
@@ -122,79 +117,65 @@ class TaskScript(General, EA):
                 raise RequestHumanTakeover
             else:
                 self.swipe(self.S_EXP_TO_RIGHT)
-        time.sleep(0.3)
+        time.sleep(0.5)
 
     def get_chapter_reward(self):
+        logger.info("Trying to find chapter reward...")
         # 章节通关奖励，好像最多只有三个
         found = False
-        for _ in range(4):
-            if self.wait_until_appear(self.I_EXP_CHAP_REWARD, 5, waiting_interval=1):
-                self.click(self.I_EXP_CHAP_REWARD)
+        time.sleep(1)
+        for _ in range(3):
+            if self.wait_until_appear(self.I_C_EXP, 2) or self.wait_until_appear(self.I_EXP_CHAPTER_DISMISS_ICON, 1):
+                break
+
+            if self.wait_until_click(self.I_EXP_CHAP_REWARD, interval=0.5):
                 time.sleep(1)
-                if self.wait_until_appear(self.I_EXP_GAIN_REWARD, 3, click=True, click_delay=0.5):
+                if self.wait_until_appear(self.I_EXP_GAIN_REWARD, 1):
+                    self.random_click_right()
                     found = True
+            else:
+                break
         if found:
             logger.info("Got all chapter reward.")
 
     def fight(self) -> bool:
-        win = True
-
         # 等战斗结束
         time.sleep(8)
-        win = self.wait_until_appear(
-            self.I_EXP_BATTLE_WIN, waiting_limit=30, waiting_interval=1)
-        self.click(self.I_EXP_BATTLE_WIN)
 
-        if win:
-            # 领取战斗奖励，需要等动画
-            got_reward = self.wait_until_appear(
-                self.I_FIGHT_REWARD, waiting_limit=5, waiting_interval=1)
-            if got_reward:
-                time.sleep(1)
-                self.click(self.I_FIGHT_REWARD)
-
-        if not win:
-            logger.warning("!! Fight Failed !!")
-        time.sleep(0.4)
-        return win
-
-    def activate_realm_raid(self, scroll_mode: ScrollModeConfig):
-        logger.info("Activate realm raid...")
-        if not scroll_mode.scroll_mode_enable:
-            return
-
-        # 章节探索确认界面
-        if self.wait_until_appear(self.I_EXP_BUTTON, 2):
-            time.sleep(0.2)
-            image = self.screenshot()
-            count, total = self.O_EXP_CHAPTER_TICKET_COUNT.digit_counter(image)
-        elif self.appear(self.I_C_EXP):
-            time.sleep(0.2)
-            image = self.screenshot()
-            count, total = self.O_EXP_VIEW_TICKET_COUNT.digit_counter(image)
+        # 领取战斗奖励，需要等动画
+        if self.wait_until_appear(self.I_FIGHT_REWARD, 60, interval=0.5):
+            time.sleep(0.5)
+            self.random_click_right()
         else:
-            logger.error(":: Not able to found ticket number ::")
+            logger.warning("!! Fight Failed !!")
+            raise RequestHumanTakeover
+        time.sleep(1)
+        return True
+
+    def check_ticket(self):
+        if not self.exp_config.scroll_mode.scroll_mode_enable:
             return
+
+        image = self.screenshot()
+        count, total = self.O_EXP_VIEW_TICKET_COUNT.digit_counter(image)
 
         # 判断突破票数量
-        if count is None or count < scroll_mode.ticket_threshold:
+        if count is None or count < self.exp_config.scroll_mode.ticket_threshold:
             return
 
-        # 关闭章节探索确认界面
-        self.appear_then_click(EA.I_EXP_CHAPTER_DISMISS_ICON)
+        self.activate_realm_raid()
 
+    def activate_realm_raid(self):
         # 设置下次执行行时间
         logger.info("|| RealmRaid and Exploration set_next_run ||")
-
-        # TODO: update time format in config
-        hr, min, sec = scroll_mode.scrolls_cd.split(":")
+        hr, min, sec = self.exp_config.scroll_mode.scrolls_cd.split(":")
         next_run = datetime.now() + timedelta(hours=int(hr),
                                               minutes=int(min),
                                               seconds=int(sec))
-        logger.warning(f"##########  next run time: {next_run}")
+        logger.warning(f"next run time: {next_run}")
         self.set_next_run(task='Exploration', success=False,
                           finish=False, target_time=next_run)
         self.set_next_run(task='RealmRaid', success=False,
                           finish=False, target_time=datetime.now())
 
-        raise TaskEnd
+        raise TaskEnd(self.name)

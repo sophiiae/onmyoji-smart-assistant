@@ -24,8 +24,8 @@ class General(TaskBase, GeneralAssets, PageMap):
         判断当前页面是否为page
         """
         time.sleep(check_delay)
-        if not self.appear(page.check_button, threshold=0.90):
-            logger.error(f"Not in {page.name} page")
+        if not self.wait_until_appear(page.check_button, 1, threshold=0.95):
+            logger.warning(f"Not in {page.name} page")
             return False
         return True
 
@@ -56,7 +56,7 @@ class General(TaskBase, GeneralAssets, PageMap):
 
             # Try to close unknown page
             for close in self.ui_close:
-                if self.wait_until_appear(close, waiting_limit=0, retry_limit=0, click=True):
+                if self.wait_until_click(close):
                     logger.warning('Trying to switch to supported page')
                     timeout = Timer(5, 10).start()
                 time.sleep(0.2)
@@ -71,19 +71,13 @@ class General(TaskBase, GeneralAssets, PageMap):
                     [p.name for p in path]}")
 
         for idx, page in enumerate(path):
-            if self.check_page_appear(page, check_delay=0.3):
-                logger.info(f"[UI] We are in page: {page.name}")
-
             # 已经到达页面，退出
             if page == destination:
                 logger.info(f'[UI] Page arrive: {destination}')
-                time.sleep(0.5)
                 return
 
-            # 路径/页面设置 出错
-            if not self.wait_until_appear(page.check_button, 3):
-                logger.error(f"[PATH] Current page not match page {page.name}")
-                return
+            if self.check_page_appear(page):
+                logger.info(f"[UI] We are in page: {page.name}")
 
             goto_timer = Timer(waiting_limit, int(
                 waiting_limit // 2)).start()
@@ -93,11 +87,10 @@ class General(TaskBase, GeneralAssets, PageMap):
                 if page.check_button is None:
                     logger.error(
                         f"[PATH] Not able to find check_button for page {page.name}")
-                    return
+                    raise GamePageUnknownError
 
-                print(page.name)
                 button = page.links[path[idx + 1]]
-                if self.wait_until_appear(button, click=True):
+                if self.wait_until_click(button, interval=0.2):
                     logger.info(f"[PATH] Heading from {
                                 page.name} to {path[idx + 1].name}.")
                     time.sleep(0.2)
@@ -105,7 +98,7 @@ class General(TaskBase, GeneralAssets, PageMap):
 
                 if goto_timer.reached():
                     logger.error(f"[PATH] {page.name} is not reachable.")
-                    return
+                    raise GamePageUnknownError
 
 
 if __name__ == '__main__':

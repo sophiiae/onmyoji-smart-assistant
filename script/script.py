@@ -83,11 +83,8 @@ class Script:
             task = self.get_next_task()
 
             # Run
-            logger.info(f'Scheduler: Start task `{task}`')
+            logger.info(f'Scheduler: Start task ****{task}****')
             success = self.run(inflection.underscore(task))
-            print(inflection.underscore(task))
-
-            logger.info(f'Scheduler: End task `{task}`')
 
             # Check failures
             # failed = deep_get(self.failure_record, keys=task, default=0)

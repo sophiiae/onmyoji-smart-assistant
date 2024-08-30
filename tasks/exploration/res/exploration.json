@@ -123,9 +123,9 @@
     "name": "exp_treasure_box_map",
     "type": "image",
     "roi": "37, 203, 65, 35",
-    "area": "210, 130, 820, 420",
+    "area": "670, 210, 130, 90",
     "file": "./tasks/exploration/res/exp_treasure_box.png",
-    "description": "困28探索界面发现宝箱区域"
+    "description": "困28探索界面宝箱区域"
   },
   {
     "name": "exp_battle_win",
@@ -146,7 +146,7 @@
     "name": "exp_chap_reward",
     "type": "image",
     "roi": "635, 489, 33, 21",
-    "area": "430, 390, 800, 210",
+    "area": "430, 300, 440, 300",
     "file": "./tasks/exploration/res/exp_chap_reward.png",
     "description": "探索章节内发现物品"
   }

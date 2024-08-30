@@ -4,32 +4,29 @@ import time
 from module.base.logger import logger
 from module.base.exception import TaskEnd
 from tasks.general.general import General
-from tasks.realm_raid.assets import RealmRaidAssets as RRA
+from tasks.realm_raid.assets import RealmRaidAssets
 from tasks.general.page import page_realm_raid, page_main
+from module.base.exception import RequestHumanTakeover
 
-class TaskScript(General, RRA):
+class TaskScript(General, RealmRaidAssets):
     order = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    name = "Realm Raid"
 
     def run(self):
-        config = self.config.model.realm_raid
+        self.rr_config = self.confiself.model.realm_raid.raid_config
 
         if not self.check_page_appear(page_realm_raid):
             self.goto(page_realm_raid)
 
-        # 票不够的话就结束任务
-        if not self.check_ticket(config.raid_config.tickets_required):
+        ticket_min = self.rr_confiself.tickets_required
+
+        if not self.check_ticket(ticket_min):
             self.goto(page_main)
-            self.set_next_run(task='RealmRaid', success=False, finish=False)
-            raise TaskEnd
+            self.set_next_run(task='RealmRaid', success=True, finish=False)
+            raise TaskEnd(self.name)
 
         image = self.screenshot()
         self.update_partition_prop(image)
-
-        # 如果最低挑战等级高于57，就降级处理
-        self.downgrade()
-
-        # 锁定队伍
-        self.toggle_team_lock()
 
         success = True
 
@@ -37,69 +34,75 @@ class TaskScript(General, RRA):
         attack_list = self.order.copy()
         random.shuffle(attack_list)
 
-        print(f"-----attack list: {attack_list}")
-        while 1:
-            # 查看突破票数量
-            if not self.check_ticket(config.raid_config.tickets_required):
-                break
+        print(f"----- attack order: {attack_list}")
 
+        # 查看突破票数量
+        enough_ticket = self.check_ticket(ticket_min)
+
+        while enough_ticket:
             # 如果都挑战过了，如果上次失败就刷新，没有就更新配置
             if len(attack_list) == 0:
-                if not success:
-                    self.click_refresh()
+                if not self.click_refresh():
+                    break
 
                 attack_list = self.order.copy()
                 random.shuffle(attack_list)
                 success = True
                 del self.partitions_prop
 
-            # 下一个挑战目标
-            attack_index = attack_list.pop()
+            # 如果最低挑战等级高于57，就降级处理
+            self.downgrade()
+            # 锁定队伍
+            self.toggle_team_lock()
+            while len(attack_list):
+                # 下一个挑战目标
+                attack_index = attack_list.pop()
 
-            # 已经挑战过的就略过
-            if self.is_defeated(attack_index - 1) or self.is_lose(attack_index - 1):
-                success = False
-                continue
+                # 已经挑战过的就略过
+                if self.is_defeated(attack_index - 1) or self.is_lose(attack_index - 1):
+                    success = False
+                    continue
 
-            # 最后一个退2次再打， 卡57
-            if attack_index == 9:
-                logger.info("attacking last one")
-                self.toggle_team_lock(False)  # 解锁队伍
+                time.sleep(1)
+                # 最后一个退2次再打， 卡57
+                if attack_index == 3:
+                    logger.info("attacking last one")
 
-                if self.quit_and_fight(attack_index):
+                    if not self.quit_and_fight(attack_index):
+                        self.toggle_team_lock()  # 锁上
+                        success = False
+                        continue
+
                     self.toggle_team_lock()  # 锁上
-                    continue
                 else:
-                    success = False
-                    continue
-            else:
-                if not self.start_fight(attack_index):
-                    success = False
-                    continue
+                    if not self.start_fight(attack_index):
+                        success = False
+                        continue
 
-            # 如果勾选了拿了三次战斗奖励就刷新 >> 刷新
-            self.three_win_refresh(config.raid_config.three_refresh)
+                # 如果勾选了拿了三次战斗奖励就刷新 >> 刷新
+                if self.rr_confiself.three_refresh:
+                    if self.wait_until_appear(self.I_RAID_WIN3, 2, 1):
+                        self.click_refresh()
+                        break
+
+            # 更新票数
+            enough_ticket = self.check_ticket(ticket_min)
 
         self.goto(page_main)
         self.set_next_run(task='RealmRaid', success=success, finish=True)
-        raise TaskEnd
-
-    def three_win_refresh(self, refresh=True):
-        if refresh and self.appear(self.I_RAID_WIN3):
-            return self.click_refresh()
-        return refresh
+        raise TaskEnd(self.name)
 
     # 第一次进突破界面的时候，扫描，记录目前的挑战情况
     def update_partition_prop(self, image):
         for part in self.partitions_prop:
             x, y, w, h = part['flag_area']
             cropped = image[y: y + h, x: x + w]
-            if RRA.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
+            if self.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
                 part['defeated'] = True
             else:
                 ax, ay, aw, ah = part['lose_arrow_area']
                 arrow_cropped = image[ay: ay + ah, ax: ax + aw]
-                if RRA.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
+                if self.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
                     part['lose'] = True
 
     @cached_property
@@ -162,28 +165,30 @@ class TaskScript(General, RRA):
         logger.info(f"----- Attacking index {index}.")
         self.click(self.partitions[index - 1])
 
-        # 等待挑战失败或者成功， 失败直接退出
-        if self.wait_until_appear(self.I_RAID_ATTACK, click=True, click_delay=1):
-            self.wait_until_appear(self.I_BATTLE_READY,
-                                   2, click=True, click_delay=1)
+        if self.wait_until_click(self.I_RAID_ATTACK, 2, delay=1):
             time.sleep(13)
-            if self.wait_for_result(General.I_FIGHT_REWARD, self.I_RAID_FIGHT_AGAIN, 100, 1):
+
+            # 等待挑战失败或者成功， 失败直接退出
+            if self.wait_for_result(self.I_FIGHT_REWARD, self.I_RAID_FIGHT_AGAIN, 300, 1):
                 self.get_reward()
                 return True
             else:
                 self.click(self.I_RAID_BATTLE_EXIT)
                 return False
-        logger.error("No attack button found")
-        return False
+
+        logger.error("Not able to attack")
+        raise RequestHumanTakeover
 
     def quit_and_fight(self, index, quit_count=2) -> bool:
         logger.info(f"Starting quit and fight for {quit_count} times.")
 
+        self.toggle_team_lock(False)  # 解锁队伍
+
         # 进入战斗
         self.click(self.partitions[index - 1])
-        if not self.wait_until_appear(RRA.I_RAID_ATTACK, 15, click=True):
+        if not self.wait_until_click(self.I_RAID_ATTACK, 3):
             logger.error("Not able to enter battle")
-            return False
+            raise RequestHumanTakeover
 
         count = 0
         while count < quit_count:
@@ -191,38 +196,30 @@ class TaskScript(General, RRA):
             time.sleep(1)
 
             # 退1次
-            if self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
-                if not self.wait_until_appear(
-                    RRA.I_RAID_BATTLE_EXIT_CONFIRM,
-                    waiting_limit=4,
-                    click=True, click_delay=1
-                ):
+            if self.wait_until_click(self.I_RAID_BATTLE_EXIT, interval=0.6):
+                if not self.wait_until_click(self.I_RAID_BATTLE_EXIT_CONFIRM, delay=0.6):
                     logger.error("Stuck in battle exit")
-                    return False
+                    raise RequestHumanTakeover
 
             time.sleep(0.5)
             # 关闭再次挑战提醒
-            if self.wait_until_appear(RRA.I_RAID_FIGHT_AGAIN, 2, click=True, click_delay=1):
+            if self.wait_until_click(self.I_RAID_FIGHT_AGAIN):
                 # 如果有出现关闭今日提醒 -> 勾选今日不再提示 -> 确认
-                if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM, 3):
-                    self.wait_until_appear(
-                        self.I_RAID_WARNING_CHECKBOX, 2, click=True)
-                    self.wait_until_appear(
-                        self.I_RAID_AGAIN_CONFIRM, click=True)
+                if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM, 3, threshold=0.95):
+                    self.wait_until_click(self.I_RAID_WARNING_CHECKBOX, 0.5)
+                    self.wait_until_click(self.I_RAID_AGAIN_CONFIRM, 0.5)
             count += 1
 
-        # 退出战斗界面，再正式挑战
-        if self.wait_until_appear(self.I_RAID_FIGHT_AGAIN):
-            self.click(self.I_RAID_BATTLE_EXIT)
-            if self.wait_until_appear(self.I_RAID_BATTLE_EXIT, click=True):
-                if not self.wait_until_appear(
-                    RRA.I_RAID_BATTLE_EXIT_CONFIRM,
-                    click=True, click_delay=0.7
-                ):
-                    logger.error("Stuck in battle exit")
-                    return False
+        # 开揍
+        self.wait_until_click(self.I_BATTLE_READY)
 
-        return self.start_fight(index)
+        # 等待挑战失败或者成功， 失败直接退出
+        if self.wait_for_result(self.I_FIGHT_REWARD, self.I_RAID_FIGHT_AGAIN, 100, 1):
+            self.get_reward()
+            return True
+
+        self.click(self.I_RAID_BATTLE_EXIT)
+        return False
 
     def is_defeated(self, index):
         return self.partitions_prop[index]['defeated']
@@ -249,17 +246,19 @@ class TaskScript(General, RRA):
 
                 logger.info(f"** enter and quit for partition {idx + 1}")
                 self.click(part, 0.3)
-                if self.wait_until_appear(RRA.I_RAID_ATTACK, 15, click=True):
-                    if not self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT, threshold=0.95, click=True, click_delay=1):
+
+                if self.wait_until_click(self.I_RAID_ATTACK):
+                    if not self.wait_until_click(self.I_RAID_BATTLE_EXIT):
                         logger.error("Not able to exit the battle")
-                        return False
+                        raise RequestHumanTakeover
 
                     time.sleep(0.5)
-                    if self.wait_until_appear(RRA.I_RAID_BATTLE_EXIT_CONFIRM, click=True, click_delay=1):
-                        if self.wait_until_appear(RRA.I_RAID_FIGHT_AGAIN):
-                            self.click(RRA.I_RAID_BATTLE_EXIT)
+                    if self.wait_until_click(self.I_RAID_BATTLE_EXIT_CONFIRM):
+                        if self.wait_until_appear(self.I_RAID_FIGHT_AGAIN):
+                            self.click(self.I_RAID_BATTLE_EXIT)
                 else:
                     logger.warning(f"No attack button found for {idx}")
+                time.sleep(1)
 
             downgraded = True
             # 都退完了，刷新
@@ -287,16 +286,15 @@ class TaskScript(General, RRA):
         如果在CD中, 就返回False
         :return:
         """
-        if self.wait_until_appear(self.I_RAID_REFRESH, threshold=0.95, click=True):
-            if self.wait_until_appear(self.I_RAID_AGAIN_CONFIRM):
-                self.click(self.I_RAID_AGAIN_CONFIRM)
-            return True
-        elif self.appear(self.I_RAID_REFRESH_UNABLE, threshold=0.95):
-            logger.warning("Unable to refresh, waiting for CD.")
-            return False
+        if self.wait_until_click(self.I_RAID_REFRESH):
+            if self.wait_until_click(self.I_RAID_AGAIN_CONFIRM):
+                return True
+            else:
+                logger.warning("Unable to refresh, waiting for CD.")
+                return False
 
         logger.critical("No refresh button found")
-        return False
+        raise RequestHumanTakeover
 
     def find_one(self) -> tuple:
         """
@@ -364,26 +362,24 @@ class TaskScript(General, RRA):
         count, total = self.O_RAID_TICKET.digit_counter(image)
         if total == 0:
             # 处理奖励之后，重新识别票数
-            self.get_reward(waiting_limit=2)
+            self.get_reward(limit=2)
             time.sleep(1)
             image = self.screenshot()
             count, total = self.O_RAID_TICKET.digit_counter(image)
-        if count == 0:
-            logger.warning(f'Execute raid failed, no ticket')
-            return False
-        elif count < tickets_required:
+        if count < tickets_required:
             logger.warning(f'Execute raid failed, ticket is not enough')
             return False
         return True
 
-    def get_reward(self, waiting_limit: float = 70) -> bool:
-        if self.wait_until_appear(General.I_FIGHT_REWARD, waiting_limit, waiting_interval=1):
-            self.click(RRA.I_RAID_BATTLE_EXIT)
+    def get_reward(self, limit: float = 70) -> bool:
+        if self.wait_until_appear(self.I_FIGHT_REWARD, limit, interval=0.5):
+            self.random_click_right()
             logger.info("Got realm raid fight reward")
 
             time.sleep(1)
             # 检查是否有自动领取额外奖励
-            if self.wait_until_appear(General.I_FIGHT_REWARD, 2, waiting_interval=0.5, retry_limit=1):
+            if self.wait_until_appear(self.I_FIGHT_REWARD, 2, interval=0.5):
+                self.random_click_right()
                 logger.info("Got 3 / 6 / 9 extra reward")
 
             return True
@@ -392,15 +388,16 @@ class TaskScript(General, RRA):
     def toggle_team_lock(self, lock: bool = True):
         # 锁定队伍
         if not lock:
-            if self.wait_until_appear(RRA.I_RAID_TEAM_LOCK, waiting_limit=2, retry_limit=2, threshold=0.95, click=True):
+            if self.wait_until_appear(self.I_RAID_TEAM_LOCK, 1):
+                self.wait_until_click(self.I_RAID_TEAM_LOCK)
                 logger.info("Unlock the team")
                 return True
 
         # 不锁定队伍
         if lock:
-            if self.wait_until_appear(RRA.I_RAID_TEAM_UNLOCK, waiting_limit=2, retry_limit=2, threshold=0.95, click=True):
+            if self.wait_until_appear(self.I_RAID_TEAM_UNLOCK, 1):
+                self.wait_until_click(self.I_RAID_TEAM_UNLOCK)
                 logger.info("Lock the team")
                 return True
 
-        logger.error("Team lock icon not found")
         return False

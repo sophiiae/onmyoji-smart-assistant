@@ -2,16 +2,16 @@
   {
     "name": "exp_view_ticket_count",
     "type": "text",
-    "roi": "741, 14, 817, 44",
-    "area": "741, 14, 817, 44",
+    "roi": "741, 15, 71, 27",
+    "area": "741, 15, 71, 27",
     "file": "",
     "description": "探索界面突破票数量"
   },
   {
     "name": "exp_chapter_ticket_count",
     "type": "text",
-    "roi": "937, 15, 1013, 43",
-    "area": "937, 15, 1013, 43",
+    "roi": "940, 16, 73, 27",
+    "area": "940, 16, 73, 27",
     "file": "",
     "description": "探索界面章节入口开启后突破票数量"
   }

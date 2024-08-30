@@ -69,40 +69,50 @@ class TaskBase(MainPageAssets):
             screenshot = self.screenshot()
         return target.match_target(screenshot, threshold)
 
-    def wait_until_appear(self,
-                          target: RuleImage, waiting_limit: float = 10,
-                          retry_limit: float = 5, waiting_interval: float = 0.3,
-                          threshold: float = 0.9, click: bool = False, click_delay: float = 0.2
-                          ) -> bool:
-        """等待出现了再点击，比如需要等过场动画，减少没必要的运行消耗
+    def wait_until_click(self,
+                         target: RuleImage, limit: float = 5, interval: float = 0.4,
+                         delay: float = 0.5, wait_after: float = 0.8,
+                         threshold: float = 0.9) -> bool:
+        """等待出现了再点击，用于不移动的图标
 
         Args:
-            target (RuleImage):
-            waiting_limit (float, optional): Defaults to 10.
-            retry_limit (float, optional): Defaults to 5.
-            waiting_interval (float, optional): Defaults to 0.2.
+            target (RuleImage): 
+            limit (float, optional): waiting time limit (s). Defaults to 5.
+            interval (float, optional): interval between retry. Defaults to 0.4.
+            delay (float, optional): Defaults to 0.5.
+            wait_after (float, optional): Defaults to 0.8.
             threshold (float, optional): Defaults to 0.9.
-            click (bool, optional): Defaults to False.
-            click_delay (float, optional): Defaults to 0.2.
+        """
 
-        Returns:
-            bool: _description_
+        if self.wait_until_appear(target, limit, interval, threshold=threshold):
+            time.sleep(delay)
+            self.click(target)
+            time.sleep(wait_after)
+            return True
+
+        logger.critical(f"Not able to find and click {target}.")
+        raise RequestHumanTakeover
+
+    def wait_until_appear(self,
+                          target: RuleImage, limit: float = 5,
+                          interval: float = 0.4, threshold: float = 0.9
+                          ) -> bool:
+        """等待出现了再点击，比如需要等过场动画，减少不必要的运行消耗
+        Args:
+            target (RuleImage):
+            limit (float, optional): waiting time limit (s). Defaults to 3.
+            interval (float, optional): interval between retry. Defaults to 0.4.
+            threshold (float, optional): Defaults to 0.9.
         """
         if not isinstance(target, RuleImage):
             return False
 
-        timeout = Timer(waiting_limit, retry_limit).start()
+        timeout = Timer(limit + interval, 2).start()
         while not timeout.reached():
-            time.sleep(waiting_interval)
+            time.sleep(interval)
             self.screenshot()
             if self.appear(target, threshold=threshold):
-                logger.info(f"---- Found target: {target.name}")
-                if click:
-                    time.sleep(click_delay)
-                    self.click(target)
                 return True
-
-        logger.warning(f"Wait until appear {target.name} timeout")
         return False
 
     def appear_then_click(self,
@@ -110,14 +120,10 @@ class TaskBase(MainPageAssets):
                           threshold: float = 0.9,
                           ) -> bool:
         """出现就点击，用于会移动的怪物/图标
-
         Args:
             target (RuleImage): _description_
             threshold (float, optional): _description_. Defaults to 0.9.
             interval (float, optional): _description_. Defaults to 1.
-
-        Returns:
-            bool: _description_
         """
         if not isinstance(target, RuleImage):
             return False
@@ -129,12 +135,19 @@ class TaskBase(MainPageAssets):
         return appear
 
     def wait_for_result(self, pass_t: RuleImage, fail_t: RuleImage,
-                        waiting_limit: float = 10,
-                        waiting_interval: float = 0.3) -> bool:
+                        limit: float = 10,
+                        interval: float = 0.4) -> bool:
+        """判断其中一种结果出现，比如战斗胜利/失败
+        Args:
+            pass_t (RuleImage):
+            fail_t (RuleImage):
+            limit (float, optional):. Defaults to 10.
+            interval (float, optional):. Defaults to 0.4.
+        """
 
-        timeout = Timer(waiting_limit).start()
+        timeout = Timer(limit).start()
         while not timeout.reached():
-            time.sleep(waiting_interval)
+            time.sleep(interval)
 
             self.screenshot()
             if self.appear(pass_t):
@@ -209,12 +222,12 @@ class TaskBase(MainPageAssets):
         time.sleep(0.5)
         return False
 
-    def random_click(self, click_delay=0.2):
+    def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
         """
         time.sleep(click_delay)
-        x = np.random.randint(0, 1270)
-        y = np.random.randint(0, 700)
+        x = np.random.randint(990, 1260)
+        y = np.random.randint(180, 550)
         self.device.click(x=x, y=y)
 
     def click_until_disappear(self, target: RuleImage, interval: float = 1):

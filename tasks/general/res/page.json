@@ -16,8 +16,8 @@
   },
   {
     "name": "c_exp",
-    "roi": "1143, 134, 28, 40",
-    "area": "1129, 120, 56, 68",
+    "roi": "62, 642, 49, 41",
+    "area": "42, 622, 89, 81",
     "file": "./tasks/general/res/check/c_exp.png",
     "description": "探索界面妖标志"
   },
@@ -27,14 +27,6 @@
     "area": "229, 448, 116, 88",
     "file": "./tasks/general/res/check/c_market.png",
     "description": "商店街建筑"
-  },
-  {
-    "name": "v_main_to_store",
-    "type": "image",
-    "roi": "643, 616, 68, 56",
-    "area": "609, 588, 136, 112",
-    "file": "./tasks/general/res/goto/v_main_to_store.png",
-    "description": "商店入口"
   },
   {
     "name": "c_summon",
@@ -172,5 +164,13 @@
     "area": "8, 10, 76, 72",
     "file": "./tasks/general/res/goto/v_sleep_to_main.png",
     "description": "休眠模式退出"
+  },
+  {
+    "name": "v_main_to_store",
+    "type": "image",
+    "roi": "643, 616, 68, 56",
+    "area": "609, 588, 136, 112",
+    "file": "./tasks/general/res/goto/v_main_to_store.png",
+    "description": "商店入口"
   }
 ]

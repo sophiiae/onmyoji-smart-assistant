@@ -97,10 +97,10 @@ class ExplorationAssets:
 		area=(4, 186, 135, 320),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
-	# 困28探索界面发现宝箱区域 
+	# 困28探索界面宝箱区域 
 	I_EXP_TREASURE_BOX_MAP = RuleImage(
 		roi=(37, 203, 65, 35),
-		area=(210, 130, 820, 420),
+		area=(670, 210, 130, 90),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
 	# 战斗胜利图标 
@@ -118,21 +118,21 @@ class ExplorationAssets:
 	# 探索章节内发现物品 
 	I_EXP_CHAP_REWARD = RuleImage(
 		roi=(635, 489, 33, 21),
-		area=(430, 390, 800, 210),
+		area=(430, 300, 440, 300),
 		file="./tasks/exploration/res/exp_chap_reward.png"
 	)
 
 	# Ocr Rule Assets
 	# 探索界面突破票数量 
 	O_EXP_VIEW_TICKET_COUNT = RuleOcr(
-		roi=(741, 14, 817, 44),
-		area=(741, 14, 817, 44),
+		roi=(741, 15, 71, 27),
+		area=(741, 15, 71, 27),
 		name="exp_view_ticket_count"
 	)
 	# 探索界面章节入口开启后突破票数量 
 	O_EXP_CHAPTER_TICKET_COUNT = RuleOcr(
-		roi=(937, 15, 1013, 43),
-		area=(937, 15, 1013, 43),
+		roi=(940, 16, 73, 27),
+		area=(940, 16, 73, 27),
 		name="exp_chapter_ticket_count"
 	)
 

@@ -46,7 +46,7 @@ class RuleOcr:
     def ocr_single(self, screenshot) -> str:
         screenshot = self.crop(screenshot)
         res = text_sys.ocr_single_line(screenshot)
-        logger.info(f"text detected: {res}")
+        logger.info(f"<ocr> result: {res[0]}")
         return res[0]
 
     def digit_counter(self, screenshot) -> list:

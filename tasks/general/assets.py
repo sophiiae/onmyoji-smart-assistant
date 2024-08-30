@@ -55,8 +55,8 @@ class GeneralAssets:
 	)
 	# 探索界面妖标志 
 	I_C_EXP = RuleImage(
-		roi=(1143, 134, 28, 40),
-		area=(1129, 120, 56, 68),
+		roi=(62, 642, 49, 41),
+		area=(42, 622, 89, 81),
 		file="./tasks/general/res/check/c_exp.png"
 	)
 	# 商店街建筑 
@@ -64,12 +64,6 @@ class GeneralAssets:
 		roi=(258, 470, 58, 44),
 		area=(229, 448, 116, 88),
 		file="./tasks/general/res/check/c_market.png"
-	)
-	# 商店入口 
-	I_V_MAIN_TO_STORE = RuleImage(
-		roi=(643, 616, 68, 56),
-		area=(609, 588, 136, 112),
-		file="./tasks/general/res/goto/v_main_to_store.png"
 	)
 	# 召唤界面蓝票 
 	I_C_SUMMON = RuleImage(
@@ -178,6 +172,12 @@ class GeneralAssets:
 		roi=(27, 28, 38, 36),
 		area=(8, 10, 76, 72),
 		file="./tasks/general/res/goto/v_sleep_to_main.png"
+	)
+	# 商店入口 
+	I_V_MAIN_TO_STORE = RuleImage(
+		roi=(643, 616, 68, 56),
+		area=(609, 588, 136, 112),
+		file="./tasks/general/res/goto/v_main_to_store.png"
 	)
 
 
