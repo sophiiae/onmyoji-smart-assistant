@@ -13,6 +13,7 @@ class Device:
         self.config = config
         self.cnn = Connection(config)
         self.device = self.cnn.device
+        logger.warning(f"We are running script for {config.model.config_name}")
 
     def screenshot(self):
         """

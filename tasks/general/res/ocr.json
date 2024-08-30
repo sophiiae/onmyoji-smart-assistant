@@ -1,0 +1,10 @@
+[
+  {
+    "name": "reg_summon_ticket",
+    "type": "text",
+    "roi": "565, 15, 80, 29",
+    "area": "565, 15, 80, 29",
+    "file": "",
+    "description": "普通召唤票数量"
+  }
+]

@@ -1,12 +1,11 @@
 import traceback
 from tasks.general.assets import GeneralAssets as G
 
-class Page:
-
+class Page():
     def __init__(self, check_button):
+        super().__init__()
         self.check_button = check_button
         self.links = {}
-        self.additional: list = None  # 附加按钮或者是ocr检测按钮
         (filename, line_number, function_name,
          text) = traceback.extract_stack()[-2]
         self.name = text[:text.find('=')].strip()
@@ -25,18 +24,16 @@ class Page:
 
 
 # 主界面 Main
-page_main = Page(G.I_C_MAIN_QUEST)
+page_main = Page(G.I_C_MAIN)
 
 # 召唤界面 Summon
 page_summon = Page(G.I_C_SUMMON)
 page_summon.link(button=G.I_V_SUMMON_TO_MAIN, destination=page_main)
-
 page_main.link(button=G.I_V_MAIN_TO_SUMMON, destination=page_summon)
 
 # 探索界面 Exploration
 page_exp = Page(G.I_C_EXP)
 page_exp.link(button=G.I_V_EXP_TO_MAIN, destination=page_main)
-
 page_main.link(button=G.I_V_MAIN_TO_EXP, destination=page_exp)
 
 # 结界突破 Realm Raid & Guild Raid

@@ -3,9 +3,6 @@ import json
 from tqdm.contrib.concurrent import process_map
 from pathlib import Path
 
-import logging
-logger = logging.getLogger(__name__)
-
 MODULE_FOLDER = 'tasks'
 ASSETS_FILE = 'assets.py'
 ASSETS_CLASS = '\nclass Assets: \n'
@@ -52,23 +49,6 @@ class ImageExtractor:
     @property
     def result(self) -> str:
         return self._result
-
-    # def update_value(self, region: str) -> str:
-    #     """Convert 'tl_x, tl_y, br_x, br_y' to 'tl_x, tl_y, w, h'
-    #     Args:
-    #         region (str): "tl_x, tl_y, br_x, br_y"
-
-    #     Returns:
-    #         str: "tl_x, tl_y, w, h"
-    #     """
-
-    #     def parseInt(v):
-    #         return int(v)
-    #     points = region.split(",")
-    #     points = map(parseInt, points)
-    #     tl_x, tl_y, br_x, br_y = points
-    #     w, h = br_x - tl_x, br_y - tl_y
-    #     return f"{tl_x}, {tl_y}, {w}, {h}"
 
     def extract_item(self, item) -> str:
         """
@@ -184,7 +164,7 @@ class AssetsExtractor:
         with open(file, 'r', encoding='utf-8') as f:
             data = json.load(f)
         if not isinstance(data, list) and not isinstance(data, dict):
-            logger.error(f'{file} 文件解析错误，不是list 或者 dict')
+            print(f'{file} 文件解析错误，不是list 或者 dict')
             return None
         return data
 
@@ -216,8 +196,7 @@ class AssetsExtractor:
                 result += SwipeExtractor(data).result
 
         if result == '':
-            logger.error(
-                f'There are no resource files under the {self.task_name} task')
+            print(f'No resource files under the {self.task_name} task')
             self._result += '\tpass'
         else:
             self._result += result

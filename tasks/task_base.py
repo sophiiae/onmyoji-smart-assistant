@@ -1,16 +1,15 @@
 from datetime import datetime
 import numpy as np
+import time
 
+from module.base.exception import RequestHumanTakeover
 from module.config.config import Config
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe
 from tasks.main_page.assets import MainPageAssets
 from module.server.device import Device
 from module.base.timer import Timer
-import time
-
-import logging
-logger = logging.getLogger(__name__)
+from module.base.logger import logger
 
 class TaskBase(MainPageAssets):
     config: Config = None
@@ -58,86 +57,110 @@ class TaskBase(MainPageAssets):
             if not self.appear(target=click_button):
                 logger.info('Deal with invitation done')
                 break
-            if self.appear_then_click(click_button, interval=0.8):
+            if self.appear_then_click(click_button):
                 continue
         return True
 
-    def appear(self, target: RuleImage, threshold: float = 0.9, interval: float = None) -> bool:
+    def appear(self, target: RuleImage, threshold: float = 0.9) -> bool:
         if not isinstance(target, RuleImage):
             return False
+        screenshot = self.device.image
+        if screenshot is None:
+            screenshot = self.screenshot()
+        return target.match_target(screenshot, threshold)
 
-        if interval:
-            if target.name in self.interval_timer:
-                if self.interval_timer[target.name].limit != interval:
-                    self.interval_timer[target.name] = Timer(interval)
-            else:
-                self.interval_timer[target.name] = Timer(interval)
-            if not self.interval_timer[target.name].reached():
-                return False
-
-        appear = target.match_target(self.device.image, threshold)
-        if appear and interval:
-            self.interval_timer[target.name].reset()
-
-        return appear
-
-    def appear_then_click(self,
-                          target: RuleImage,
-                          threshold: float = 0.9,
-                          interval: float = 1,
-                          ) -> bool:
-        """wait until appear, then click
+    def wait_until_click(self,
+                         target: RuleImage, limit: float = 5, interval: float = 0.4,
+                         delay: float = 0.5, wait_after: float = 0.8,
+                         threshold: float = 0.9) -> bool:
+        """等待出现了再点击，用于不移动的图标
 
         Args:
-            target (RuleImage): _description_
-            threshold (float, optional): _description_. Defaults to 0.9.
-            interval (float, optional): _description_. Defaults to 1.
+            target (RuleImage): 
+            limit (float, optional): waiting time limit (s). Defaults to 5.
+            interval (float, optional): interval between retry. Defaults to 0.4.
+            delay (float, optional): Defaults to 0.5.
+            wait_after (float, optional): Defaults to 0.8.
+            threshold (float, optional): Defaults to 0.9.
+        """
 
-        Returns:
-            bool: _description_
+        if self.wait_until_appear(target, limit, interval, threshold=threshold):
+            time.sleep(delay)
+            self.click(target)
+            time.sleep(wait_after)
+            return True
+
+        logger.critical(f"Not able to find and click {target}.")
+        raise RequestHumanTakeover
+
+    def wait_until_appear(self,
+                          target: RuleImage, limit: float = 5,
+                          interval: float = 0.4, threshold: float = 0.9
+                          ) -> bool:
+        """等待出现了再点击，比如需要等过场动画，减少不必要的运行消耗
+        Args:
+            target (RuleImage):
+            limit (float, optional): waiting time limit (s). Defaults to 3.
+            interval (float, optional): interval between retry. Defaults to 0.4.
+            threshold (float, optional): Defaults to 0.9.
         """
         if not isinstance(target, RuleImage):
             return False
 
-        appear = self.appear(target, threshold=threshold, interval=interval)
+        timeout = Timer(limit + interval, 2).start()
+        while not timeout.reached():
+            time.sleep(interval)
+            self.screenshot()
+            if self.appear(target, threshold=threshold):
+                return True
+        return False
+
+    def appear_then_click(self,
+                          target: RuleImage,
+                          threshold: float = 0.9,
+                          ) -> bool:
+        """出现就点击，用于会移动的怪物/图标
+        Args:
+            target (RuleImage): _description_
+            threshold (float, optional): _description_. Defaults to 0.9.
+            interval (float, optional): _description_. Defaults to 1.
+        """
+        if not isinstance(target, RuleImage):
+            return False
+
+        appear = self.appear(target, threshold=threshold)
         if appear:
             x, y = target.coord()
             self.device.click(x, y)
         return appear
 
-    def wait_until_appear(self,
-                          target: RuleImage,
-                          wait_time: int = 1,
-                          interval: int = 1,
-                          skip_first_screenshot=False,
-                          threshold: float = 0.9
-                          ) -> bool:
-        """wait until target show up
-
+    def wait_for_result(self, pass_t: RuleImage, fail_t: RuleImage,
+                        limit: float = 10,
+                        interval: float = 0.4) -> bool:
+        """判断其中一种结果出现，比如战斗胜利/失败
         Args:
-            target (RuleImage): _description_
-            wait_time (int, optional): _description_. Defaults to 1.
-            interval (int, optional): _description_. Defaults to 1.
-            skip_first_screenshot (bool, optional): _description_. Defaults to False.
-            threshold (float, optional): _description_. Defaults to 0.9.
-
-        Returns:
-            bool: _description_
+            pass_t (RuleImage):
+            fail_t (RuleImage):
+            limit (float, optional):. Defaults to 10.
+            interval (float, optional):. Defaults to 0.4.
         """
-        count = 0
-        while count < wait_time:
+
+        timeout = Timer(limit).start()
+        while not timeout.reached():
             time.sleep(interval)
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.screenshot()
 
-            if self.appear(target, threshold=threshold):
+            self.screenshot()
+            if self.appear(pass_t):
+                logger.info(f"---- Got Action Success Target: {pass_t.name}")
                 return True
-            count += interval
+            if self.appear(fail_t):
+                logger.info(f"---- Got Action failed Target: {fail_t.name}")
+                return False
 
-        print(f"Wait until appear {target.name} timeout")
-        return False
+        logger.warning(
+            f"Wait until appear {pass_t.name} or {fail_t.name} timeout")
+
+        raise RequestHumanTakeover
 
     def screenshot(self):
         """截图 引入中间函数的目的是 为了解决如协作的这类突发的事件
@@ -150,7 +173,7 @@ class TaskBase(MainPageAssets):
         self._burst()
         return self.device.image
 
-    def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 300) -> None:
+    def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 400) -> None:
         """swipe
 
         Args:
@@ -173,7 +196,7 @@ class TaskBase(MainPageAssets):
             if not self.interval_timer[swipe.name].reached():
                 return
 
-        print(f"Executing Swipe for {swipe.name}")
+        logger.info(f"Executing Swipe for {swipe.name}")
         sx, sy, ex, ey = swipe.coord()
         self.device.swipe(start_x=sx, start_y=sy, end_x=ex,
                           end_y=ey, duration=duration)
@@ -183,7 +206,7 @@ class TaskBase(MainPageAssets):
             # logger.info(f'Swipe {swipe.name}')
             self.interval_timer[swipe.name].reset()
 
-    def click(self, target: RuleImage, interval: float = None) -> bool:
+    def click(self, target: RuleImage, click_delay: float = 0.2) -> bool:
         """click
 
         Args:
@@ -193,34 +216,18 @@ class TaskBase(MainPageAssets):
         Returns:
             bool:
         """
-
-        if interval:
-            if target.name in self.interval_timer:
-                # 如果传入的限制时间不一样，则替换限制新的传入的时间
-                if self.interval_timer[target.name].limit != interval:
-                    self.interval_timer[target.name] = Timer(interval)
-            else:
-                # 如果没有限制时间，则创建限制时间
-                self.interval_timer[target.name] = Timer(interval)
-            # 如果时间还没到达，则不执行
-            if not self.interval_timer[target.name].reached():
-                return False
-
+        time.sleep(click_delay)
         x, y = target.coord()
         self.device.click(x=x, y=y)
-
-        # 执行后，如果有限制时间，则重置限制时间
-        if interval:
-            self.interval_timer[target.name].reset()
-            return True
         time.sleep(0.5)
         return False
 
-    def random_click(self):
+    def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
         """
-        x = np.random.randint(0, 1270)
-        y = np.random.randint(0, 700)
+        time.sleep(click_delay)
+        x = np.random.randint(990, 1260)
+        y = np.random.randint(180, 550)
         self.device.click(x=x, y=y)
 
     def click_until_disappear(self, target: RuleImage, interval: float = 1):
@@ -234,7 +241,7 @@ class TaskBase(MainPageAssets):
             self.screenshot()
             if not self.appear(target):
                 break
-            elif self.appear_then_click(target, interval=interval):
+            elif self.wait_until_appear(target, click=True):
                 continue
 
     def set_next_run(self, task: str, finish: bool = False,

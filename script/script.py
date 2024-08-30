@@ -83,11 +83,8 @@ class Script:
             task = self.get_next_task()
 
             # Run
-            logger.info(f'Scheduler: Start task `{task}`')
+            logger.info(f'Scheduler: Start task ****{task}****')
             success = self.run(inflection.underscore(task))
-            print(inflection.underscore(task))
-
-            logger.info(f'Scheduler: End task `{task}`')
 
             # Check failures
             # failed = deep_get(self.failure_record, keys=task, default=0)
@@ -107,7 +104,7 @@ class Script:
             if success:
                 del self.config
                 continue
-            elif self.config.script.error.handle_error:
+            elif self.config.model.script.error_handler.cache_clear_request:
                 del self.config
                 continue
             else:
@@ -147,6 +144,8 @@ class Script:
                     {"schedule": self.config.get_schedule_data()}
                 )
 
+            logger.critical(f"Getting {task.name} and time: {
+                            datetime.strftime(task.next_run, "%Y-%m-%d %H:%M:%S")}")
             if task.next_run > datetime.now():
                 logger.info(f'Wait until {task.next_run} for task `{
                             task.name}`')

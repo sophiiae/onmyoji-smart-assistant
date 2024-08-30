@@ -1,7 +1,5 @@
 from functools import cached_property
-from pathlib import Path
 import numpy as np
-import random
 
 class RuleSwipe:
 
@@ -34,7 +32,9 @@ class RuleSwipe:
         start_tl_x, start_tl_y, start_br_x, start_br_y = self.roi_start
         sx = np.random.randint(start_tl_x, start_br_x)
         sy = np.random.randint(start_tl_y, start_br_y)
+
         end_tl_x, end_tl_y, end_br_x, end_br_y = self.roi_end
         ex = np.random.randint(end_tl_x, end_br_x)
         ey = np.random.randint(end_tl_y, end_br_y)
+
         return (sx, sy, ex, ey)

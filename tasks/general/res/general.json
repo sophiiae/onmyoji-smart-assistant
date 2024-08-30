@@ -2,17 +2,33 @@
   {
     "name": "fight_reward",
     "type": "image",
-    "roi": "539, 437, 194, 184",
-    "area": "442, 345, 388, 368",
+    "roi": "565, 444, 137, 165",
+    "area": "497, 376, 273, 301",
     "file": "./tasks/general/res/fight_reward.png",
     "description": "战斗/突破/宝箱奖励领取图标"
   },
   {
     "name": "battle_ready",
     "type": "image",
-    "roi": "1121, 548, 111, 76",
-    "area": "1066, 510, 222, 152",
+    "roi": "1135, 565, 87, 46",
+    "area": "1112, 542, 133, 92",
     "file": "./tasks/general/res/battle_ready.png",
     "description": "战斗准备"
+  },
+  {
+    "name": "reg_summon",
+    "type": "image",
+    "roi": "448, 605, 42, 58",
+    "area": "427, 584, 84, 100",
+    "file": "./tasks/general/res/reg_summon.png",
+    "description": "普通召唤"
+  },
+  {
+    "name": "summon_again",
+    "type": "image",
+    "roi": "691, 621, 168, 53",
+    "area": "665, 595, 220, 105",
+    "file": "./tasks/general/res/summon_again.png",
+    "description": "再次召唤"
   }
 ]

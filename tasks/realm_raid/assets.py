@@ -9,20 +9,20 @@ class RealmRaidAssets:
 	# Ocr Rule Assets
 	# 突破第一格等级位置 
 	O_RAID_PARTITION_1_LV = RuleOcr(
-		roi=(160, 175, 193, 201),
-		area=(160, 175, 193, 201),
+		roi=(160, 175, 33, 26),
+		area=(160, 175, 33, 26),
 		name="raid_partition_1_lv"
 	)
 	# 突破界面突破票标记位置 
 	O_RAID_TICKET = RuleOcr(
-		roi=(1146, 18, 1219, 46),
-		area=(1146, 18, 1219, 46),
+		roi=(1146, 18, 73, 27),
+		area=(1146, 18, 73, 27),
 		name="raid_ticket"
 	)
 	# 突破刷新等待时间位置 
 	O_RAID_WAIT_TIME = RuleOcr(
-		roi=(1042, 581, 1125, 618),
-		area=(1042, 581, 1125, 618),
+		roi=(1042, 581, 83, 37),
+		area=(1042, 581, 83, 37),
 		name="raid_wait_time"
 	)
 
@@ -68,6 +68,12 @@ class RealmRaidAssets:
 		roi=(403, 303, 54, 54),
 		area=(376, 276, 108, 108),
 		file="./tasks/realm_raid/res/raid_beat.png"
+	)
+	# 挑战失败箭头 
+	I_RAID_LOSE = RuleImage(
+		roi=(398, 150, 66, 20),
+		area=(388, 140, 86, 40),
+		file="./tasks/realm_raid/res/raid_lose.png"
 	)
 	# 今天不再提示勾选 
 	I_RAID_WARNING_CHECKBOX = RuleImage(

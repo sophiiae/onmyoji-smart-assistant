@@ -1,7 +1,6 @@
 from functools import cached_property
 from pathlib import Path
 import re
-import cv2
 import numpy as np
 from ppocronnx.predict_system import TextSystem
 
@@ -32,22 +31,22 @@ class RuleOcr:
         获取坐标, 从roi随机获取坐标
         :return:
         """
-        tl_x, tl_y, br_x, br_y = self.roi
-        x = np.random.randint(tl_x, br_x)
-        y = np.random.randint(tl_y, br_y)
+        x, y, w, h = self.roi
+        x += np.random.randint(0, w)
+        y += np.random.randint(0, h)
         return x, y
 
     def crop(self, screenshot: np.array) -> np.array:
         """
         截取图片
         """
-        tl_x, tl_y, br_x, br_y = self.roi
-        return screenshot[tl_y: br_y, tl_x: br_x]
+        x, y, w, h = self.roi
+        return screenshot[y: y + h, x: x + w]
 
     def ocr_single(self, screenshot) -> str:
         screenshot = self.crop(screenshot)
         res = text_sys.ocr_single_line(screenshot)
-        # print(f"text detected: {res}")
+        logger.info(f"<ocr> result: {res[0]}")
         return res[0]
 
     def digit_counter(self, screenshot) -> list:

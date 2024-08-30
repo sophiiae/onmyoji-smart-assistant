@@ -1,8 +1,5 @@
 import copy
 from functools import cached_property
-import os
-from pathlib import Path
-from typing import List
 from datetime import datetime, timedelta
 import operator
 from threading import Lock
@@ -62,7 +59,6 @@ class Config(ConfigState):
             pending_task = TaskScheduler.schedule(rule=self.model.script.optimization.schedule_rule,
                                                   pending=pending_task)
         if waiting_task:
-            # waiting_task = f.apply(waiting_task)
             waiting_task = sorted(
                 waiting_task, key=operator.attrgetter("next_run"))
 

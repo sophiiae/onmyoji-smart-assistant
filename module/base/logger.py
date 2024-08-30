@@ -8,12 +8,15 @@ class CustomFormatter(logging.Formatter):
     bold_red = "\x1b[31;1m"
     reset = "\x1b[0m"
     format = "%(asctime)s | %(levelname)s: %(message)s"
+    error_info = "%(asctime)s | %(levelname)s: %(message)s | %(pathname)s : %(lineno)s"
+
+    debug_info = "%(asctime)s | %(levelname)s: %(message)s | %(lineno)s"
 
     FORMATS = {
         logging.DEBUG: grey + format + reset,
-        logging.INFO: grey + format + reset,
+        logging.INFO: grey + debug_info + reset,
         logging.WARNING: yellow + format + reset,
-        logging.ERROR: red + format + reset,
+        logging.ERROR: red + error_info + reset,
         logging.CRITICAL: bold_red + format + reset
     }
 
@@ -23,7 +26,7 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-debug_mode = False
+debug_mode = True
 
 logger = logging.getLogger("osa")
 logger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
@@ -38,6 +41,3 @@ logger.addHandler(console_handler)
 if debug_mode:
     logging.basicConfig(level=logging.DEBUG, filename="app.log",
                         filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-    # file_handler = logging.FileHandler("app.log", mode="a", encoding="utf-8")
-    # file_handler.setLevel(logging.DEBUG)
-    # logger.addHandler(file_handler)

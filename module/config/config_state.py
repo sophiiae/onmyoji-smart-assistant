@@ -1,6 +1,5 @@
 from module.config.function import Function
 
-
 class ConfigState:
     """
     这个类用于 先定义运行过程中所需要的变量
