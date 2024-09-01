@@ -1,8 +1,10 @@
+from datetime import datetime, timedelta
 from functools import cached_property
 import random
 import time
 from module.base.logger import logger
 from module.base.exception import TaskEnd
+from module.image_processing.rule_image import RuleImage
 from tasks.general.general import General
 from tasks.realm_raid.assets import RealmRaidAssets
 from tasks.general.page import page_realm_raid, page_main
@@ -75,7 +77,9 @@ class TaskScript(General, RealmRaidAssets):
 
                     self.toggle_team_lock()  # 锁上
                 else:
-                    if not self.start_fight(attack_index):
+                    logger.info(f"----- Attacking index {attack_index - 1}.")
+                    target = self.partitions[attack_index - 1]
+                    if not self.start_fight(target):
                         success = False
                         continue
 
@@ -91,6 +95,48 @@ class TaskScript(General, RealmRaidAssets):
         self.goto(page_main)
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd(self.name)
+
+    def run_three_win(self):
+        if not self.check_page_appear(page_realm_raid):
+            self.goto(page_realm_raid)
+
+        image = self.screenshot()
+        ticket, total = self.O_RAID_TICKET.digit_counter(image)
+
+        refresh_time = None
+        if self.wait_until_appear(self.I_RAID_WIN3, 1):
+            self.click_refresh()
+            refresh_time = datetime.now()
+
+        self.toggle_team_lock()  # Lock team
+        count = 3
+        # 打乱挑战顺序， 更随机~
+        attack_list = self.order.copy()
+        random.shuffle(attack_list)
+
+        while ticket:
+            index = attack_list.pop()
+            target = self.partitions[index - 1]
+
+            if not self.start_fight(target):
+                continue
+            else:
+                count -= 1
+                ticket -= 1
+            if count == 0:
+                if self.click_refresh():
+                    refresh_time = datetime.now()
+                    count = 3
+                    attack_list = self.order.copy()
+                    random.shuffle(attack_list)
+                else:
+                    if refresh_time + timedelta(minutes=5) < datetime.now():
+                        break
+
+        logger.critical(
+            "No enough ticket for a round"
+        )
+        exit()
 
     # 第一次进突破界面的时候，扫描，记录目前的挑战情况
     def update_partition_prop(self, image):
@@ -161,20 +207,21 @@ class TaskScript(General, RealmRaidAssets):
                 i += 1
         return parts
 
-    def start_fight(self, index) -> bool:
-        logger.info(f"----- Attacking index {index}.")
-        self.click(self.partitions[index - 1])
+    def start_fight(self, target: RuleImage) -> bool:
+        """开始战斗, 挑战成功返回True, 失败返回False
+        Args:
+            target (RuleImage): 
+        """
+        self.click(target)
 
         if self.wait_until_click(self.I_RAID_ATTACK, 2, delay=1):
-            time.sleep(13)
-
             # 等待挑战失败或者成功， 失败直接退出
-            if self.wait_for_result(self.I_FIGHT_REWARD, self.I_RAID_FIGHT_AGAIN, 300, 1):
+            if self.wait_for_result(self.I_FIGHT_REWARD, self.I_RAID_FIGHT_AGAIN, 300):
                 self.get_reward()
                 return True
-            else:
-                self.click(self.I_RAID_BATTLE_EXIT)
-                return False
+
+            self.click(self.I_RAID_BATTLE_EXIT)
+            return False
 
         logger.error("Not able to attack")
         raise RequestHumanTakeover
@@ -248,7 +295,7 @@ class TaskScript(General, RealmRaidAssets):
                 self.click(part, 0.3)
 
                 if self.wait_until_click(self.I_RAID_ATTACK):
-                    if not self.wait_until_click(self.I_RAID_BATTLE_EXIT):
+                    if not self.wait_until_click(self.I_RAID_BATTLE_EXIT, interval=1):
                         logger.error("Not able to exit the battle")
                         raise RequestHumanTakeover
 
@@ -286,8 +333,8 @@ class TaskScript(General, RealmRaidAssets):
         如果在CD中, 就返回False
         :return:
         """
-        if self.wait_until_click(self.I_RAID_REFRESH, wait_after=1):
-            if self.wait_until_click(self.I_RAID_AGAIN_CONFIRM):
+        if self.wait_until_click(self.I_RAID_REFRESH):
+            if self.wait_until_click(self.I_RAID_AGAIN_CONFIRM, 2):
                 return True
             else:
                 logger.warning("Unable to refresh, waiting for CD.")

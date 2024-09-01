@@ -184,7 +184,7 @@
   {
     "name": "realm_medal_0",
     "type": "image",
-    "roi": "220, 150, 195, 38",
+    "roi": "237, 346, 229, 49",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_0.png",
     "description": "0个勋章"
@@ -192,7 +192,7 @@
   {
     "name": "realm_medal_1",
     "type": "image",
-    "roi": "239, 350, 195, 38",
+    "roi": "238, 346, 228, 49",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_1.png",
     "description": "1个勋章"
@@ -200,7 +200,7 @@
   {
     "name": "realm_medal_2",
     "type": "image",
-    "roi": "572, 485, 195, 38",
+    "roi": "902, 481, 228, 48",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_2.png",
     "description": "2个勋章"
@@ -208,7 +208,7 @@
   {
     "name": "realm_medal_3",
     "type": "image",
-    "roi": "240, 485, 195, 38",
+    "roi": "902, 481, 228, 49",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_3.png",
     "description": "3个勋章"
@@ -216,7 +216,7 @@
   {
     "name": "realm_medal_4",
     "type": "image",
-    "roi": "572, 350, 195, 38",
+    "roi": "901, 211, 229, 48",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_4.png",
     "description": "4个勋章"
@@ -224,7 +224,7 @@
   {
     "name": "realm_medal_5",
     "type": "image",
-    "roi": "240, 216, 195, 37",
+    "roi": "570, 211, 228, 49",
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_5.png",
     "description": "5个勋章"

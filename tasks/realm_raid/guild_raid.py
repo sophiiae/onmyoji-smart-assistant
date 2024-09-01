@@ -23,7 +23,7 @@ class GuildRaid(TaskScript):
         while total > 0:
             if retry > 5:
                 break
-            if self.wait_until_click(self.I_REALM_MEDAL_0, 1):
+            if self.wait_until_click(self.I_REALM_MEDAL_5, 1):
                 time.sleep(0.4)
                 if not self.wait_until_appear(self.I_RAID_ATTACK, 1, threshold=0.95):
                     self.swipe(self.S_RAID_UP, duration=700)

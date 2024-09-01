@@ -60,9 +60,10 @@ class TaskBase(MainPageAssets):
                 continue
         return True
 
-    def appear(self, target: RuleImage, threshold: float = 0.9) -> bool:
+    def appear(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1) -> bool:
         if not isinstance(target, RuleImage):
             return False
+        time.sleep(0.1)
         screenshot = self.device.image
         if screenshot is None:
             screenshot = self.screenshot()

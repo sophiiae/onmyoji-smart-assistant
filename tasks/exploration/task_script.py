@@ -43,7 +43,7 @@ class TaskScript(General, EA):
                 self.check_treasure_box()
             else:
                 # 出现章节入口 -> 没有发现 -> 关闭
-                self.wait_until_click(EA.I_EXP_CHAPTER_DISMISS_ICON, 2)
+                self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
             count += 1
 
@@ -57,7 +57,7 @@ class TaskScript(General, EA):
 
     def open_chapter_entrance(self) -> bool:
         if self.wait_until_appear(self.I_C_EXP, 2, 1):
-            if not self.wait_until_click(EA.I_EXP_CHAPTER_28):
+            if not self.wait_until_click(self.I_EXP_CHAPTER_28):
                 logger.error(":: Fatal: CH 28 not found! ::")
                 return False
             return True
@@ -73,34 +73,34 @@ class TaskScript(General, EA):
             got_reward = self.wait_until_appear(
                 self.I_FIGHT_REWARD, 3)
             if got_reward:   # 领取宝箱物品
-                time.sleep(1)
+                time.sleep(0.7)
                 self.random_click_right()
 
     def enter_chapter(self):
         # 点击 “探索” 按钮进入章节
-        if not self.wait_until_appear(EA.I_EXP_BUTTON):
+        if not self.wait_until_appear(self.I_EXP_BUTTON):
             logger.error("Cannot find chapter exploration button")
             raise RequestHumanTakeover
 
-        self.click(EA.I_EXP_BUTTON)
+        self.click(self.I_EXP_BUTTON)
         time.sleep(0.5)
         logger.info("Start battle...")
         swipe_count = 0
         while 1:
-            if not (self.wait_until_appear(EA.I_AUTO_ROTATE_ON, 1)
-                    or self.wait_until_appear(EA.I_AUTO_ROTATE_OFF, 1)):
+            if not (self.wait_until_appear(self.I_AUTO_ROTATE_ON, 1)
+                    or self.wait_until_appear(self.I_AUTO_ROTATE_OFF, 1)):
                 logger.warning(
                     "***** Not inside chapter or battle finished.")
                 raise RequestHumanTakeover
 
             # BOSS 挑战
-            if self.appear(EA.I_EXP_BOSS):
+            if self.appear(self.I_EXP_BOSS):
                 time.sleep(1)
-                self.appear_then_click(EA.I_EXP_BOSS)
+                self.appear_then_click(self.I_EXP_BOSS)
 
                 if self.fight():
                     if self.wait_until_appear(
-                        EA.I_EXP_CHAPTER_DISMISS_ICON, 1
+                        self.I_EXP_CHAPTER_DISMISS_ICON, 1
                     ) or self.appear(self.I_C_EXP, threshold=0.95):
                         return
                     else:
@@ -109,7 +109,7 @@ class TaskScript(General, EA):
                 else:
                     raise RequestHumanTakeover
             # 普通怪挑战
-            if self.appear_then_click(EA.I_EXP_BATTLE):
+            if self.appear_then_click(self.I_EXP_BATTLE):
                 self.fight()
 
             # 如果超过滑动次数
@@ -126,10 +126,10 @@ class TaskScript(General, EA):
         found = False
         time.sleep(2)
         for _ in range(3):
-            if self.wait_until_appear(self.I_C_EXP, 2) or self.wait_until_appear(self.I_EXP_CHAPTER_DISMISS_ICON, 1):
+            if self.wait_until_appear(self.I_C_EXP, 1) or self.wait_until_appear(self.I_EXP_CHAPTER_DISMISS_ICON, 1):
                 break
 
-            if self.wait_until_click(self.I_EXP_CHAP_REWARD, interval=0.5, wait_after=1):
+            if self.wait_until_click(self.I_EXP_CHAP_REWARD, 2, interval=0.5, wait_after=1):
                 if self.wait_until_appear(self.I_EXP_GAIN_REWARD, 1):
                     self.random_click_right()
                     found = True
@@ -140,7 +140,7 @@ class TaskScript(General, EA):
 
     def fight(self) -> bool:
         # 等战斗结束
-        time.sleep(8)
+        time.sleep(3)
 
         # 领取战斗奖励，需要等动画
         if self.wait_until_appear(self.I_FIGHT_REWARD, 100, interval=0.5):

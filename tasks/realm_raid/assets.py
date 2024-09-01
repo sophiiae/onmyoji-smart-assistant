@@ -167,37 +167,37 @@ class RealmRaidAssets:
 	)
 	# 0个勋章 
 	I_REALM_MEDAL_0 = RuleImage(
-		roi=(220, 150, 195, 38),
+		roi=(237, 346, 229, 49),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_0.png"
 	)
 	# 1个勋章 
 	I_REALM_MEDAL_1 = RuleImage(
-		roi=(239, 350, 195, 38),
+		roi=(238, 346, 228, 49),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_1.png"
 	)
 	# 2个勋章 
 	I_REALM_MEDAL_2 = RuleImage(
-		roi=(572, 485, 195, 38),
+		roi=(902, 481, 228, 48),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_2.png"
 	)
 	# 3个勋章 
 	I_REALM_MEDAL_3 = RuleImage(
-		roi=(240, 485, 195, 38),
+		roi=(902, 481, 228, 49),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_3.png"
 	)
 	# 4个勋章 
 	I_REALM_MEDAL_4 = RuleImage(
-		roi=(572, 350, 195, 38),
+		roi=(901, 211, 229, 48),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_4.png"
 	)
 	# 5个勋章 
 	I_REALM_MEDAL_5 = RuleImage(
-		roi=(240, 216, 195, 37),
+		roi=(570, 211, 228, 49),
 		area=(210, 130, 940, 400),
 		file="./tasks/realm_raid/res/medals/medal_5.png"
 	)
