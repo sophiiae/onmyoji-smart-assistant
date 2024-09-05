@@ -15,8 +15,8 @@ class ExplorationAssets:
 	)
 	# 第二十八章位置（在最底下的时候） 
 	I_EXP_CHAPTER_28 = RuleImage(
-		roi=(1058, 555, 189, 94),
-		area=(1011, 508, 263, 188),
+		roi=(1058, 493, 189, 94),
+		area=(1011, 446, 268, 188),
 		file="./tasks/exploration/res/exp_28.png"
 	)
 	# 探索困难模式按钮(已选) 

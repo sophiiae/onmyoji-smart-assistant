@@ -14,7 +14,7 @@ class Colla(TaskScript):
 
         fight_count = 0
         while fight_count < 10:
-            self.open_chapter_entrance()
+            self.click(self.I_EXP_CHAPTER_28)
 
             fight_count = self.colla_enter_chapter(fight_count)
 

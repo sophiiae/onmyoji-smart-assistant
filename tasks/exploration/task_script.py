@@ -56,7 +56,7 @@ class TaskScript(General, EA):
         raise TaskEnd(self.name)
 
     def open_chapter_entrance(self) -> bool:
-        if self.wait_until_appear(self.I_C_EXP, 2, 1):
+        if self.wait_until_appear(self.I_C_EXP, 2):
             if not self.wait_until_click(self.I_EXP_CHAPTER_28):
                 logger.error(":: Fatal: CH 28 not found! ::")
                 return False
