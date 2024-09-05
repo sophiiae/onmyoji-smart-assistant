@@ -31,6 +31,24 @@ class GeneralAssets:
 		area=(665, 595, 220, 105),
 		file="./tasks/general/res/summon_again.png"
 	)
+	# 红色X 
+	I_B_RED_X = RuleImage(
+		roi=(1184, 112, 46, 46),
+		area=(1161, 89, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
+	)
+	# 蓝色<退出 
+	I_B_BLUE_LEFT_ANGLE = RuleImage(
+		roi=(24, 36, 53, 44),
+		area=(0, 14, 106, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
+	# 黄色<退出 
+	I_B_YELLOW_LEFT_ANGLE = RuleImage(
+		roi=(34, 9, 42, 41),
+		area=(10, 0, 86, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
+	)
 
 	# Ocr Rule Assets
 	# 普通召唤票数量 

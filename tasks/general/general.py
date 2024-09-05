@@ -13,10 +13,9 @@ from tasks.task_base import TaskBase
 class General(TaskBase, GeneralAssets, PageMap):
     ui_current: Page = None
     ui_close = [
-        GeneralAssets.I_V_EXP_TO_MAIN, GeneralAssets.I_V_GUILD_TO_MAIN,
-        GeneralAssets.I_V_STORE_TO_MAIN, GeneralAssets.I_V_REALM_RAID_TO_EXP,
+        GeneralAssets.I_V_EXP_TO_MAIN, GeneralAssets.I_V_REALM_RAID_TO_EXP,
         MainPageAssets.I_STORE_EXIT, GeneralAssets.I_V_SLEEP_TO_MAIN,
-        ExplorationAssets.I_EXP_CHAPTER_DISMISS_ICON
+        GeneralAssets.I_B_BLUE_LEFT_ANGLE, GeneralAssets.I_B_RED_X, GeneralAssets.I_B_YELLOW_LEFT_ANGLE
     ]
 
     def check_page_appear(self, page, check_delay: float = 0.01):

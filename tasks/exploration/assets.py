@@ -121,6 +121,12 @@ class ExplorationAssets:
 		area=(430, 300, 440, 300),
 		file="./tasks/exploration/res/exp_chap_reward.png"
 	)
+	# 章节内小标志 
+	I_EXP_C_CHAPTER = RuleImage(
+		roi=(26, 555, 29, 45),
+		area=(12, 541, 57, 73),
+		file="./tasks/exploration/res/exp_c_chapter.png"
+	)
 
 	# Ocr Rule Assets
 	# 探索界面突破票数量 

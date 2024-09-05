@@ -149,5 +149,12 @@
     "area": "430, 300, 440, 300",
     "file": "./tasks/exploration/res/exp_chap_reward.png",
     "description": "探索章节内发现物品"
+  },
+  {
+    "name": "exp_c_chapter",
+    "roi": "26, 555, 29, 45",
+    "area": "12, 541, 57, 73",
+    "file": "./tasks/exploration/res/exp_c_chapter.png",
+    "description": "章节内小标志"
   }
 ]
