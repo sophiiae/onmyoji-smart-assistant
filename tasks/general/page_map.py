@@ -7,7 +7,8 @@ class PageMap():
     def MAP(self):
         return {
             page_main: [page_exp, page_summon, page_store],
-            page_exp: [page_realm_raid, page_main],
+            page_exp: [page_realm_raid, page_main, page_chapter_entrance],
+            page_chapter_entrance: [page_exp],
             page_realm_raid: [page_exp, page_guild_raid],
             page_guild_raid: [page_realm_raid],
             page_store: [page_main],

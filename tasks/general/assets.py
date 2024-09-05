@@ -59,6 +59,12 @@ class GeneralAssets:
 		area=(42, 622, 89, 81),
 		file="./tasks/general/res/check/c_exp.png"
 	)
+	# 章节入口探索标志 
+	I_C_EXP_MODAL = RuleImage(
+		roi=(1064, 233, 62, 108),
+		area=(1033, 202, 124, 170),
+		file="./tasks/general/res/check/c_exp_modal.png"
+	)
 	# 商店街建筑 
 	I_C_MARKET = RuleImage(
 		roi=(258, 470, 58, 44),
@@ -95,11 +101,11 @@ class GeneralAssets:
 		area=(484, 558, 306, 74),
 		file=""
 	)
-	# 商店界面退出 
-	I_V_STORE_TO_MAIN = RuleImage(
-		roi=(24, 36, 53, 44),
-		area=(0, 14, 106, 88),
-		file="./tasks/general/res/goto/v_store_to_main.png"
+	# 召唤页面退出 
+	I_V_SUMMON_TO_MAIN = RuleImage(
+		roi=(34, 9, 42, 41),
+		area=(14, 0, 82, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
 	)
 	# 主界面探索灯笼 
 	I_V_MAIN_TO_EXP = RuleImage(
@@ -107,11 +113,23 @@ class GeneralAssets:
 		area=(490, 58, 600, 174),
 		file="./tasks/general/res/goto/v_main_to_exp.png"
 	)
+	# 探索章节入口退出 
+	I_V_EXP_MODAL_TO_EXP = RuleImage(
+		roi=(1025, 129, 46, 46),
+		area=(1002, 106, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
+	)
 	# 探索界面返回主界面 
 	I_V_EXP_TO_MAIN = RuleImage(
 		roi=(30, 36, 53, 44),
 		area=(4, 14, 106, 88),
-		file="./tasks/general/res/goto/v_exp_to_main.png"
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
+	# 第二十八章位置（在最底下的时候） 
+	I_V_EXP_TO_CH28 = RuleImage(
+		roi=(1058, 493, 189, 94),
+		area=(1011, 446, 268, 188),
+		file="./tasks/general/res/goto/v_exp_to_ch28.png"
 	)
 	# 主界面阴阳寮入口 
 	I_V_MAIN_TO_GUILD = RuleImage(
@@ -119,23 +137,11 @@ class GeneralAssets:
 		area=(518, 576, 94, 106),
 		file="./tasks/general/res/goto/v_main_to_guild.png"
 	)
-	# 退出阴阳寮 
-	I_V_GUILD_TO_MAIN = RuleImage(
-		roi=(30, 18, 42, 41),
-		area=(9, 0, 84, 82),
-		file="./tasks/general/res/goto/v_guild_summon_to_main.png"
-	)
 	# 主界面召唤灯笼 
 	I_V_MAIN_TO_SUMMON = RuleImage(
 		roi=(1081, 170, 35, 76),
 		area=(1064, 132, 70, 152),
 		file="./tasks/general/res/goto/v_main_to_summon.png"
-	)
-	# 召唤返回主界面 
-	I_V_SUMMON_TO_MAIN = RuleImage(
-		roi=(34, 10, 43, 40),
-		area=(12, 0, 86, 80),
-		file="./tasks/general/res/goto/v_guild_summon_to_main.png"
 	)
 	# 主界面町中入口 
 	I_V_MAIN_TO_TOWN = RuleImage(
@@ -149,11 +155,11 @@ class GeneralAssets:
 		area=(222, 609, 116, 104),
 		file="./tasks/general/res/goto/v_exp_to_realm_raid.png"
 	)
-	# 退出个人突破 
+	# 结界突破退出 
 	I_V_REALM_RAID_TO_EXP = RuleImage(
 		roi=(1184, 112, 46, 46),
 		area=(1161, 89, 92, 92),
-		file="./tasks/general/res/goto/v_realm_raid_to_exp.png"
+		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 寮突破按钮 
 	I_V_REALM_RAID_TO_GUILD_RAID = RuleImage(
@@ -178,6 +184,12 @@ class GeneralAssets:
 		roi=(643, 616, 68, 56),
 		area=(609, 588, 136, 112),
 		file="./tasks/general/res/goto/v_main_to_store.png"
+	)
+	# 商店街退出 
+	I_V_MARKET_TO_MAIN = RuleImage(
+		roi=(24, 36, 53, 44),
+		area=(2, 14, 97, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
 	)
 
 
