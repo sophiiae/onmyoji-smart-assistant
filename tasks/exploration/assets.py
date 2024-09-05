@@ -127,6 +127,12 @@ class ExplorationAssets:
 		area=(12, 541, 57, 73),
 		file="./tasks/exploration/res/exp_c_chapter.png"
 	)
+	# 探索战斗鬼火总量 
+	I_EXP_FIGHT = RuleImage(
+		roi=(557, 688, 28, 26),
+		area=(544, 675, 54, 52),
+		file="./tasks/exploration/res/exp_fight.png"
+	)
 
 	# Ocr Rule Assets
 	# 探索界面突破票数量 

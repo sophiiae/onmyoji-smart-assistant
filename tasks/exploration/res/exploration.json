@@ -156,5 +156,12 @@
     "area": "12, 541, 57, 73",
     "file": "./tasks/exploration/res/exp_c_chapter.png",
     "description": "章节内小标志"
+  },
+  {
+    "name": "exp_fight",
+    "roi": "557, 688, 28, 26",
+    "area": "544, 675, 54, 52",
+    "file": "./tasks/exploration/res/exp_fight.png",
+    "description": "探索战斗鬼火总量"
   }
 ]
