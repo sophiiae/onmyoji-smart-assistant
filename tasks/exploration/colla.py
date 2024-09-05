@@ -29,7 +29,7 @@ class Colla(TaskScript):
                 self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 1)
 
         if self.wait_until_appear(self.I_AUTO_ROTATE_ON, 1) or self.wait_until_appear(self.I_AUTO_ROTATE_OFF, 1):
-            self.appear_then_click(self.I_V_STORE_TO_MAIN)
+            self.appear_then_click(self.I_B_BLUE_LEFT_ANGLE)
             if not self.wait_until_click(self.I_EXP_CHAPTER_EXIT_CONFIRM):
                 logger.critical("Not able to exit chapter")
                 exit()
