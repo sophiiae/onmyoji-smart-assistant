@@ -40,6 +40,12 @@ class Battle(TaskBase, BattleAssets):
             self.click(action_click)
             return win
 
+        if not self.wait_until_appear(self.I_BATTLE_REWARD, 1.2):
+            action_click = random.choice(
+                [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
+            self.click(action_click)
+            return win
+
         logger.info("Get reward")
         got_reward = False
         while 1:

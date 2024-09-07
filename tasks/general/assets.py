@@ -102,6 +102,12 @@ class GeneralAssets:
 		area=(1154, 614, 114, 90),
 		file="./tasks/general/res/check/c_sleep.png"
 	)
+	# 英杰试炼源氏补给图标 
+	I_C_MINAMOTO = RuleImage(
+		roi=(60, 615, 46, 50),
+		area=(37, 592, 92, 96),
+		file="./tasks/general/res/check/c_minamoto.png"
+	)
 	# 登录界面进入游戏 
 	I_V_LOGIN_TO_MAIN = RuleImage(
 		roi=(561, 577, 153, 37),
@@ -197,6 +203,18 @@ class GeneralAssets:
 		roi=(24, 36, 53, 44),
 		area=(2, 14, 97, 88),
 		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
+	# 英杰试炼入口 
+	I_V_EXP_TO_MINAMOTO = RuleImage(
+		roi=(837, 639, 60, 46),
+		area=(814, 616, 106, 92),
+		file="./tasks/general/res/goto/v_exp_to_minamoto.png"
+	)
+	# 英杰试炼退出 
+	I_V_MINAMOTO_TO_EXP = RuleImage(
+		roi=(20, 16, 42, 41),
+		area=(0, -4, 82, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
 	)
 
 

@@ -69,3 +69,8 @@ page_login.link(button=G.I_V_LOGIN_TO_MAIN, destination=page_main)
 # 休眠页面 Sleep
 page_sleep = Page(G.I_C_SLEEP)
 page_sleep.link(button=G.I_V_SLEEP_TO_MAIN, destination=page_main)
+
+# 英杰试炼
+page_minamoto = Page(G.I_C_MINAMOTO)
+page_minamoto.link(button=G.I_V_MINAMOTO_TO_EXP, destination=page_exp)
+page_exp.link(button=G.I_V_EXP_TO_MINAMOTO, destination=page_minamoto)

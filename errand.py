@@ -4,7 +4,8 @@ from module.server.device import Device
 from tasks.general.summon import Summon
 from tasks.realm_raid.guild_raid import GuildRaid
 from tasks.exploration.colla import Colla
-from tasks.realm_raid.task_script import TaskScript
+from tasks.realm_raid.task_script import TaskScript as RR
+from tasks.minamoto.task_script import TaskScript as MINAMOTO
 
 from module.base.logger import logger
 
@@ -37,8 +38,16 @@ def RunThreeWindRealmRaid(config_name: str):
 
     c = Config(config_name)
     d = Device(c)
-    rr = TaskScript(c, d)
+    rr = RR(c, d)
     rr.run_three_win()
+
+def RunMinamoto(config_name: str):
+    logger.info(f"Start running minamoto for script: {config_name}")
+
+    c = Config(config_name)
+    d = Device(c)
+    minamoto = MINAMOTO(c, d)
+    minamoto.run()
 
 
 if __name__ == "__main__":
@@ -55,11 +64,15 @@ if __name__ == "__main__":
                 RunColla(name)
             case '-r':
                 RunThreeWindRealmRaid(name)
+            case '-m':
+                RunMinamoto(name)
             case 'help':
                 logger.warning("Args[0]: config name")
                 logger.warning(
                     "Args[1]: -g: run guild raid | -r: run 3 win realm raid")
                 logger.warning(
                     "Agrs[1]: -s: run regular summon | -c: run daily collaboration")
+                logger.warning(
+                    "Agrs[1]: -m: run minamoto")
             case _:
                 logger.warning("Missing args, try 'help' for instruction")

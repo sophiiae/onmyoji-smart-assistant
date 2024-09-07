@@ -65,6 +65,13 @@
     "description": "休眠模式音乐按钮"
   },
   {
+    "name": "c_minamoto",
+    "roi": "60, 615, 46, 50",
+    "area": "37, 592, 92, 96",
+    "file": "./tasks/general/res/check/c_minamoto.png",
+    "description": "英杰试炼源氏补给图标"
+  },
+  {
     "name": "v_login_to_main",
     "type": "image",
     "roi": "561, 577, 153, 37",
@@ -185,5 +192,19 @@
     "area": "2, 14, 97, 88",
     "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
     "description": "商店街退出"
+  },
+  {
+    "name": "v_exp_to_minamoto",
+    "roi": "837, 639, 60, 46",
+    "area": "814, 616, 106, 92",
+    "file": "./tasks/general/res/goto/v_exp_to_minamoto.png",
+    "description": "英杰试炼入口"
+  },
+  {
+    "name": "v_minamoto_to_exp",
+    "roi": "20, 16, 42, 41",
+    "area": "0, -4, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "英杰试炼退出"
   }
 ]
