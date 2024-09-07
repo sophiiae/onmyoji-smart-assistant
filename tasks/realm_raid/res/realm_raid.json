@@ -10,8 +10,8 @@
   {
     "name": "raid_refresh",
     "type": "image",
-    "roi": "963, 569, 172, 57",
-    "area": "877, 540, 344, 114",
+    "roi": "959, 566, 180, 67",
+    "area": "925, 532, 248, 135",
     "file": "./tasks/realm_raid/res/raid_refresh.png",
     "description": "个人突破刷新"
   },
@@ -32,20 +32,19 @@
     "description": "突破队伍未锁定"
   },
   {
+    "name": "raid_attack_modal",
+    "roi": "510, 489, 275, 91",
+    "area": "150, 310, 1130, 409",
+    "file": "./tasks/realm_raid/res/raid_attack_modal.png",
+    "description": "进攻小窗口"
+  },
+  {
     "name": "raid_attack",
     "type": "image",
-    "roi": "987, 361, 124, 53",
+    "roi": "982, 491, 135, 66",
     "area": "150, 150, 1030, 569",
     "file": "./tasks/realm_raid/res/raid_attack.png",
     "description": "进攻"
-  },
-  {
-    "name": "raid_fight_again",
-    "type": "image",
-    "roi": "827, 476, 63, 72",
-    "area": "796, 440, 126, 144",
-    "file": "./tasks/realm_raid/res/raid_fight_again.png",
-    "description": "再次挑战"
   },
   {
     "name": "raid_beat",
@@ -68,30 +67,6 @@
     "area": "520, 322, 72, 74",
     "file": "./tasks/realm_raid/res/raid_warning_checkbox.png",
     "description": "今天不再提示勾选"
-  },
-  {
-    "name": "raid_again_confirm",
-    "type": "image",
-    "roi": "672, 403, 172, 57",
-    "area": "586, 374, 344, 114",
-    "file": "./tasks/realm_raid/res/raid_again_confirm.png",
-    "description": "再次挑战确认"
-  },
-  {
-    "name": "raid_battle_exit_confirm",
-    "type": "image",
-    "roi": "679, 396, 124, 52",
-    "area": "617, 370, 248, 104",
-    "file": "./tasks/realm_raid/res/raid_battle_exit_confirm.png",
-    "description": "退出战斗确认"
-  },
-  {
-    "name": "raid_battle_exit",
-    "type": "image",
-    "roi": "21, 17, 35, 33",
-    "area": "4, 0, 70, 66",
-    "file": "./tasks/realm_raid/res/raid_battle_exit.png",
-    "description": "突破战斗退出"
   },
   {
     "name": "raid_partition_1_whole",

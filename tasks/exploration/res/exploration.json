@@ -128,13 +128,6 @@
     "description": "困28探索界面宝箱区域"
   },
   {
-    "name": "exp_battle_win",
-    "roi": "411, 122, 172, 129",
-    "area": "325, 58, 344, 258",
-    "file": "./tasks/exploration/res/exp_battle_win.png",
-    "description": "战斗胜利图标"
-  },
-  {
     "name": "exp_gain_reward",
     "type": "image",
     "roi": "476, 233, 329, 42",
@@ -146,7 +139,7 @@
     "name": "exp_chap_reward",
     "type": "image",
     "roi": "635, 489, 33, 21",
-    "area": "430, 300, 440, 300",
+    "area": "430, 300, 450, 300",
     "file": "./tasks/exploration/res/exp_chap_reward.png",
     "description": "探索章节内发现物品"
   },
@@ -156,12 +149,5 @@
     "area": "12, 541, 57, 73",
     "file": "./tasks/exploration/res/exp_c_chapter.png",
     "description": "章节内小标志"
-  },
-  {
-    "name": "exp_fight",
-    "roi": "557, 688, 28, 26",
-    "area": "544, 675, 54, 52",
-    "file": "./tasks/exploration/res/exp_fight.png",
-    "description": "探索战斗鬼火总量"
   }
 ]

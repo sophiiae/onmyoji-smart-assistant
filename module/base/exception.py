@@ -19,3 +19,15 @@ class ScriptError(Exception):
     # This is likely to be a mistake of developers, but sometimes a random issue
     def __init__(self):
         exit()
+
+class GameStuckError(Exception):
+    def __init__(self):
+        exit()
+
+class GameNotRunningError(Exception):
+    def __init__(self):
+        exit()
+
+class GameTooManyClickError(Exception):
+    def __init__(self):
+        exit()

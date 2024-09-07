@@ -1,0 +1,72 @@
+[
+  {
+    "itemName": "win_1",
+    "type": "click",
+    "roi": "30, 130, 170, 110",
+    "area": "30, 130, 170, 110",
+    "description": "top left"
+  },
+  {
+    "itemName": "win_2",
+    "type": "click",
+    "roi": "990, 70, 240, 150",
+    "area": "990, 70, 240, 150",
+    "description": "top right"
+  },
+  {
+    "itemName": "win_3",
+    "type": "click",
+    "roi": "20, 550, 180, 70",
+    "area": "20, 550, 180, 70",
+    "description": "bottom left"
+  },
+  {
+    "itemName": "win_4",
+    "type": "click",
+    "roi": "1070, 550, 200, 150",
+    "area": "1070, 550, 200, 150",
+    "description": "bottom right"
+  },
+  {
+    "itemName": "reward_1",
+    "type": "click",
+    "roi": "30, 40, 210, 560",
+    "area": "30, 40, 210, 560",
+    "description": "left"
+  },
+  {
+    "itemName": "reward_2",
+    "type": "click",
+    "roi": "1070, 60, 200, 570",
+    "area": "1070, 60, 200, 570",
+    "description": "right"
+  },
+  {
+    "itemName": "gain_reward_1",
+    "type": "click",
+    "roi": "30, 100, 270, 550",
+    "area": "30, 100, 270, 550",
+    "description": "left"
+  },
+  {
+    "itemName": "gain_reward_2",
+    "type": "click",
+    "roi": "980, 120, 280, 530",
+    "area": "980, 120, 280, 530",
+    "description": "right"
+  },
+  {
+    "itemName": "battle_1",
+    "type": "click",
+    "roi": "130,90,400,90",
+    "area": "130,90,400,90",
+    "description": "description"
+  },
+  {
+    "itemName": "battle_2",
+    "type": "click",
+    "roi": "1100,60,100,140",
+    "area": "1100,60,100,140",
+    "description": "description"
+  }
+]

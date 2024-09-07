@@ -75,29 +75,17 @@ class General(TaskBase, GeneralAssets, PageMap):
                 logger.info(f'[UI] Page arrive: {destination}')
                 return
 
-            if self.check_page_appear(page):
-                logger.info(f"[UI] We are in page: {page.name}")
-
-            goto_timer = Timer(waiting_limit, int(
-                waiting_limit // 2)).start()
-
             while 1:
                 self.screenshot()
-                if page.check_button is None:
-                    logger.error(
-                        f"[PATH] Not able to find check_button for page {page.name}")
-                    raise GamePageUnknownError
+
+                if self.check_page_appear(path[idx + 1]):
+                    break
 
                 button = page.links[path[idx + 1]]
                 if self.wait_until_click(button, interval=0.2):
                     logger.info(f"[PATH] Heading from {
                                 page.name} to {path[idx + 1].name}.")
                     time.sleep(0.2)
-                    break
-
-                if goto_timer.reached():
-                    logger.error(f"[PATH] {page.name} is not reachable.")
-                    raise GamePageUnknownError
 
 
 if __name__ == '__main__':

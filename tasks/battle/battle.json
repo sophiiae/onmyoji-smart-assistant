@@ -1,0 +1,82 @@
+[
+  {
+    "name": "battle_reward",
+    "type": "image",
+    "roi": "565, 444, 137, 165",
+    "area": "497, 376, 273, 301",
+    "file": "./tasks/battle/res/battle_reward.png",
+    "description": "战斗/突破/宝箱奖励领取图标"
+  },
+  {
+    "name": "battle_ready",
+    "type": "image",
+    "roi": "1135, 565, 87, 46",
+    "area": "1112, 542, 133, 92",
+    "file": "./tasks/battle/res/battle_ready.png",
+    "description": "战斗准备"
+  },
+  {
+    "name": "battle_win",
+    "type": "image",
+    "roi": "411, 122, 172, 129",
+    "area": "325, 58, 344, 258",
+    "file": "./tasks/battle/res/battle_win.png",
+    "description": "战斗胜利图标"
+  },
+  {
+    "name": "battle_failed",
+    "type": "image",
+    "roi": "409, 136, 125, 100",
+    "area": "359, 86, 225, 200",
+    "file": "./tasks/battle/res/battle_failed.png",
+    "description": "战斗失败图标"
+  },
+  {
+    "name": "battle_check",
+    "type": "image",
+    "roi": "557, 688, 28, 26",
+    "area": "544, 675, 54, 52",
+    "file": "./tasks/battle/res/battle_check.png",
+    "description": "探索战斗鬼火总量"
+  },
+  {
+    "name": "battle_exit",
+    "type": "image",
+    "roi": "21, 17, 35, 33",
+    "area": "4, 0, 70, 66",
+    "file": "./tasks/battle/res/battle_exit.png",
+    "description": "突破战斗退出"
+  },
+  {
+    "name": "battle_exit_confirm",
+    "type": "image",
+    "roi": "679, 396, 124, 52",
+    "area": "653, 370, 176, 104",
+    "file": "./tasks/battle/res/battle_exit_confirm.png",
+    "description": "退出战斗确认"
+  },
+  {
+    "name": "battle_fight_again",
+    "type": "image",
+    "roi": "827, 476, 63, 72",
+    "area": "796, 440, 126, 144",
+    "file": "./tasks/battle/res/battle_fight_again.png",
+    "description": "再次挑战"
+  },
+  {
+    "name": "battle_fight_again_confirm",
+    "type": "image",
+    "roi": "672, 403, 172, 57",
+    "area": "586, 374, 344, 114",
+    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "description": "再次挑战确认"
+  },
+  {
+    "name": "battle_gold",
+    "type": "image",
+    "roi": "266, 176, 101, 71",
+    "area": "230, 140, 840, 300",
+    "file": "./tasks/battle/res/battle_gold.png",
+    "description": "战斗金币奖励"
+  }
+]

@@ -70,8 +70,8 @@ class TaskBase(MainPageAssets):
         return target.match_target(screenshot, threshold)
 
     def wait_until_click(self,
-                         target: RuleImage, limit: float = 5, interval: float = 0.4,
-                         delay: float = 0.5, wait_after: float = 0.8,
+                         target: RuleImage, limit: float = 5, interval: float = 0.3,
+                         delay: float = 0.3, wait_after: float = 0.5,
                          threshold: float = 0.9) -> bool:
         """等待出现了再点击，用于不移动的图标
 
@@ -86,7 +86,7 @@ class TaskBase(MainPageAssets):
 
         if self.wait_until_appear(target, limit, interval, threshold=threshold):
             time.sleep(delay)
-            self.click(target)
+            self.appear_then_click(target)
             time.sleep(wait_after)
             return True
 
@@ -170,7 +170,7 @@ class TaskBase(MainPageAssets):
         """
         self.device.screenshot()
         # 判断勾协
-        self._burst()
+        # self._burst()
         return self.device.image
 
     def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 400) -> None:
@@ -187,7 +187,7 @@ class TaskBase(MainPageAssets):
         if interval:
             if swipe.name in self.interval_timer:
                 # 如果传入的限制时间不一样，则替换限制新的传入的时间
-                if self.interval_timer[swipe.name].limit != interval:
+                if self.interval_timer[swipe.name].waiting_limit != interval:
                     self.interval_timer[swipe.name] = Timer(interval)
             else:
                 # 如果没有限制时间，则创建限制时间
