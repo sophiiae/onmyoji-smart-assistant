@@ -58,6 +58,7 @@ class TaskScript(General, EA, Battle):
         raise TaskEnd(self.name)
 
     def check_treasure_box(self):
+        time.sleep(0.5)
         if self.appear_then_click(
             self.I_EXP_TREASURE_BOX_MAP,
             threshold=0.9

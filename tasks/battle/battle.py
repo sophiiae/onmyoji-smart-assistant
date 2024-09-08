@@ -1,6 +1,7 @@
 import random
 import time
 from module.base.logger import logger
+from module.base.timer import Timer
 from tasks.battle.assets import BattleAssets
 from tasks.task_base import TaskBase
 from module.base.exception import RequestHumanTakeover
@@ -40,15 +41,13 @@ class Battle(TaskBase, BattleAssets):
             self.click(action_click)
             return win
 
-        if not self.wait_until_appear(self.I_BATTLE_REWARD, 1.2):
-            action_click = random.choice(
-                [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
-            self.click(action_click)
-            return win
-
         logger.info("Get reward")
+        timeout = Timer(5, 5).start()
         got_reward = False
         while 1:
+            if timeout.reached():
+                break
+
             self.screenshot()
             if got_reward and not self.appear(self.I_BATTLE_REWARD):
                 break
@@ -60,6 +59,9 @@ class Battle(TaskBase, BattleAssets):
                 self.click(action_click)
                 got_reward = True
                 continue
+
+            if self.appear(self.I_BATTLE_WIN):
+                self.click(action_click)
 
         time.sleep(1)
         return win

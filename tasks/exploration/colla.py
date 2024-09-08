@@ -48,41 +48,32 @@ class Colla(TaskScript):
         self.click(self.I_EXP_BUTTON)
         time.sleep(0.5)
         logger.info("Start battle...")
-        swipe_count = 0
         while 1:
             if c > 9:
                 break
-            if not (self.wait_until_appear(self.I_AUTO_ROTATE_ON, 1)
-                    or self.wait_until_appear(self.I_AUTO_ROTATE_OFF, 1)):
+
+            if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 1.5):
                 logger.warning(
                     "***** Not inside chapter or battle finished.")
                 raise RequestHumanTakeover
 
             # BOSS 挑战
             if self.appear(self.I_EXP_BOSS):
-                time.sleep(1)
+                time.sleep(0.6)
                 self.appear_then_click(self.I_EXP_BOSS)
 
-                if self.fight():
+                if self.run_battle():
                     c += 1
-                    if self.wait_until_appear(
-                        self.I_EXP_CHAPTER_DISMISS_ICON, 1
-                    ) or self.appear(self.I_C_EXP, threshold=0.95):
-                        break
-                    else:
-                        self.get_chapter_reward()
-                        break
-                else:
-                    raise RequestHumanTakeover
+                    self.get_chapter_reward()
+                    break
             # 普通怪挑战
             if self.appear_then_click(self.I_EXP_BATTLE):
                 c += 1
-                self.fight()
+                self.run_battle()
 
-            # 如果超过滑动次数
-            elif swipe_count > 10:
-                logger.error("Not able to find fight target")
-                raise RequestHumanTakeover
             else:
                 self.swipe(self.S_EXP_TO_RIGHT)
+
+            time.sleep(0.3)
+
         return c
