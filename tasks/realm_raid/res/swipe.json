@@ -14,17 +14,17 @@
     "description": "寮突破滑到最高"
   },
   {
-    "name": "raid_up",
-    "type": "swipe",
-    "roi_start": "700, 300, 800, 300",
-    "roi_end": "700, 450, 800, 450",
-    "description": "往上翻"
-  },
-  {
     "name": "raid_down",
     "type": "swipe",
-    "roi_start": "700, 450, 800, 450",
-    "roi_end": "700, 300, 800, 300",
+    "roi_start": "700, 400, 800, 500",
+    "roi_end": "700, 300, 800, 400",
     "description": "往下翻"
+  },
+  {
+    "name": "raid_up",
+    "type": "swipe",
+    "roi_start": "700, 300, 800, 400",
+    "roi_end": "700, 400, 800, 500",
+    "description": "往上翻"
   }
 ]

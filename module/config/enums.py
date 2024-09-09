@@ -68,3 +68,17 @@ class ErrorHandleMethod(str, Enum):
 class ScheduleRule(str, Enum):
     FIFO = 'FIFO'  # 先来后到，（按照任务的先后顺序进行调度）
     PRIORITY = 'Priority'  # 基于优先级，同一个优先级的任务按照先来后到的顺序进行调度，优先级高的任务先调度
+
+class BuffClass(Enum):
+    AWAKE = 10  # 觉醒
+    SOUL = 20  # 御魂
+    GOLD_50 = 30  # 金币50
+    GOLD_100 = 40  # 金币100
+    EXP_50 = 50  # 经验50
+    EXP_100 = 60  # 经验100
+    AWAKE_CLOSE = 70  # 觉醒
+    SOUL_CLOSE = 80  # 御魂
+    GOLD_50_CLOSE = 90  # 金币50
+    GOLD_100_CLOSE = 100  # 金币100
+    EXP_50_CLOSE = 110  # 经验50
+    EXP_100_CLOSE = 120  # 经验100

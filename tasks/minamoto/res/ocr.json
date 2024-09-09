@@ -1,0 +1,10 @@
+[
+  {
+    "name": "ghost_level",
+    "type": "text",
+    "roi": "144, 495, 38, 22",
+    "area": "144, 495, 38, 22",
+    "keyword": "",
+    "description": "鬼兵部等级"
+  }
+]

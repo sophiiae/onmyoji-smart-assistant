@@ -2,29 +2,29 @@
   {
     "name": "exp_level_up",
     "type": "swipe",
-    "roi_start": "1047, 549, 1256, 656",
-    "roi_end": "1048, 196, 1256, 299",
+    "roi_start": "1047, 549, 209, 107",
+    "roi_end": "1048, 196, 208, 103",
     "description": "向上滑动章节"
   },
   {
     "name": "exp_level_down",
     "type": "swipe",
-    "roi_start": "1048, 196, 1256, 299",
-    "roi_end": "1047, 549, 1256, 656",
+    "roi_start": "1048, 196, 208, 103",
+    "roi_end": "1047, 549, 209, 107",
     "description": "向下滑动章节"
   },
   {
     "name": "exp_to_right",
     "type": "swipe",
-    "roi_start": "700, 200, 900, 500",
-    "roi_end": "150, 200, 500, 500",
+    "roi_start": "700, 200, 200, 300",
+    "roi_end": "150, 200, 350, 300",
     "description": "往左滑动,往右走"
   },
   {
     "name": "exp_to_left",
     "type": "swipe",
-    "roi_start": "200, 200, 600, 500",
-    "roi_end": "800, 200, 900, 500",
+    "roi_start": "200, 200, 400, 300",
+    "roi_end": "800, 200, 100, 300",
     "description": "往右滑动,往左走"
   }
 ]

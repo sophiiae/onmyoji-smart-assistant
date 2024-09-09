@@ -7,13 +7,15 @@ class PageMap():
     def MAP(self):
         return {
             page_main: [page_exp, page_summon, page_store],
-            page_exp: [page_realm_raid, page_main],
+            page_exp: [page_realm_raid, page_main, page_chapter_entrance, page_minamoto],
+            page_chapter_entrance: [page_exp],
             page_realm_raid: [page_exp, page_guild_raid],
             page_guild_raid: [page_realm_raid],
             page_store: [page_main],
             page_sleep: [page_main],
             page_login: [page_main],
-            page_summon: [page_main]
+            page_summon: [page_main],
+            page_minamoto: [page_exp]
         }
 
     def find_path(self, from_page: Page, to_page: Page, path=[]):

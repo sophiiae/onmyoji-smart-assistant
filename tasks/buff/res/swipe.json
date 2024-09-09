@@ -1,0 +1,9 @@
+[
+  {
+    "name": "buff_up",
+    "type": "swipe",
+    "roi_start": "397,124,456,35",
+    "roi_end": "447,457,386,37",
+    "description": "description"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "team_lock",
+    "type": "image",
+    "roi": "823, 650, 22, 28",
+    "area": "812, 639, 44, 50",
+    "file": "./tasks/minamoto/res/team_lock.png",
+    "description": "队伍锁定"
+  },
+  {
+    "name": "team_unlock",
+    "type": "image",
+    "roi": "825, 652, 17, 23",
+    "area": "817, 644, 33, 39",
+    "file": "./tasks/minamoto/res/team_unlock.png",
+    "description": "队伍不锁定"
+  },
+  {
+    "name": "ghost_challenge",
+    "type": "image",
+    "roi": "1128, 582, 103, 85",
+    "area": "1086, 540, 187, 169",
+    "file": "./tasks/minamoto/res/ghost_challenge.png",
+    "description": "鬼兵演武挑战"
+  },
+  {
+    "name": "bing_challenge",
+    "type": "image",
+    "roi": "1125, 586, 108, 77",
+    "area": "1087, 548, 184, 153",
+    "file": "./tasks/minamoto/res/bing_challenge.png",
+    "description": "兵藏秘境挑战"
+  },
+  {
+    "name": "ghost_ent",
+    "type": "image",
+    "roi": "93, 340, 42, 136",
+    "area": "72, 319, 84, 178",
+    "file": "./tasks/minamoto/res/ghost_ent.png",
+    "description": "鬼兵演武入口"
+  },
+  {
+    "name": "bing_ent",
+    "type": "image",
+    "roi": "1087, 346, 43, 134",
+    "area": "1065, 324, 87, 178",
+    "file": "./tasks/minamoto/res/bing_ent.png",
+    "description": "兵藏秘境入口"
+  }
+]

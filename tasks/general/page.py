@@ -36,6 +36,11 @@ page_exp = Page(G.I_C_EXP)
 page_exp.link(button=G.I_V_EXP_TO_MAIN, destination=page_main)
 page_main.link(button=G.I_V_MAIN_TO_EXP, destination=page_exp)
 
+# 探索章节入口 Exploration Chapter Entrance
+page_chapter_entrance = Page(G.I_C_EXP_MODAL)
+page_chapter_entrance.link(button=G.I_V_EXP_MODAL_TO_EXP, destination=page_exp)
+page_exp.link(button=G.I_V_EXP_TO_CH28, destination=page_chapter_entrance)
+
 # 结界突破 Realm Raid & Guild Raid
 page_guild_raid = Page(G.I_C_GUILD_RAID)
 page_realm_raid = Page(G.I_C_REALM_RAID)
@@ -48,11 +53,10 @@ page_realm_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
 page_guild_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
 
 page_exp.link(button=G.I_V_EXP_TO_REALM_RAID, destination=page_realm_raid)
-page_realm_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
 
 # 商店 Store Street / Market
 page_store = Page(G.I_C_MARKET)
-page_store.link(button=G.I_V_STORE_TO_MAIN, destination=page_main)
+page_store.link(button=G.I_V_MARKET_TO_MAIN, destination=page_main)
 page_main.link(button=G.I_V_MAIN_TO_STORE, destination=page_store)
 
 # 町中 Town - TODO
@@ -65,3 +69,8 @@ page_login.link(button=G.I_V_LOGIN_TO_MAIN, destination=page_main)
 # 休眠页面 Sleep
 page_sleep = Page(G.I_C_SLEEP)
 page_sleep.link(button=G.I_V_SLEEP_TO_MAIN, destination=page_main)
+
+# 英杰试炼
+page_minamoto = Page(G.I_C_MINAMOTO)
+page_minamoto.link(button=G.I_V_MINAMOTO_TO_EXP, destination=page_exp)
+page_exp.link(button=G.I_V_EXP_TO_MINAMOTO, destination=page_minamoto)

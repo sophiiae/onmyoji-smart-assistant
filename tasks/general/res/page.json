@@ -22,6 +22,13 @@
     "description": "探索界面妖标志"
   },
   {
+    "name": "c_exp_modal",
+    "roi": "1064, 233, 62, 108",
+    "area": "1033, 202, 124, 170",
+    "file": "./tasks/general/res/check/c_exp_modal.png",
+    "description": "章节入口探索标志"
+  },
+  {
     "name": "c_market",
     "roi": "258, 470, 58, 44",
     "area": "229, 448, 116, 88",
@@ -58,6 +65,13 @@
     "description": "休眠模式音乐按钮"
   },
   {
+    "name": "c_minamoto",
+    "roi": "60, 615, 46, 50",
+    "area": "37, 592, 92, 96",
+    "file": "./tasks/general/res/check/c_minamoto.png",
+    "description": "英杰试炼源氏补给图标"
+  },
+  {
     "name": "v_login_to_main",
     "type": "image",
     "roi": "561, 577, 153, 37",
@@ -66,12 +80,11 @@
     "description": "登录界面进入游戏"
   },
   {
-    "name": "v_store_to_main",
-    "type": "image",
-    "roi": "24, 36, 53, 44",
-    "area": "0, 14, 106, 88",
-    "file": "./tasks/general/res/goto/v_store_to_main.png",
-    "description": "商店界面退出"
+    "name": "v_summon_to_main",
+    "roi": "34, 9, 42, 41",
+    "area": "14, 0, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "召唤页面退出"
   },
   {
     "name": "v_main_to_exp",
@@ -82,12 +95,27 @@
     "description": "主界面探索灯笼"
   },
   {
+    "name": "v_exp_modal_to_exp",
+    "roi": "1025, 129, 46, 46",
+    "area": "1002, 106, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "探索章节入口退出"
+  },
+  {
     "name": "v_exp_to_main",
     "type": "image",
     "roi": "30, 36, 53, 44",
     "area": "4, 14, 106, 88",
-    "file": "./tasks/general/res/goto/v_exp_to_main.png",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
     "description": "探索界面返回主界面"
+  },
+  {
+    "name": "v_exp_to_ch28",
+    "type": "image",
+    "roi": "1058, 493, 189, 94",
+    "area": "1011, 446, 268, 188",
+    "file": "./tasks/general/res/goto/v_exp_to_ch28.png",
+    "description": "第二十八章位置（在最底下的时候）"
   },
   {
     "name": "v_main_to_guild",
@@ -98,27 +126,12 @@
     "description": "主界面阴阳寮入口"
   },
   {
-    "name": "v_guild_to_main",
-    "type": "image",
-    "roi": "30, 18, 42, 41",
-    "area": "9, 0, 84, 82",
-    "file": "./tasks/general/res/goto/v_guild_summon_to_main.png",
-    "description": "退出阴阳寮"
-  },
-  {
     "name": "v_main_to_summon",
     "type": "image",
     "roi": "1081, 170, 35, 76",
     "area": "1064, 132, 70, 152",
     "file": "./tasks/general/res/goto/v_main_to_summon.png",
     "description": "主界面召唤灯笼"
-  },
-  {
-    "name": "v_summon_to_main",
-    "roi": "34, 10, 43, 40",
-    "area": "12, 0, 86, 80",
-    "file": "./tasks/general/res/goto/v_guild_summon_to_main.png",
-    "description": "召唤返回主界面"
   },
   {
     "name": "v_main_to_town",
@@ -140,8 +153,8 @@
     "name": "v_realm_raid_to_exp",
     "roi": "1184, 112, 46, 46",
     "area": "1161, 89, 92, 92",
-    "file": "./tasks/general/res/goto/v_realm_raid_to_exp.png",
-    "description": "退出个人突破"
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "结界突破退出"
   },
   {
     "name": "v_realm_raid_to_guild_raid",
@@ -172,5 +185,26 @@
     "area": "609, 588, 136, 112",
     "file": "./tasks/general/res/goto/v_main_to_store.png",
     "description": "商店入口"
+  },
+  {
+    "name": "v_market_to_main",
+    "roi": "24, 36, 53, 44",
+    "area": "2, 14, 97, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": "商店街退出"
+  },
+  {
+    "name": "v_exp_to_minamoto",
+    "roi": "837, 639, 60, 46",
+    "area": "814, 616, 106, 92",
+    "file": "./tasks/general/res/goto/v_exp_to_minamoto.png",
+    "description": "英杰试炼入口"
+  },
+  {
+    "name": "v_minamoto_to_exp",
+    "roi": "20, 16, 42, 41",
+    "area": "0, -4, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "英杰试炼退出"
   }
 ]

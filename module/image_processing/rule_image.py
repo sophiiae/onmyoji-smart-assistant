@@ -67,6 +67,14 @@ class RuleImage:
         image = cv2.imread(self.file)
         self._image = image
 
+    def front_center(self) -> tuple:
+        """
+        获取roi_front的中心坐标
+        :return:
+        """
+        x, y, w, h = self.roi
+        return int(x + w // 2), int(y + h // 2)
+
     def get_target_size(self):
         """
         获取目标大小

@@ -29,12 +29,12 @@ class RuleSwipe:
         获取坐标, 从roi_start随机获取坐标 和从roi_end随机获取的坐标
         :return: 两个坐标的tuple
         """
-        start_tl_x, start_tl_y, start_br_x, start_br_y = self.roi_start
-        sx = np.random.randint(start_tl_x, start_br_x)
-        sy = np.random.randint(start_tl_y, start_br_y)
+        x, y, w, h = self.roi_start
+        x = np.random.randint(x, x + w)
+        y = np.random.randint(y, y + h)
 
-        end_tl_x, end_tl_y, end_br_x, end_br_y = self.roi_end
-        ex = np.random.randint(end_tl_x, end_br_x)
-        ey = np.random.randint(end_tl_y, end_br_y)
+        x2, y2, w2, h2 = self.roi_end
+        x2 = np.random.randint(x2, x2 + w2)
+        y2 = np.random.randint(y2, y2 + h2)
 
-        return (sx, sy, ex, ey)
+        return (x, y, x2, y2)

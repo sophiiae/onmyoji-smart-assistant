@@ -26,7 +26,7 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-debug_mode = True
+debug_mode = False
 
 logger = logging.getLogger("osa")
 logger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
