@@ -44,6 +44,7 @@ class GeneralAssets:
 	O_REG_SUMMON_TICKET = RuleOcr(
 		roi=(565, 15, 80, 29),
 		area=(565, 15, 80, 29),
+		keyword="",
 		name="reg_summon_ticket"
 	)
 

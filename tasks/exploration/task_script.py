@@ -2,10 +2,11 @@
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.config.enums import BuffClass
 from tasks.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
 from tasks.general.general import General
-from tasks.general.page import page_exp, page_main
+from tasks.general.page import Page, page_exp, page_main
 
 from datetime import datetime, timedelta
 import time
@@ -27,8 +28,8 @@ class TaskScript(General, EA, Battle):
         else:
             exp_count = self.exp_config.exploration_config.count_max
 
+        self.open_config_buff()
         count = 0
-        check_auto = False
         while exp_count > 0 and count < exp_count:
             # 检查票数
             self.check_ticket()
@@ -52,6 +53,7 @@ class TaskScript(General, EA, Battle):
         # 关闭章节探索提示
         self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
+        self.close_config_buff()
         self.goto(page_main)
         self.set_next_run(task='Exploration', success=True, finish=False)
 
@@ -156,3 +158,31 @@ class TaskScript(General, EA, Battle):
                           finish=False, target_time=datetime.now())
 
         raise TaskEnd(self.name)
+
+    def open_config_buff(self):
+        buff = []
+        config = self.exp_config.exploration_config
+        if config.buff_gold_50:
+            buff.append(BuffClass.GOLD_50)
+        if config.buff_gold_100:
+            buff.append(BuffClass.GOLD_100)
+        if config.buff_exp_50:
+            buff.append(BuffClass.EXP_50)
+        if config.buff_exp_100:
+            buff.append(BuffClass.EXP_100)
+
+        return self.check_buff(buff, page_exp)
+
+    def close_config_buff(self):
+        buff = []
+        config = self.exp_config.exploration_config
+        if config.buff_gold_50:
+            buff.append(BuffClass.GOLD_50_CLOSE)
+        if config.buff_gold_100:
+            buff.append(BuffClass.GOLD_100_CLOSE)
+        if config.buff_exp_50:
+            buff.append(BuffClass.EXP_50_CLOSE)
+        if config.buff_exp_100:
+            buff.append(BuffClass.EXP_100_CLOSE)
+
+        return self.check_buff(buff, page_exp)

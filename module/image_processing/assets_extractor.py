@@ -122,6 +122,7 @@ class OcrExtractor:
         name: str = f'\tO_{name_transform(item["name"])} = RuleOcr(\n' \
             f'\t\troi=({item["roi"]}),\n' \
             f'\t\tarea=({item["area"]}),\n' \
+            f'\t\tkeyword="{item["keyword"]}",\n' \
             f'\t\tname="{item["name"]}"\n\t)\n'
         return description + name
 

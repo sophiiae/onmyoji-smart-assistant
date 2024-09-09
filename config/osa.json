@@ -54,10 +54,10 @@
       "failure_interval": "00:01:00:00"
     },
     "exploration_config": {
-      "buff_gold_50_click": false,
-      "buff_gold_100_click": false,
-      "buff_exp_50_click": true,
-      "buff_exp_100_click": false,
+      "buff_gold_50": false,
+      "buff_gold_100": false,
+      "buff_exp_50": true,
+      "buff_exp_100": false,
       "count_max": 10,
       "chapter": "第二十八章",
       "auto_backup": false,

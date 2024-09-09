@@ -79,10 +79,10 @@ class RealmRaid(BaseModel):
     raid_config: RaidConfig = Field(default_factory=RaidConfig)
 
 class ExplorationConfig(BaseModel):
-    buff_gold_50_click: bool = Field(default=False)  # 50%金币加成
-    buff_gold_100_click: bool = Field(default=False)  # 100%金币加成
-    buff_exp_50_click: bool = Field(default=True)  # 50%经验加成
-    buff_exp_100_click: bool = Field(default=False)  # 100%经验加成
+    buff_gold_50: bool = Field(default=False)  # 50%金币加成
+    buff_gold_100: bool = Field(default=False)  # 100%金币加成
+    buff_exp_50: bool = Field(default=False)  # 50%经验加成
+    buff_exp_100: bool = Field(default=False)  # 100%经验加成
     count_max: int = Field(default=7, title="探索次数", description="默认探索7次")
     chapter: Chapters = Field(default=Chapters.CHAPTER_28,
                               title="探索章节", description="探索章节 默认二十八")

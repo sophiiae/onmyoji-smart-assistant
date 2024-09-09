@@ -2,12 +2,15 @@ import random
 import time
 from module.base.logger import logger
 from module.base.timer import Timer
+from module.config.enums import BuffClass
 from tasks.battle.assets import BattleAssets
+from tasks.buff.buff import Buff
+from tasks.general.page import Page
 from tasks.task_base import TaskBase
 from module.base.exception import RequestHumanTakeover
+from tasks.general.page import page_main
 
-
-class Battle(TaskBase, BattleAssets):
+class Battle(Buff, BattleAssets):
 
     def run_battle(self) -> bool:
         # 有的时候是长战斗，需要在设置stuck检测为长战斗
@@ -125,3 +128,31 @@ class Battle(TaskBase, BattleAssets):
                 break
 
         return True
+
+    def check_buff(self, buff: list[BuffClass] = None, page: Page = page_main):
+        if not buff:
+            return
+
+        match_buff = {
+            BuffClass.AWAKE: (self.awake, True),
+            BuffClass.SOUL: (self.soul, True),
+            BuffClass.GOLD_50: (self.gold_50, True),
+            BuffClass.GOLD_100: (self.gold_100, True),
+            BuffClass.EXP_50: (self.exp_50, True),
+            BuffClass.EXP_100: (self.exp_100, True),
+            BuffClass.AWAKE_CLOSE: (self.awake, False),
+            BuffClass.SOUL_CLOSE: (self.soul, False),
+            BuffClass.GOLD_50_CLOSE: (self.gold_50, False),
+            BuffClass.GOLD_100_CLOSE: (self.gold_100, False),
+            BuffClass.EXP_50_CLOSE: (self.exp_50, False),
+            BuffClass.EXP_100_CLOSE: (self.exp_100, False),
+        }
+
+        self.open_buff(page)
+        for b in buff:
+            func, is_open = match_buff[b]
+            func(is_open)
+            time.sleep(0.1)
+
+        logger.info(f'Open buff success')
+        self.close_buff()

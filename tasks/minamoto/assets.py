@@ -50,6 +50,7 @@ class MinamotoAssets:
 	O_GHOST_LEVEL = RuleOcr(
 		roi=(144, 495, 38, 22),
 		area=(144, 495, 38, 22),
+		keyword="",
 		name="ghost_level"
 	)
 

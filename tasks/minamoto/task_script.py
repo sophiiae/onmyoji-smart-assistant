@@ -1,8 +1,9 @@
 import time
+from module.config.enums import BuffClass
 from tasks.general.general import General
 from tasks.minamoto.assets import MinamotoAssets
 from tasks.general.page import page_minamoto, page_main
-from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.base.exception import TaskEnd
 from tasks.battle.battle import Battle
 from module.base.logger import logger
 
@@ -19,18 +20,23 @@ class TaskScript(General, MinamotoAssets, Battle):
             if self.appear(self.I_GHOST_CHALLENGE):
                 break
 
-            if self.wait_until_appear(self.I_GHOST_ENT):
+            if self.wait_until_appear(self.I_GHOST_ENT, 2):
                 self.appear_then_click(self.I_GHOST_ENT)
                 continue
 
         image = self.screenshot()
         level = self.O_GHOST_LEVEL.digit(image)
         self.toggle_team_lock()
-        while level < 40:
+        self.check_buff([BuffClass.EXP_100], page_minamoto)
+        count = 0
+        while level < 40 and count < 50:
+            logger.info(f"======== Round {count + 1} Minamoto =========")
             self.enter_battle()
             if not self.run_battle():
                 break
+            count += 1
 
+        self.check_buff([BuffClass.EXP_100_CLOSE], page_minamoto)
         # 满级了，结束
         self.goto(page_main)
         raise TaskEnd(self.name)

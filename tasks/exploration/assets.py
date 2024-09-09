@@ -128,12 +128,14 @@ class ExplorationAssets:
 	O_EXP_VIEW_TICKET_COUNT = RuleOcr(
 		roi=(741, 15, 71, 27),
 		area=(741, 15, 71, 27),
+		keyword="",
 		name="exp_view_ticket_count"
 	)
 	# 探索界面章节入口开启后突破票数量 
 	O_EXP_CHAPTER_TICKET_COUNT = RuleOcr(
 		roi=(940, 16, 73, 27),
 		area=(940, 16, 73, 27),
+		keyword="",
 		name="exp_chapter_ticket_count"
 	)
 
@@ -141,26 +143,26 @@ class ExplorationAssets:
 	# Swipe Rule Assets
 	# 向上滑动章节 
 	S_EXP_LEVEL_UP = RuleSwipe(
-		roi_start=(1047, 549, 1256, 656),
-		roi_end=(1048, 196, 1256, 299),
+		roi_start=(1047, 549, 209, 107),
+		roi_end=(1048, 196, 208, 103),
 		name="exp_level_up"
 	)
 	# 向下滑动章节 
 	S_EXP_LEVEL_DOWN = RuleSwipe(
-		roi_start=(1048, 196, 1256, 299),
-		roi_end=(1047, 549, 1256, 656),
+		roi_start=(1048, 196, 208, 103),
+		roi_end=(1047, 549, 209, 107),
 		name="exp_level_down"
 	)
 	# 往左滑动,往右走 
 	S_EXP_TO_RIGHT = RuleSwipe(
-		roi_start=(700, 200, 900, 500),
-		roi_end=(150, 200, 500, 500),
+		roi_start=(700, 200, 200, 300),
+		roi_end=(150, 200, 350, 300),
 		name="exp_to_right"
 	)
 	# 往右滑动,往左走 
 	S_EXP_TO_LEFT = RuleSwipe(
-		roi_start=(200, 200, 600, 500),
-		roi_end=(800, 200, 900, 500),
+		roi_start=(200, 200, 400, 300),
+		roi_end=(800, 200, 100, 300),
 		name="exp_to_left"
 	)
 

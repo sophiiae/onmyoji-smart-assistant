@@ -1,0 +1,98 @@
+[
+  {
+    "name": "buff_open",
+    "type": "image",
+    "roi": "363, 32, 32, 46",
+    "area": "347, 16, 64, 78",
+    "file": "./tasks/buff/res/buff_open.png",
+    "description": "庭院左上角的加成灯笼"
+  },
+  {
+    "name": "exp_buff_open",
+    "type": "image",
+    "roi": "427, 23, 29, 44",
+    "area": "413, 9, 57, 72",
+    "file": "./tasks/buff/res/exp_buff_open.png",
+    "description": "探索界面加成灯笼"
+  },
+  {
+    "name": "minamoto_buff_open",
+    "type": "image",
+    "roi": "809, 35, 29, 42",
+    "area": "795, 21, 57, 70",
+    "file": "./tasks/buff/res/minamoto_buff_open.png",
+    "description": "鬼兵演武界面加成灯笼"
+  },
+  {
+    "name": "buff_cloud",
+    "type": "image",
+    "roi": "386, 515, 122, 24",
+    "area": "374, 503, 146, 48",
+    "file": "./tasks/buff/res/buff_cloud.png",
+    "description": "加成窗口下面的云，用来检测和关闭"
+  },
+  {
+    "name": "buff_awake",
+    "type": "image",
+    "roi": "377, 132, 47, 46",
+    "area": "354, 107, 93, 447",
+    "file": "./tasks/buff/res/buff_awake.png",
+    "description": "觉醒加成"
+  },
+  {
+    "name": "buff_soul",
+    "type": "image",
+    "roi": "378, 198, 45, 46",
+    "area": "356, 120, 89, 388",
+    "file": "./tasks/buff/res/buff_soul.png",
+    "description": "御魂加成"
+  },
+  {
+    "name": "buff_gold_50",
+    "type": "image",
+    "roi": "374, 269, 52, 36",
+    "area": "356, 120, 88, 391",
+    "file": "./tasks/buff/res/buff_gold_50.png",
+    "description": "金币50%加成"
+  },
+  {
+    "name": "buff_gold_100",
+    "type": "image",
+    "roi": "379, 338, 43, 39",
+    "area": "359, 121, 83, 407",
+    "file": "./tasks/buff/res/buff_gold_100.png",
+    "description": "金币100%加成"
+  },
+  {
+    "name": "buff_exp_50",
+    "type": "image",
+    "roi": "380, 406, 44, 43",
+    "area": "358, 121, 88, 393",
+    "file": "./tasks/buff/res/buff_exp_50.png",
+    "description": "经验50%加成"
+  },
+  {
+    "name": "buff_exp_100",
+    "type": "image",
+    "roi": "384, 303, 30, 40",
+    "area": "368, 126, 60, 386",
+    "file": "./tasks/buff/res/buff_exp_100.png",
+    "description": "经验100%加成"
+  },
+  {
+    "name": "buff_open_yellow",
+    "type": "image",
+    "roi": "772,347,21,21",
+    "area": "766,133,35,366",
+    "file": "./tasks/buff/res/buff_open_yellow.png",
+    "description": "description"
+  },
+  {
+    "name": "buff_close_red",
+    "type": "image",
+    "roi": "772,347,21,21",
+    "area": "766,133,35,366",
+    "file": "./tasks/buff/res/buff_close_red.png",
+    "description": "description"
+  }
+]

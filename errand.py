@@ -1,6 +1,7 @@
 import sys
 from module.config.config import Config
 from module.server.device import Device
+from tasks.buff.buff import Buff
 from tasks.general.summon import Summon
 from tasks.realm_raid.guild_raid import GuildRaid
 from tasks.exploration.colla import Colla
@@ -49,6 +50,14 @@ def RunMinamoto(config_name: str):
     minamoto = MINAMOTO(c, d)
     minamoto.run()
 
+def OpenExpBuff(name: str):
+    c = Config(name)
+    d = Device(c)
+    b = Buff(c, d)
+    b.open_buff()
+    b.exp_50(is_open=False)
+    b.close_buff()
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
@@ -66,6 +75,8 @@ if __name__ == "__main__":
                 RunThreeWindRealmRaid(name)
             case '-m':
                 RunMinamoto(name)
+            case '-b':
+                OpenExpBuff(name)
             case 'help':
                 logger.warning("Args[0]: config name")
                 logger.warning(
