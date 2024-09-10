@@ -8,9 +8,10 @@ from tasks.buff.buff import Buff
 from tasks.general.page import Page
 from tasks.task_base import TaskBase
 from module.base.exception import RequestHumanTakeover
+from tasks.general.general import General
 from tasks.general.page import page_main
 
-class Battle(Buff, BattleAssets):
+class Battle(General, Buff, BattleAssets):
 
     def run_battle(self) -> bool:
         # 有的时候是长战斗，需要在设置stuck检测为长战斗
@@ -30,7 +31,7 @@ class Battle(Buff, BattleAssets):
                 win = True
                 break
 
-            if self.appear(self.I_BATTLE_REWARD):
+            if self.appear(self.I_REWARD):
                 win = True
                 break
 
@@ -52,13 +53,13 @@ class Battle(Buff, BattleAssets):
                 break
 
             self.screenshot()
-            if got_reward and not self.appear(self.I_BATTLE_REWARD):
+            if got_reward and not self.appear(self.I_REWARD):
                 break
 
             # 如果出现领奖励
             action_click = random.choice(
                 [self.C_REWARD_1, self.C_REWARD_2])
-            if self.appear(self.I_BATTLE_REWARD):
+            if self.appear(self.I_REWARD):
                 self.click(action_click)
                 got_reward = True
                 continue

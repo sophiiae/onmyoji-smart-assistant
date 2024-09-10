@@ -1,13 +1,12 @@
 import time
 from module.config.enums import BuffClass
-from tasks.general.general import General
 from tasks.minamoto.assets import MinamotoAssets
 from tasks.general.page import page_minamoto, page_main
 from module.base.exception import TaskEnd
 from tasks.battle.battle import Battle
 from module.base.logger import logger
 
-class TaskScript(General, MinamotoAssets, Battle):
+class TaskScript(MinamotoAssets, Battle):
 
     def run(self):
         if not self.check_page_appear(page_minamoto):
@@ -29,7 +28,7 @@ class TaskScript(General, MinamotoAssets, Battle):
         self.toggle_team_lock()
         self.check_buff([BuffClass.EXP_100], page_minamoto)
         count = 0
-        while level < 40 and count < 50:
+        while level < 60 and count < 5:
             logger.info(f"======== Round {count + 1} Minamoto =========")
             self.enter_battle()
             if not self.run_battle():
@@ -38,7 +37,9 @@ class TaskScript(General, MinamotoAssets, Battle):
 
         self.check_buff([BuffClass.EXP_100_CLOSE], page_minamoto)
         # 满级了，结束
-        self.goto(page_main)
+        self.appear_then_click(self.I_B_YELLOW_LEFT_ANGLE)
+
+        self.goto(page_main, page_minamoto)
         raise TaskEnd(self.name)
 
     def enter_battle(self):

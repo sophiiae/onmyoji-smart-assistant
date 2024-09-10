@@ -5,13 +5,12 @@ import time
 from module.base.logger import logger
 from module.base.exception import TaskEnd
 from module.image_processing.rule_image import RuleImage
-from tasks.general.general import General
 from tasks.realm_raid.assets import RealmRaidAssets
 from tasks.general.page import page_realm_raid, page_main
 from module.base.exception import RequestHumanTakeover
 from tasks.battle.battle import Battle
 
-class TaskScript(General, RealmRaidAssets, Battle):
+class TaskScript(RealmRaidAssets, Battle):
     order = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     name = "Realm Raid"
 
@@ -87,7 +86,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
             # 更新票数
             enough_ticket = self.check_ticket(ticket_min)
 
-        self.goto(page_main)
+        self.goto(page_main, page_realm_raid)
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd(self.name)
 
@@ -377,14 +376,14 @@ class TaskScript(General, RealmRaidAssets, Battle):
         return True
 
     def get_reward(self, limit: float = 70) -> bool:
-        if self.wait_until_appear(self.I_BATTLE_REWARD, limit, interval=0.5):
+        if self.wait_until_appear(self.I_REWARD, limit, interval=0.5):
             time.sleep(0.5)
             self.random_click_right()
             logger.info("Got realm raid fight reward")
 
             time.sleep(1)
             # 检查是否有自动领取额外奖励
-            if self.wait_until_appear(self.I_BATTLE_REWARD, 2, interval=0.5):
+            if self.wait_until_appear(self.I_REWARD, 2, interval=0.5):
                 time.sleep(1)
                 self.random_click_right()
                 logger.info("Got 3 / 6 / 9 extra reward")

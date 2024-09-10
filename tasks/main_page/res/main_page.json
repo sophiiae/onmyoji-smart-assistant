@@ -2,26 +2,50 @@
   {
     "name": "mail",
     "type": "image",
-    "roi": "244, 506, 48, 20",
-    "area": "170, 450, 270, 100",
-    "file": "./tasks/main_page/res/mail.png",
+    "roi": "248, 506, 40, 20",
+    "area": "238, 496, 60, 40",
+    "file": "./tasks/main_page/res/mail/mail.png",
     "description": "邮件"
   },
   {
-    "name": "guild_pack",
+    "name": "unread_mail",
     "type": "image",
-    "roi": "246, 499, 38, 37",
-    "area": "200, 450, 270, 150",
-    "file": "./tasks/main_page/res/guild_pack.png",
-    "description": "寮礼包"
+    "roi": "150, 115, 80, 77",
+    "area": "112, 77, 156, 588",
+    "file": "./tasks/main_page/res/mail/unread_mail.png",
+    "description": "未读邮件"
   },
   {
-    "name": "quest",
+    "name": "mail_header",
     "type": "image",
-    "roi": "235, 337, 44, 34",
-    "area": "100, 270, 320, 168",
-    "file": "./tasks/main_page/res/quest.png",
-    "description": "悬赏封印"
+    "roi": "582, 49, 113, 36",
+    "area": "564, 31, 149, 72",
+    "file": "./tasks/main_page/res/mail/mail_header.png",
+    "description": "邮件标题"
+  },
+  {
+    "name": "get_all_mail",
+    "type": "image",
+    "roi": "89, 617, 64, 56",
+    "area": "61, 589, 120, 112",
+    "file": "./tasks/main_page/res/mail/get_all_mail.png",
+    "description": "全部领取邮件"
+  },
+  {
+    "name": "mail_confirm",
+    "type": "image",
+    "roi": "685, 545, 172, 57",
+    "area": "657, 517, 228, 113",
+    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "description": "全部领取确定"
+  },
+  {
+    "name": "mail_exit",
+    "type": "image",
+    "roi": "1155, 93, 46, 46",
+    "area": "1132, 70, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "退出邮件窗口"
   },
   {
     "name": "scroll_close",
@@ -72,66 +96,107 @@
     "description": "商店礼包屋退出"
   },
   {
-    "name": "quest_jade",
+    "name": "huahe",
     "type": "image",
-    "roi": "654, 459, 60, 50",
-    "area": "526, 420, 235, 135",
-    "file": "./tasks/main_page/res/quest/quest_jade.png",
-    "description": "勾协邀请"
+    "roi": "765, 614, 63, 44",
+    "area": "743, 592, 107, 88",
+    "file": "./tasks/main_page/res/huahe.png",
+    "description": "花合战"
   },
   {
-    "name": "quest_ep",
+    "name": "friends",
     "type": "image",
-    "roi": "654, 460, 60, 47",
-    "area": "526, 420, 235, 135",
-    "file": "./tasks/main_page/res/quest/quest_ep.png",
-    "description": "体协邀请"
+    "roi": "889, 626, 42, 46",
+    "area": "868, 605, 84, 88",
+    "file": "./tasks/main_page/res/friends/friends.png",
+    "description": "好友"
   },
   {
-    "name": "quest_dog",
+    "name": "friend_header",
     "type": "image",
-    "roi": "204, 514, 64, 55",
-    "area": "526, 420, 235, 135",
-    "file": "./tasks/main_page/res/quest/quest_dog.png",
-    "description": "狗粮协作邀请"
+    "roi": "586, 48, 145, 36",
+    "area": "568, 30, 181, 72",
+    "file": "./tasks/main_page/res/friends/friend_header.png",
+    "description": "好友标题"
   },
   {
-    "name": "quest_cat",
+    "name": "friend_points",
     "type": "image",
-    "roi": "204, 515, 64, 54",
-    "area": "526, 420, 235, 135",
-    "file": "./tasks/main_page/res/quest/quest_cat.png",
-    "description": "猫粮协作邀请"
+    "roi": "151, 643, 30, 38",
+    "area": "136, 628, 60, 68",
+    "file": "./tasks/main_page/res/friends/friend_points.png",
+    "description": "友情点/灰"
   },
   {
-    "name": "quest_accept",
+    "name": "friend_points_enable",
     "type": "image",
-    "roi": "825, 395, 55, 46",
-    "area": "798, 372, 110, 92",
-    "file": "./tasks/main_page/res/quest/quest_accept.png",
-    "description": "接受悬赏邀请"
+    "roi": "128, 633, 60, 51",
+    "area": "102, 607, 112, 103",
+    "file": "./tasks/main_page/res/friends/friend_points_enable.png",
+    "description": "友情点/亮"
   },
   {
-    "name": "quest_reject",
+    "name": "get_all_friend_points",
     "type": "image",
-    "roi": "826, 495, 53, 49",
-    "area": "800, 470, 106, 98",
-    "file": "./tasks/main_page/res/quest/quest_reject.png",
-    "description": "拒绝悬赏邀请"
+    "roi": "50, 541, 136, 44",
+    "area": "28, 519, 180, 88",
+    "file": "./tasks/main_page/res/friends/get_all_friend_points.png",
+    "description": "一键收取"
   },
   {
-    "name": "quest_ignore",
+    "name": "friends_exit",
     "type": "image",
-    "roi": "764, 107, 40, 38",
-    "area": "744, 88, 80, 76",
-    "file": "./tasks/main_page/res/quest/quest_ignore.png",
-    "description": "关闭/无视悬赏邀请"
+    "roi": "1157, 94, 46, 46",
+    "area": "1134, 71, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "退出好友"
   },
   {
-    "name": "quest_virtual",
-    "roi": "524, 159, 26, 29",
-    "area": "511, 144, 52, 58",
-    "file": "./tasks/main_page/res/quest/quest_virtual.png",
-    "description": "协作邀请现世标记位置"
+    "name": "sign",
+    "type": "image",
+    "roi": "253, 509, 24, 20",
+    "area": "243, 499, 44, 40",
+    "file": "./tasks/main_page/res/sign.png",
+    "description": "签到"
+  },
+  {
+    "name": "daily_sign",
+    "type": "image",
+    "roi": "597, 165, 87, 194",
+    "area": "553, 121, 175, 282",
+    "file": "./tasks/main_page/res/daily_sign.png",
+    "description": "每日一签"
+  },
+  {
+    "name": "close_daily_sign",
+    "type": "image",
+    "roi": "849, 87, 46, 46",
+    "area": "826, 64, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "关闭每日签到"
+  },
+  {
+    "name": "daily_jade",
+    "type": "image",
+    "roi": "734, 482, 31, 34",
+    "area": "718, 466, 63, 66",
+    "file": "./tasks/main_page/res/daily_jade.png",
+    "description": "每日勾玉领取"
+  },
+  {
+    "name": "daily_ep",
+    "type": "image",
+    "roi": "737, 489, 26, 28",
+    "area": "724, 476, 52, 54",
+    "file": "./tasks/main_page/res/daily_ep.png",
+    "description": "每日寿司"
+  },
+  {
+    "name": "guild_gift",
+    "type": "image",
+    "roi": "246, 502, 34, 34",
+    "area": "229, 485, 68, 68",
+    "file": "./tasks/main_page/res/guild_gift.png",
+    "description": "寮礼包"
   }
 ]

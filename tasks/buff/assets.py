@@ -28,8 +28,8 @@ class BuffAssets:
 	)
 	# 加成窗口下面的云，用来检测和关闭 
 	I_BUFF_CLOUD = RuleImage(
-		roi=(360, 515, 180, 24),
-		area=(348, 503, 204, 48),
+		roi=(386, 515, 122, 24),
+		area=(374, 503, 146, 48),
 		file="./tasks/buff/res/buff_cloud.png"
 	)
 	# 觉醒加成 

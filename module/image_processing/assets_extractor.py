@@ -148,10 +148,10 @@ class ClickExtractor:
         :return:
         """
         description: str = f'\t# {item["description"]} \n'
-        name: str = f'\tC_{name_transform(item["itemName"])} = RuleClick(' \
+        name: str = f'\tC_{name_transform(item["name"])} = RuleClick(' \
             f'roi=({item["roi"]}), ' \
             f'area=({item["area"]}), ' \
-            f'name="{item["itemName"]}")\n'
+            f'name="{item["name"]}")\n'
         return description + name
 
 class AssetsExtractor:

@@ -46,6 +46,9 @@ class RuleImage:
         y += np.random.randint(0, h)
         return x, y
 
+    def set_area(self, x, y, w, h):
+        self.area = (x, y, w, h)
+
     @property
     def image(self):
         """

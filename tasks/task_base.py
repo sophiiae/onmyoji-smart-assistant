@@ -1,9 +1,11 @@
 from datetime import datetime
+from typing import Union
 import numpy as np
 import time
 
 from module.base.exception import RequestHumanTakeover
 from module.config.config import Config
+from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe
 from tasks.main_page.assets import MainPageAssets
@@ -59,6 +61,10 @@ class TaskBase(MainPageAssets):
             if self.appear_then_click(click_button):
                 continue
         return True
+
+    def wait_request(self) -> bool:
+        self.device.screenshot()
+        return self._burst()
 
     def appear(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1) -> bool:
         if not isinstance(target, RuleImage):
@@ -170,7 +176,7 @@ class TaskBase(MainPageAssets):
         """
         self.device.screenshot()
         # 判断勾协
-        # self._burst()
+        self._burst()
         return self.device.image
 
     def swipe(self, swipe: RuleSwipe, interval: float = None, duration: int = 400) -> None:
@@ -206,7 +212,7 @@ class TaskBase(MainPageAssets):
             # logger.info(f'Swipe {swipe.name}')
             self.interval_timer[swipe.name].reset()
 
-    def click(self, target: RuleImage, click_delay: float = 0.2) -> bool:
+    def click(self, target: Union[RuleImage, RuleClick], click_delay: float = 0.2) -> bool:
         """click
 
         Args:

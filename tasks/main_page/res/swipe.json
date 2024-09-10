@@ -1,0 +1,9 @@
+[
+  {
+    "name": "region_to_left",
+    "type": "swipe",
+    "roi_start": "800, 470, 60, 100",
+    "roi_end": "400, 470, 50, 100",
+    "description": "已有角色往左滑"
+  }
+]

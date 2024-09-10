@@ -66,6 +66,7 @@ class ImageProcessor:
 
             return {
                 'name': "",
+                'type': "image",
                 'roi': f"{roi[0]}, {roi[1]}, {roi[2]}, {roi[3]}",
                 'area': f"{area[0]}, {area[1]}, {area[2]}, {area[3]}",
                 'file': f"{path}",
@@ -166,7 +167,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if len(sys.argv) == 2:
             target = sys.argv[1]   # paht of target image
-            config = Config("nian")
+            config = Config("3")
             cn = Connection(config)
             screenshot = cn.get_screenshot()
         else:

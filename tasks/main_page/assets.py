@@ -7,24 +7,137 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class MainPageAssets: 
 
+
+	# Click Rule Assets
+	# 庭院头像 
+	C_AVATAR = RuleClick(roi=(22, 39, 73, 59), area=(22, 39, 73, 59), name="avatar")
+	# 进入游戏 
+	C_ENTER_GAME = RuleClick(roi=(558, 576, 158, 38), area=(558, 576, 158, 38), name="enter_game")
+	# 区域按钮 
+	C_REGION = RuleClick(roi=(556, 508, 152, 34), area=(556, 508, 152, 34), name="region")
+
+	# Image Rule Assets
+	# 用户中心 
+	I_USER_CENTER = RuleImage(
+		roi=(221, 449, 59, 55),
+		area=(193, 421, 115, 111),
+		file="./tasks/main_page/res/login/user_center.png"
+	)
+	# 切换账号 
+	I_SWITCH_ACCOUNT = RuleImage(
+		roi=(937, 180, 135, 58),
+		area=(908, 151, 193, 116),
+		file="./tasks/main_page/res/login/switch_account.png"
+	)
+	# 适龄提示 
+	I_LOGIN_WARNING = RuleImage(
+		roi=(165, 565, 52, 69),
+		area=(139, 539, 104, 121),
+		file="./tasks/main_page/res/login/login_warning.png"
+	)
+	# 账号登录 
+	I_LOGIN = RuleImage(
+		roi=(383, 413, 514, 64),
+		area=(351, 381, 578, 128),
+		file="./tasks/main_page/res/login/login.png"
+	)
+	# 苹果图标 
+	I_APPLE_LOGO = RuleImage(
+		roi=(511, 371, 58, 67),
+		area=(482, 342, 116, 125),
+		file="./tasks/main_page/res/login/apple_logo.png"
+	)
+	# 选择区域 
+	I_PICK_REGION = RuleImage(
+		roi=(500, 77, 271, 33),
+		area=(484, 61, 303, 65),
+		file="./tasks/main_page/res/login/pick_region.png"
+	)
+	# 已有角色 
+	I_OWN_CHARACTERS = RuleImage(
+		roi=(245, 417, 121, 29),
+		area=(231, 403, 149, 57),
+		file="./tasks/main_page/res/login/own_characters.png"
+	)
+	# 展开已有账号区域 
+	I_OPEN_REGIONS = RuleImage(
+		roi=(1040, 583, 20, 31),
+		area=(1030, 573, 40, 51),
+		file="./tasks/main_page/res/login/open_regions.png"
+	)
+	# 海外加速区 
+	I_REGION_HAIWAI = RuleImage(
+		roi=(681, 492, 64, 47),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_haiwai.png"
+	)
+	# 花火之夏 
+	I_REGION_HUAHUO = RuleImage(
+		roi=(276, 491, 64, 49),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_huahuo.png"
+	)
+	# 人间千年 
+	I_REGION_RENJIAN = RuleImage(
+		roi=(473, 494, 73, 45),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_renjian.png"
+	)
+	# 猫川别馆 
+	I_REGION_MAOCHUAN = RuleImage(
+		roi=(882, 492, 65, 48),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_maochuan.png"
+	)
+	# 永生之海 
+	I_REGION_YONGSHENG = RuleImage(
+		roi=(711, 493, 71, 47),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_yongsheng.png"
+	)
+	# 神之晚宴 
+	I_REGION_SHENZHI = RuleImage(
+		roi=(916, 492, 65, 48),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_shenzhi.png"
+	)
+
 	# Image Rule Assets
 	# 邮件 
 	I_MAIL = RuleImage(
-		roi=(244, 506, 48, 20),
-		area=(170, 450, 270, 100),
-		file="./tasks/main_page/res/mail.png"
+		roi=(248, 506, 40, 20),
+		area=(238, 496, 60, 40),
+		file="./tasks/main_page/res/mail/mail.png"
 	)
-	# 寮礼包 
-	I_GUILD_PACK = RuleImage(
-		roi=(246, 499, 38, 37),
-		area=(200, 450, 270, 150),
-		file="./tasks/main_page/res/guild_pack.png"
+	# 未读邮件 
+	I_UNREAD_MAIL = RuleImage(
+		roi=(150, 115, 80, 77),
+		area=(112, 77, 156, 588),
+		file="./tasks/main_page/res/mail/unread_mail.png"
 	)
-	# 悬赏封印 
-	I_QUEST = RuleImage(
-		roi=(235, 337, 44, 34),
-		area=(100, 270, 320, 168),
-		file="./tasks/main_page/res/quest.png"
+	# 邮件标题 
+	I_MAIL_HEADER = RuleImage(
+		roi=(582, 49, 113, 36),
+		area=(564, 31, 149, 72),
+		file="./tasks/main_page/res/mail/mail_header.png"
+	)
+	# 全部领取邮件 
+	I_GET_ALL_MAIL = RuleImage(
+		roi=(89, 617, 64, 56),
+		area=(61, 589, 120, 112),
+		file="./tasks/main_page/res/mail/get_all_mail.png"
+	)
+	# 全部领取确定 
+	I_MAIL_CONFIRM = RuleImage(
+		roi=(685, 545, 172, 57),
+		area=(657, 517, 228, 113),
+		file="./tasks/battle/res/battle_fight_again_confirm.png"
+	)
+	# 退出邮件窗口 
+	I_MAIL_EXIT = RuleImage(
+		roi=(1155, 93, 46, 46),
+		area=(1132, 70, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 菜单绘卷关闭 
 	I_SCROLL_CLOSE = RuleImage(
@@ -61,6 +174,140 @@ class MainPageAssets:
 		roi=(16, 7, 44, 40),
 		area=(0, 0, 88, 80),
 		file="./tasks/main_page/res/store/store_exit.png"
+	)
+	# 花合战 
+	I_HUAHE = RuleImage(
+		roi=(765, 614, 63, 44),
+		area=(743, 592, 107, 88),
+		file="./tasks/main_page/res/huahe.png"
+	)
+	# 好友 
+	I_FRIENDS = RuleImage(
+		roi=(889, 626, 42, 46),
+		area=(868, 605, 84, 88),
+		file="./tasks/main_page/res/friends/friends.png"
+	)
+	# 好友标题 
+	I_FRIEND_HEADER = RuleImage(
+		roi=(586, 48, 145, 36),
+		area=(568, 30, 181, 72),
+		file="./tasks/main_page/res/friends/friend_header.png"
+	)
+	# 友情点/灰 
+	I_FRIEND_POINTS = RuleImage(
+		roi=(151, 643, 30, 38),
+		area=(136, 628, 60, 68),
+		file="./tasks/main_page/res/friends/friend_points.png"
+	)
+	# 友情点/亮 
+	I_FRIEND_POINTS_ENABLE = RuleImage(
+		roi=(128, 633, 60, 51),
+		area=(102, 607, 112, 103),
+		file="./tasks/main_page/res/friends/friend_points_enable.png"
+	)
+	# 一键收取 
+	I_GET_ALL_FRIEND_POINTS = RuleImage(
+		roi=(50, 541, 136, 44),
+		area=(28, 519, 180, 88),
+		file="./tasks/main_page/res/friends/get_all_friend_points.png"
+	)
+	# 退出好友 
+	I_FRIENDS_EXIT = RuleImage(
+		roi=(1157, 94, 46, 46),
+		area=(1134, 71, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
+	)
+	# 签到 
+	I_SIGN = RuleImage(
+		roi=(253, 509, 24, 20),
+		area=(243, 499, 44, 40),
+		file="./tasks/main_page/res/sign.png"
+	)
+	# 每日一签 
+	I_DAILY_SIGN = RuleImage(
+		roi=(597, 165, 87, 194),
+		area=(553, 121, 175, 282),
+		file="./tasks/main_page/res/daily_sign.png"
+	)
+	# 关闭每日签到 
+	I_CLOSE_DAILY_SIGN = RuleImage(
+		roi=(849, 87, 46, 46),
+		area=(826, 64, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
+	)
+	# 每日勾玉领取 
+	I_DAILY_JADE = RuleImage(
+		roi=(734, 482, 31, 34),
+		area=(718, 466, 63, 66),
+		file="./tasks/main_page/res/daily_jade.png"
+	)
+	# 每日寿司 
+	I_DAILY_EP = RuleImage(
+		roi=(737, 489, 26, 28),
+		area=(724, 476, 52, 54),
+		file="./tasks/main_page/res/daily_ep.png"
+	)
+	# 寮礼包 
+	I_GUILD_GIFT = RuleImage(
+		roi=(246, 502, 34, 34),
+		area=(229, 485, 68, 68),
+		file="./tasks/main_page/res/guild_gift.png"
+	)
+
+	# Image Rule Assets
+	# 悬赏封印 
+	I_QUEST = RuleImage(
+		roi=(235, 337, 44, 34),
+		area=(100, 270, 320, 168),
+		file="./tasks/main_page/res/quest/quest.png"
+	)
+	# 悬赏封印标题 
+	I_QUEST_HEADER = RuleImage(
+		roi=(572, 62, 170, 38),
+		area=(553, 43, 208, 76),
+		file="./tasks/main_page/res/quest/quest_header.png"
+	)
+	# 悬赏邀请+ 
+	I_QUEST_PLUS_BUTTON = RuleImage(
+		roi=(143, 358, 37, 52),
+		area=(125, 340, 1015, 88),
+		file="./tasks/main_page/res/quest/quest_plus_button.png"
+	)
+	# 跨区/灰 
+	I_CROSS_REGION = RuleImage(
+		roi=(267, 85, 102, 57),
+		area=(239, 57, 158, 113),
+		file="./tasks/main_page/res/quest/cross_region.png"
+	)
+	# 跨区/亮 
+	I_CROSS_REGION_ENABLE = RuleImage(
+		roi=(266, 81, 102, 63),
+		area=(234, 49, 166, 127),
+		file="./tasks/main_page/res/quest/cross_region_enable.png"
+	)
+	# 好友头像 
+	I_QUEST_AVATAR = RuleImage(
+		roi=(176, 209, 29, 24),
+		area=(150, 180, 580, 350),
+		file="./tasks/main_page/res/quest/quest_avatar.png"
+	)
+	# 好友头像已选中 
+	I_QUEST_AVATAR_SELECTED = RuleImage(
+		roi=(178, 207, 29, 28),
+		area=(150, 180, 580, 350),
+		file="./tasks/main_page/res/quest/quest_avatar_selected.png"
+	)
+	# 邀请 
+	I_INVITE = RuleImage(
+		roi=(503, 543, 132, 63),
+		area=(471, 511, 196, 127),
+		file="./tasks/main_page/res/quest/invite.png"
+	)
+	# 关闭悬赏面板 
+	I_CLOSE_QUEST_BOARD = RuleImage(
+		roi=(1156, 113, 46, 46),
+		area=(1133, 90, 92, 92),
+		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 勾协邀请 
 	I_QUEST_JADE = RuleImage(
@@ -109,6 +356,15 @@ class MainPageAssets:
 		roi=(524, 159, 26, 29),
 		area=(511, 144, 52, 58),
 		file="./tasks/main_page/res/quest/quest_virtual.png"
+	)
+
+
+	# Swipe Rule Assets
+	# 已有角色往左滑 
+	S_REGION_TO_LEFT = RuleSwipe(
+		roi_start=(800, 470, 60, 100),
+		roi_end=(400, 470, 50, 100),
+		name="region_to_left"
 	)
 
 
