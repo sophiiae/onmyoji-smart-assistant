@@ -59,16 +59,19 @@ class TaskScript(EA, Battle):
         raise TaskEnd(self.name)
 
     def check_treasure_box(self):
-        time.sleep(1)
-        if self.wait_until_click(
-            self.I_EXP_TREASURE_BOX_MAP,
-            threshold=0.95
-        ):
-            got_reward = self.wait_until_appear(
-                self.I_REWARD, 3)
-            if got_reward:   # 领取宝箱物品
-                time.sleep(0.7)
-                self.random_click_right()
+        while 1:
+            time.sleep(0.3)
+            self.screenshot()
+            if not self.appear(self.I_EXP_TREASURE_BOX_MAP, 0.95):
+                break
+
+            if self.appear(self.I_EXP_TREASURE_BOX_MAP, 0.95):
+                self.click(self.I_EXP_TREASURE_BOX_MAP)
+                got_reward = self.wait_until_appear(
+                    self.I_REWARD, 3)
+                if got_reward:   # 领取宝箱物品
+                    time.sleep(0.7)
+                    self.random_click_right()
 
     def battle_process(self):
         # ************************* 进入设置并操作 *******************

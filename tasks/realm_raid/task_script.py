@@ -56,7 +56,7 @@ class TaskScript(RealmRaidAssets, Battle):
             # 如果最低挑战等级高于57，就降级处理
             self.downgrade()
             # 锁定队伍
-            self.toggle_team_lock()
+            self.toggle_realm_team_lock()
             while len(attack_list):
                 # 下一个挑战目标
                 attack_index = attack_list.pop()
@@ -117,7 +117,7 @@ class TaskScript(RealmRaidAssets, Battle):
             self.click_refresh()
             refresh_time = datetime.now()
 
-        self.toggle_team_lock()  # Lock team
+        self.toggle_realm_team_lock()  # Lock team
         count = 3
         # 打乱挑战顺序， 更随机~
         attack_list = self.order.copy()
@@ -217,7 +217,7 @@ class TaskScript(RealmRaidAssets, Battle):
     def quit_and_fight(self, index, quit_count=2) -> bool:
         logger.info(f"Starting quit and fight for {quit_count} times.")
 
-        self.toggle_team_lock(False)
+        self.toggle_realm_team_lock(False)
         count = 1
         while count <= quit_count:
             self.click(self.partitions[index - 1])
@@ -230,7 +230,7 @@ class TaskScript(RealmRaidAssets, Battle):
             self.run_battle_quit()
             count += 1
 
-        self.toggle_team_lock()
+        self.toggle_realm_team_lock()
 
     def is_defeated(self, index):
         return self.partitions_prop[index]['defeated']
@@ -248,7 +248,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 f"-------->>> Current lowest level: {level}  <<<----------"
             )
             # 不锁定退得快点
-            self.toggle_team_lock(False)
+            self.toggle_realm_team_lock(False)
 
             for idx, part in enumerate(self.partitions):
                 # 已经挑战过的就skip掉
@@ -391,19 +391,5 @@ class TaskScript(RealmRaidAssets, Battle):
             return True
         return False
 
-    def toggle_team_lock(self, lock: bool = True):
-        # 锁定队伍
-        if not lock:
-            if self.wait_until_appear(self.I_RAID_TEAM_LOCK, 1):
-                self.wait_until_click(self.I_RAID_TEAM_LOCK)
-                logger.info("Unlock the team")
-                return True
-
-        # 不锁定队伍
-        if lock:
-            if self.wait_until_appear(self.I_RAID_TEAM_UNLOCK, 1):
-                self.wait_until_click(self.I_RAID_TEAM_UNLOCK)
-                logger.info("Lock the team")
-                return True
-
-        return False
+    def toggle_realm_team_lock(self, lock: bool = True):
+        return self.toggle_team_lock(self.I_RAID_TEAM_LOCK, self.I_RAID_TEAM_UNLOCK, lock)

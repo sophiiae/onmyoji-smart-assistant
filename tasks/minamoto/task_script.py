@@ -25,7 +25,7 @@ class TaskScript(MinamotoAssets, Battle):
 
         image = self.screenshot()
         level = self.O_GHOST_LEVEL.digit(image)
-        self.toggle_team_lock()
+        self.toggle_m_team_lock()
         self.check_buff([BuffClass.EXP_100], page_minamoto)
         count = 0
         while level < 60 and count < 5:
@@ -52,19 +52,5 @@ class TaskScript(MinamotoAssets, Battle):
             if self.appear_then_click(self.I_GHOST_CHALLENGE):
                 continue
 
-    def toggle_team_lock(self, lock: bool = True):
-        # 锁定队伍
-        if not lock:
-            if self.wait_until_appear(self.I_TEAM_LOCK, 1):
-                self.wait_until_click(self.I_TEAM_LOCK)
-                logger.info("Unlock the team")
-                return True
-
-        # 不锁定队伍
-        if lock:
-            if self.wait_until_appear(self.I_TEAM_UNLOCK, 1):
-                self.wait_until_click(self.I_TEAM_UNLOCK)
-                logger.info("Lock the team")
-                return True
-
-        return False
+    def toggle_m_team_lock(self, lock: bool = True):
+        return self.toggle_team_lock(self.I_TEAM_LOCK, self.I_TEAM_UNLOCK, lock)

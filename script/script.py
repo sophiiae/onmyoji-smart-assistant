@@ -76,7 +76,7 @@ class Script:
             return True
 
     def start(self):
-        logger.info(f'Start scheduler loop: {self.config_name}')
+        logger.info(f'Start scheduler loop: {self.config.model.config_name}')
 
         while 1:
             # Get task

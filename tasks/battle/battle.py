@@ -3,6 +3,7 @@ import time
 from module.base.logger import logger
 from module.base.timer import Timer
 from module.config.enums import BuffClass
+from module.image_processing.rule_image import RuleImage
 from tasks.battle.assets import BattleAssets
 from tasks.buff.buff import Buff
 from tasks.general.page import Page
@@ -157,3 +158,20 @@ class Battle(General, Buff, BattleAssets):
 
         logger.info(f'Open buff success')
         self.close_buff()
+
+    def toggle_team_lock(self, team_lock: RuleImage, team_unlock: RuleImage, is_lock: bool = True):
+        # 锁定队伍
+        if not is_lock:
+            if self.wait_until_appear(team_lock, 1):
+                self.wait_until_click(team_lock)
+                logger.info("Unlock the team")
+                return True
+
+        # 不锁定队伍
+        if is_lock:
+            if self.wait_until_appear(team_unlock, 1):
+                self.wait_until_click(team_unlock)
+                logger.info("Lock the team")
+                return True
+
+        return False
