@@ -9,12 +9,11 @@ class CustomFormatter(logging.Formatter):
     reset = "\x1b[0m"
     format = "%(asctime)s | %(levelname)s: %(message)s"
     error_info = "%(asctime)s | %(levelname)s: %(message)s | %(pathname)s : %(lineno)s"
-
-    debug_info = "%(asctime)s | %(levelname)s: %(message)s | %(lineno)s"
+    reg_info = "%(asctime)s | %(levelname)s: %(message)s"
 
     FORMATS = {
         logging.DEBUG: grey + format + reset,
-        logging.INFO: grey + debug_info + reset,
+        logging.INFO: grey + reg_info + reset,
         logging.WARNING: yellow + format + reset,
         logging.ERROR: red + error_info + reset,
         logging.CRITICAL: bold_red + format + reset

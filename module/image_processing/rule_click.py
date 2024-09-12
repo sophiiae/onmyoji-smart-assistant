@@ -25,3 +25,12 @@ class RuleClick:
         x = np.random.randint(x, x + w)
         y = np.random.randint(y, y + h)
         return x, y
+
+    @property
+    def center(self) -> tuple:
+        """
+        返回roi的中心坐标
+        :return:
+        """
+        x, y, w, h = self.roi
+        return x + w // 2, y + h // 2

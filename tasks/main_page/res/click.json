@@ -1,0 +1,23 @@
+[
+  {
+    "name": "avatar",
+    "type": "click",
+    "roi": "22, 39, 73, 59",
+    "area": "22, 39, 73, 59",
+    "description": "庭院头像"
+  },
+  {
+    "name": "enter_game",
+    "type": "click",
+    "roi": "558, 576, 158, 38",
+    "area": "558, 576, 158, 38",
+    "description": "进入游戏"
+  },
+  {
+    "name": "region",
+    "type": "click",
+    "roi": "556, 508, 152, 34",
+    "area": "556, 508, 152, 34",
+    "description": "区域按钮"
+  }
+]

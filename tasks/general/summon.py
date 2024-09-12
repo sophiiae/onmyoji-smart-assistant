@@ -1,8 +1,7 @@
 import time
-from tasks.general.page import page_summon
+from tasks.general.page import page_summon, page_main
 from tasks.general.general import General
 from module.base.logger import logger
-
 
 class Summon(General):
 
@@ -25,4 +24,5 @@ class Summon(General):
             logger.info(f"Summon round {i + 1}")
             if not self.wait_until_appear(self.I_SUMMON_AGAIN, 10, 1, click=True, click_delay=3):
                 break
+        self.goto(page_main, page_summon)
         exit()

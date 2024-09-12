@@ -1,11 +1,11 @@
 import time
 from module.base.exception import RequestHumanTakeover
-from tasks.exploration.task_script import TaskScript
+from tasks.exploration.task_script import TaskScript as EXP
 from tasks.general.page import page_exp, page_main
 from module.base.logger import logger
 
 
-class Colla(TaskScript):
+class Colla(EXP):
 
     def start_colla(self):
         # 进入探索页面
@@ -30,14 +30,14 @@ class Colla(TaskScript):
 
         if self.wait_until_appear(self.I_AUTO_ROTATE_ON, 1) or self.wait_until_appear(self.I_AUTO_ROTATE_OFF, 1):
             self.appear_then_click(self.I_B_BLUE_LEFT_ANGLE)
+            time.sleep(0.3)
             if not self.wait_until_click(self.I_EXP_CHAPTER_EXIT_CONFIRM):
                 logger.critical("Not able to exit chapter")
                 exit()
             # 关闭章节探索提示
-            self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 1)
+            self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
         self.goto(page_main)
-        exit()
 
     def colla_enter_chapter(self, c) -> int:
         # 点击 “探索” 按钮进入章节
@@ -68,6 +68,8 @@ class Colla(TaskScript):
                     break
             # 普通怪挑战
             if self.appear_then_click(self.I_EXP_BATTLE):
+                if self.wait_until_appear(self.I_EXP_C_CHAPTER, 1):
+                    continue
                 c += 1
                 self.run_battle()
 

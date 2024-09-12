@@ -1,5 +1,6 @@
 import traceback
 from tasks.general.assets import GeneralAssets as G
+from tasks.shikigami_activity.assets import ShikigamiActivityAssets as SA
 
 class Page():
     def __init__(self, check_button):
@@ -55,16 +56,14 @@ page_guild_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_REALM_RAID, destination=page_realm_raid)
 
 # 商店 Store Street / Market
-page_store = Page(G.I_C_MARKET)
-page_store.link(button=G.I_V_MARKET_TO_MAIN, destination=page_main)
+page_market = Page(G.I_C_MARKET)
+page_market.link(button=G.I_V_MARKET_TO_MAIN, destination=page_main)
+
+page_store = Page(G.I_C_GIFT_SHOP)
+page_store.link(button=G.I_V_STORE_TO_MARKET, destination=page_market)
 page_main.link(button=G.I_V_MAIN_TO_STORE, destination=page_store)
 
 # 町中 Town - TODO
-
-
-# 登录 Login
-page_login = Page(G.I_C_LOGIN)
-page_login.link(button=G.I_V_LOGIN_TO_MAIN, destination=page_main)
 
 # 休眠页面 Sleep
 page_sleep = Page(G.I_C_SLEEP)
@@ -74,3 +73,9 @@ page_sleep.link(button=G.I_V_SLEEP_TO_MAIN, destination=page_main)
 page_minamoto = Page(G.I_C_MINAMOTO)
 page_minamoto.link(button=G.I_V_MINAMOTO_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_MINAMOTO, destination=page_minamoto)
+
+
+# 式神活动 / 周年庆
+page_shikigami = Page(SA.I_SA_CHECK)
+page_shikigami.link(button=SA.I_SA_EXIT, destination=page_main)
+page_main.link(button=SA.I_SA_ENT, destination=page_shikigami)

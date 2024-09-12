@@ -100,15 +100,9 @@ class ExplorationAssets:
 	)
 	# 困28探索界面宝箱区域 
 	I_EXP_TREASURE_BOX_MAP = RuleImage(
-		roi=(37, 203, 65, 35),
-		area=(670, 210, 130, 90),
+		roi=(697, 232, 65, 35),
+		area=(679, 214, 101, 71),
 		file="./tasks/exploration/res/exp_treasure_box.png"
-	)
-	# 获得奖励栏标 
-	I_EXP_GAIN_REWARD = RuleImage(
-		roi=(476, 233, 329, 42),
-		area=(312, 212, 658, 84),
-		file="./tasks/exploration/res/exp_gain_reward.png"
 	)
 	# 探索章节内发现物品 
 	I_EXP_CHAP_REWARD = RuleImage(

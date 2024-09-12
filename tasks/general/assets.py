@@ -38,6 +38,18 @@ class GeneralAssets:
 		area=(10, 0, 86, 81),
 		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
 	)
+	# 获得奖励栏标 
+	I_GAIN_REWARD = RuleImage(
+		roi=(476, 233, 329, 42),
+		area=(312, 212, 658, 84),
+		file="./tasks/general/res/gain_reward.png"
+	)
+	# 战斗/突破/宝箱奖励领取图标 
+	I_REWARD = RuleImage(
+		roi=(565, 444, 137, 165),
+		area=(497, 376, 273, 301),
+		file="./tasks/general/res/reward.png"
+	)
 
 	# Ocr Rule Assets
 	# 普通召唤票数量 
@@ -78,6 +90,12 @@ class GeneralAssets:
 		roi=(258, 470, 58, 44),
 		area=(229, 448, 116, 88),
 		file="./tasks/general/res/check/c_market.png"
+	)
+	# 礼包屋标志 
+	I_C_GIFT_SHOP = RuleImage(
+		roi=(1141, 646, 61, 38),
+		area=(1122, 627, 99, 76),
+		file="./tasks/general/res/check/c_gift_shop.png"
 	)
 	# 召唤界面蓝票 
 	I_C_SUMMON = RuleImage(
@@ -205,6 +223,12 @@ class GeneralAssets:
 		area=(2, 14, 97, 88),
 		file="./tasks/general/res/buttons/b_blue_left_angle.png"
 	)
+	# 商店退出到商店街 
+	I_V_STORE_TO_MARKET = RuleImage(
+		roi=(30, 16, 42, 41),
+		area=(10, 0, 82, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
+	)
 	# 英杰试炼入口 
 	I_V_EXP_TO_MINAMOTO = RuleImage(
 		roi=(837, 639, 60, 46),
@@ -214,7 +238,7 @@ class GeneralAssets:
 	# 英杰试炼退出 
 	I_V_MINAMOTO_TO_EXP = RuleImage(
 		roi=(20, 16, 42, 41),
-		area=(0, -4, 82, 81),
+		area=(0, 0, 82, 81),
 		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
 	)
 

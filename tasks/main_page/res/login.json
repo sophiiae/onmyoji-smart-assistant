@@ -1,0 +1,119 @@
+[
+  {
+    "name": "user_center",
+    "type": "image",
+    "roi": "221, 449, 59, 55",
+    "area": "193, 421, 115, 111",
+    "file": "./tasks/main_page/res/login/user_center.png",
+    "description": "用户中心"
+  },
+  {
+    "name": "switch_account",
+    "type": "image",
+    "roi": "937, 180, 135, 58",
+    "area": "908, 151, 193, 116",
+    "file": "./tasks/main_page/res/login/switch_account.png",
+    "description": "切换账号"
+  },
+  {
+    "name": "login_warning",
+    "type": "image",
+    "roi": "165, 565, 52, 69",
+    "area": "139, 539, 104, 121",
+    "file": "./tasks/main_page/res/login/login_warning.png",
+    "description": "适龄提示"
+  },
+  {
+    "name": "login",
+    "roi": "383, 413, 514, 64",
+    "area": "351, 381, 578, 128",
+    "file": "./tasks/main_page/res/login/login.png",
+    "description": "账号登录"
+  },
+  {
+    "name": "apple_logo",
+    "roi": "511, 371, 58, 67",
+    "area": "482, 342, 116, 125",
+    "file": "./tasks/main_page/res/login/apple_logo.png",
+    "description": "苹果图标"
+  },
+  {
+    "name": "pick_region",
+    "type": "image",
+    "roi": "500, 77, 271, 33",
+    "area": "484, 61, 303, 65",
+    "file": "./tasks/main_page/res/login/pick_region.png",
+    "description": "选择区域"
+  },
+  {
+    "name": "own_characters",
+    "roi": "245, 417, 121, 29",
+    "area": "231, 403, 149, 57",
+    "file": "./tasks/main_page/res/login/own_characters.png",
+    "description": "已有角色"
+  },
+  {
+    "name": "open_regions",
+    "type": "image",
+    "roi": "1040, 583, 20, 31",
+    "area": "1030, 573, 40, 51",
+    "file": "./tasks/main_page/res/login/open_regions.png",
+    "description": "展开已有账号区域"
+  },
+  {
+    "name": "region_haiwai",
+    "type": "image",
+    "roi": "681, 492, 64, 47",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_haiwai.png",
+    "description": "海外加速区"
+  },
+  {
+    "name": "region_huahuo",
+    "type": "image",
+    "roi": "276, 491, 64, 49",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_huahuo.png",
+    "description": "花火之夏"
+  },
+  {
+    "name": "region_renjian",
+    "type": "image",
+    "roi": "473, 494, 73, 45",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_renjian.png",
+    "description": "人间千年"
+  },
+  {
+    "name": "region_maochuan",
+    "type": "image",
+    "roi": "882, 492, 65, 48",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_maochuan.png",
+    "description": "猫川别馆"
+  },
+  {
+    "name": "region_yongsheng",
+    "type": "image",
+    "roi": "711, 493, 71, 47",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_yongsheng.png",
+    "description": "永生之海"
+  },
+  {
+    "name": "region_shenzhi",
+    "type": "image",
+    "roi": "916, 492, 65, 48",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_shenzhi.png",
+    "description": "神之晚宴"
+  },
+  {
+    "name": "region_youlong",
+    "type": "image",
+    "roi": "919, 488, 63, 51",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_youlong.png",
+    "description": "有龙则灵"
+  }
+]

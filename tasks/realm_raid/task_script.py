@@ -5,13 +5,12 @@ import time
 from module.base.logger import logger
 from module.base.exception import TaskEnd
 from module.image_processing.rule_image import RuleImage
-from tasks.general.general import General
 from tasks.realm_raid.assets import RealmRaidAssets
 from tasks.general.page import page_realm_raid, page_main
 from module.base.exception import RequestHumanTakeover
 from tasks.battle.battle import Battle
 
-class TaskScript(General, RealmRaidAssets, Battle):
+class TaskScript(RealmRaidAssets, Battle):
     order = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     name = "Realm Raid"
 
@@ -57,7 +56,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
             # 如果最低挑战等级高于57，就降级处理
             self.downgrade()
             # 锁定队伍
-            self.toggle_team_lock()
+            self.toggle_realm_team_lock()
             while len(attack_list):
                 # 下一个挑战目标
                 attack_index = attack_list.pop()
@@ -87,7 +86,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
             # 更新票数
             enough_ticket = self.check_ticket(ticket_min)
 
-        self.goto(page_main)
+        self.goto(page_main, page_realm_raid)
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd(self.name)
 
@@ -118,7 +117,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
             self.click_refresh()
             refresh_time = datetime.now()
 
-        self.toggle_team_lock()  # Lock team
+        self.toggle_realm_team_lock()  # Lock team
         count = 3
         # 打乱挑战顺序， 更随机~
         attack_list = self.order.copy()
@@ -218,7 +217,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
     def quit_and_fight(self, index, quit_count=2) -> bool:
         logger.info(f"Starting quit and fight for {quit_count} times.")
 
-        self.toggle_team_lock(False)
+        self.toggle_realm_team_lock(False)
         count = 1
         while count <= quit_count:
             self.click(self.partitions[index - 1])
@@ -231,7 +230,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
             self.run_battle_quit()
             count += 1
 
-        self.toggle_team_lock()
+        self.toggle_realm_team_lock()
 
     def is_defeated(self, index):
         return self.partitions_prop[index]['defeated']
@@ -249,7 +248,7 @@ class TaskScript(General, RealmRaidAssets, Battle):
                 f"-------->>> Current lowest level: {level}  <<<----------"
             )
             # 不锁定退得快点
-            self.toggle_team_lock(False)
+            self.toggle_realm_team_lock(False)
 
             for idx, part in enumerate(self.partitions):
                 # 已经挑战过的就skip掉
@@ -377,14 +376,14 @@ class TaskScript(General, RealmRaidAssets, Battle):
         return True
 
     def get_reward(self, limit: float = 70) -> bool:
-        if self.wait_until_appear(self.I_BATTLE_REWARD, limit, interval=0.5):
+        if self.wait_until_appear(self.I_REWARD, limit, interval=0.5):
             time.sleep(0.5)
             self.random_click_right()
             logger.info("Got realm raid fight reward")
 
             time.sleep(1)
             # 检查是否有自动领取额外奖励
-            if self.wait_until_appear(self.I_BATTLE_REWARD, 2, interval=0.5):
+            if self.wait_until_appear(self.I_REWARD, 2, interval=0.5):
                 time.sleep(1)
                 self.random_click_right()
                 logger.info("Got 3 / 6 / 9 extra reward")
@@ -392,19 +391,5 @@ class TaskScript(General, RealmRaidAssets, Battle):
             return True
         return False
 
-    def toggle_team_lock(self, lock: bool = True):
-        # 锁定队伍
-        if not lock:
-            if self.wait_until_appear(self.I_RAID_TEAM_LOCK, 1):
-                self.wait_until_click(self.I_RAID_TEAM_LOCK)
-                logger.info("Unlock the team")
-                return True
-
-        # 不锁定队伍
-        if lock:
-            if self.wait_until_appear(self.I_RAID_TEAM_UNLOCK, 1):
-                self.wait_until_click(self.I_RAID_TEAM_UNLOCK)
-                logger.info("Lock the team")
-                return True
-
-        return False
+    def toggle_realm_team_lock(self, lock: bool = True):
+        return self.toggle_team_lock(self.I_RAID_TEAM_LOCK, self.I_RAID_TEAM_UNLOCK, lock)

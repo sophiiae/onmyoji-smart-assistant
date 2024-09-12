@@ -1,13 +1,5 @@
 [
   {
-    "name": "battle_reward",
-    "type": "image",
-    "roi": "565, 444, 137, 165",
-    "area": "497, 376, 273, 301",
-    "file": "./tasks/battle/res/battle_reward.png",
-    "description": "战斗/突破/宝箱奖励领取图标"
-  },
-  {
     "name": "battle_ready",
     "type": "image",
     "roi": "1135, 565, 87, 46",

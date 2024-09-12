@@ -1,6 +1,6 @@
-from tasks.general.general import General as G
+from tasks.battle.battle import Battle
 
-class TaskScript(G):
+class TaskScript(Battle):
 
     def run(self):
         pass

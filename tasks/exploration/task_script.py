@@ -5,13 +5,12 @@ from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.config.enums import BuffClass
 from tasks.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
-from tasks.general.general import General
 from tasks.general.page import Page, page_exp, page_main
 
 from datetime import datetime, timedelta
 import time
 
-class TaskScript(General, EA, Battle):
+class TaskScript(EA, Battle):
     name = "Exploration"
 
     def run(self):
@@ -54,22 +53,25 @@ class TaskScript(General, EA, Battle):
         self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
         self.close_config_buff()
-        self.goto(page_main)
+        self.goto(page_main, page_exp)
         self.set_next_run(task='Exploration', success=True, finish=False)
 
         raise TaskEnd(self.name)
 
     def check_treasure_box(self):
-        time.sleep(0.5)
-        if self.appear_then_click(
-            self.I_EXP_TREASURE_BOX_MAP,
-            threshold=0.9
-        ):
-            got_reward = self.wait_until_appear(
-                self.I_BATTLE_REWARD, 3)
-            if got_reward:   # 领取宝箱物品
-                time.sleep(0.7)
-                self.random_click_right()
+        while 1:
+            time.sleep(0.3)
+            self.screenshot()
+            if not self.appear(self.I_EXP_TREASURE_BOX_MAP, 0.95):
+                break
+
+            if self.appear(self.I_EXP_TREASURE_BOX_MAP, 0.95):
+                self.click(self.I_EXP_TREASURE_BOX_MAP)
+                got_reward = self.wait_until_appear(
+                    self.I_REWARD, 3)
+                if got_reward:   # 领取宝箱物品
+                    time.sleep(0.7)
+                    self.random_click_right()
 
     def battle_process(self):
         # ************************* 进入设置并操作 *******************
@@ -123,7 +125,7 @@ class TaskScript(General, EA, Battle):
                 break
 
             if self.wait_until_click(self.I_EXP_CHAP_REWARD):
-                if self.appear(self.I_EXP_GAIN_REWARD):
+                if self.appear(self.I_GAIN_REWARD):
                     self.random_click_right()
                     found = True
 

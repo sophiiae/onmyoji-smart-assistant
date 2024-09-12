@@ -1,0 +1,23 @@
+[
+  {
+    "name": "sa_reward_left",
+    "type": "click",
+    "roi": "40, 80, 220, 660",
+    "area": "40, 80, 220, 660",
+    "description": "left"
+  },
+  {
+    "name": "sa_reward_bottom",
+    "type": "click",
+    "roi": "30, 600, 1200, 100",
+    "area": "30, 600, 1200, 100",
+    "description": "bottom"
+  },
+  {
+    "name": "sa_reward_right",
+    "type": "click",
+    "roi": "1010, 80, 250, 620",
+    "area": "1010, 80, 250, 620",
+    "description": "right"
+  }
+]

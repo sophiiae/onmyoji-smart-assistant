@@ -9,6 +9,7 @@
   },
   {
     "name": "c_main",
+    "type": "image",
     "roi": "905, 134, 48, 48",
     "area": "600, 110, 500, 96",
     "file": "./tasks/general/res/check/c_main.png",
@@ -16,6 +17,7 @@
   },
   {
     "name": "c_exp",
+    "type": "image",
     "roi": "62, 642, 49, 41",
     "area": "42, 622, 89, 81",
     "file": "./tasks/general/res/check/c_exp.png",
@@ -23,6 +25,7 @@
   },
   {
     "name": "c_exp_modal",
+    "type": "image",
     "roi": "1064, 233, 62, 108",
     "area": "1033, 202, 124, 170",
     "file": "./tasks/general/res/check/c_exp_modal.png",
@@ -30,13 +33,23 @@
   },
   {
     "name": "c_market",
+    "type": "image",
     "roi": "258, 470, 58, 44",
     "area": "229, 448, 116, 88",
     "file": "./tasks/general/res/check/c_market.png",
     "description": "商店街建筑"
   },
   {
+    "name": "c_gift_shop",
+    "type": "image",
+    "roi": "1141, 646, 61, 38",
+    "area": "1122, 627, 99, 76",
+    "file": "./tasks/general/res/check/c_gift_shop.png",
+    "description": "礼包屋标志"
+  },
+  {
     "name": "c_summon",
+    "type": "image",
     "roi": "597, 606, 64, 59",
     "area": "567, 576, 124, 119",
     "file": "./tasks/general/res/check/c_summon.png",
@@ -44,6 +57,7 @@
   },
   {
     "name": "c_realm_raid",
+    "type": "image",
     "roi": "1196, 231, 69, 112",
     "area": "1162, 197, 137, 180",
     "file": "./tasks/general/res/check/c_realm_raid.png",
@@ -51,6 +65,7 @@
   },
   {
     "name": "c_guild_raid",
+    "type": "image",
     "roi": "1196, 355, 69, 111",
     "area": "1162, 321, 137, 179",
     "file": "./tasks/general/res/check/c_guild_raid.png",
@@ -66,6 +81,7 @@
   },
   {
     "name": "c_minamoto",
+    "type": "image",
     "roi": "60, 615, 46, 50",
     "area": "37, 592, 92, 96",
     "file": "./tasks/general/res/check/c_minamoto.png",
@@ -81,6 +97,7 @@
   },
   {
     "name": "v_summon_to_main",
+    "type": "image",
     "roi": "34, 9, 42, 41",
     "area": "14, 0, 82, 81",
     "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
@@ -96,6 +113,7 @@
   },
   {
     "name": "v_exp_modal_to_exp",
+    "type": "image",
     "roi": "1025, 129, 46, 46",
     "area": "1002, 106, 92, 92",
     "file": "./tasks/general/res/buttons/b_red_x.png",
@@ -151,6 +169,7 @@
   },
   {
     "name": "v_realm_raid_to_exp",
+    "type": "image",
     "roi": "1184, 112, 46, 46",
     "area": "1161, 89, 92, 92",
     "file": "./tasks/general/res/buttons/b_red_x.png",
@@ -158,6 +177,7 @@
   },
   {
     "name": "v_realm_raid_to_guild_raid",
+    "type": "image",
     "roi": "1203, 359, 54, 102",
     "area": "1176, 308, 108, 204",
     "file": "./tasks/general/res/goto/v_realm_raid_to_guild_raid.png",
@@ -165,6 +185,7 @@
   },
   {
     "name": "v_guild_raid_to_realm_raid",
+    "type": "image",
     "roi": "1203, 236, 54, 101",
     "area": "1176, 186, 108, 202",
     "file": "./tasks/general/res/goto/v_guild_raid_to_realm_raid.png",
@@ -188,13 +209,23 @@
   },
   {
     "name": "v_market_to_main",
+    "type": "image",
     "roi": "24, 36, 53, 44",
     "area": "2, 14, 97, 88",
     "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
     "description": "商店街退出"
   },
   {
+    "name": "v_store_to_market",
+    "type": "image",
+    "roi": "30, 16, 42, 41",
+    "area": "10, 0, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "商店退出到商店街"
+  },
+  {
     "name": "v_exp_to_minamoto",
+    "type": "image",
     "roi": "837, 639, 60, 46",
     "area": "814, 616, 106, 92",
     "file": "./tasks/general/res/goto/v_exp_to_minamoto.png",
@@ -202,8 +233,9 @@
   },
   {
     "name": "v_minamoto_to_exp",
+    "type": "image",
     "roi": "20, 16, 42, 41",
-    "area": "0, -4, 82, 81",
+    "area": "0, 0, 82, 81",
     "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
     "description": "英杰试炼退出"
   }

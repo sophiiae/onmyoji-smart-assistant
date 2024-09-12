@@ -1,0 +1,146 @@
+[
+  {
+    "name": "quest",
+    "type": "image",
+    "roi": "235, 337, 44, 34",
+    "area": "100, 270, 320, 168",
+    "file": "./tasks/main_page/res/quest/quest.png",
+    "description": "悬赏封印"
+  },
+  {
+    "name": "quest_header",
+    "type": "image",
+    "roi": "572, 62, 170, 38",
+    "area": "553, 43, 208, 76",
+    "file": "./tasks/main_page/res/quest/quest_header.png",
+    "description": "悬赏封印标题"
+  },
+  {
+    "name": "quest_plus_button",
+    "type": "image",
+    "roi": "143, 358, 37, 52",
+    "area": "125, 340, 1015, 88",
+    "file": "./tasks/main_page/res/quest/quest_plus_button.png",
+    "description": "悬赏邀请+"
+  },
+  {
+    "name": "cross_region",
+    "type": "image",
+    "roi": "267, 85, 102, 57",
+    "area": "239, 57, 158, 113",
+    "file": "./tasks/main_page/res/quest/cross_region.png",
+    "description": "跨区/灰"
+  },
+  {
+    "name": "cross_region_enable",
+    "type": "image",
+    "roi": "266, 81, 102, 63",
+    "area": "234, 49, 166, 127",
+    "file": "./tasks/main_page/res/quest/cross_region_enable.png",
+    "description": "跨区/亮"
+  },
+  {
+    "name": "quest_avatar",
+    "type": "image",
+    "roi": "176, 209, 29, 24",
+    "area": "150, 180, 580, 350",
+    "file": "./tasks/main_page/res/quest/quest_avatar.png",
+    "description": "好友头像"
+  },
+  {
+    "name": "quest_avatar_selected",
+    "type": "image",
+    "roi": "178, 207, 29, 28",
+    "area": "150, 180, 580, 350",
+    "file": "./tasks/main_page/res/quest/quest_avatar_selected.png",
+    "description": "好友头像已选中"
+  },
+  {
+    "name": "invite",
+    "type": "image",
+    "roi": "503, 543, 132, 63",
+    "area": "471, 511, 196, 127",
+    "file": "./tasks/main_page/res/quest/invite.png",
+    "description": "邀请"
+  },
+  {
+    "name": "close_quest_board",
+    "type": "image",
+    "roi": "1156, 113, 46, 46",
+    "area": "1133, 90, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "关闭悬赏面板"
+  },
+  {
+    "name": "quest_jade",
+    "type": "image",
+    "roi": "654, 459, 60, 50",
+    "area": "526, 420, 235, 135",
+    "file": "./tasks/main_page/res/quest/quest_jade.png",
+    "description": "勾协邀请"
+  },
+  {
+    "name": "quest_ep",
+    "type": "image",
+    "roi": "654, 460, 60, 47",
+    "area": "526, 420, 235, 135",
+    "file": "./tasks/main_page/res/quest/quest_ep.png",
+    "description": "体协邀请"
+  },
+  {
+    "name": "quest_dog",
+    "type": "image",
+    "roi": "204, 514, 64, 55",
+    "area": "526, 420, 235, 135",
+    "file": "./tasks/main_page/res/quest/quest_dog.png",
+    "description": "狗粮协作邀请"
+  },
+  {
+    "name": "quest_cat",
+    "type": "image",
+    "roi": "204, 515, 64, 54",
+    "area": "526, 420, 235, 135",
+    "file": "./tasks/main_page/res/quest/quest_cat.png",
+    "description": "猫粮协作邀请"
+  },
+  {
+    "name": "quest_accept",
+    "type": "image",
+    "roi": "825, 395, 55, 46",
+    "area": "798, 372, 110, 92",
+    "file": "./tasks/main_page/res/quest/quest_accept.png",
+    "description": "接受悬赏邀请"
+  },
+  {
+    "name": "quest_reject",
+    "type": "image",
+    "roi": "826, 495, 53, 49",
+    "area": "800, 470, 106, 98",
+    "file": "./tasks/main_page/res/quest/quest_reject.png",
+    "description": "拒绝悬赏邀请"
+  },
+  {
+    "name": "quest_ignore",
+    "type": "image",
+    "roi": "764, 107, 40, 38",
+    "area": "744, 88, 80, 76",
+    "file": "./tasks/main_page/res/quest/quest_ignore.png",
+    "description": "关闭/无视悬赏邀请"
+  },
+  {
+    "name": "quest_virtual",
+    "type": "image",
+    "roi": "524, 159, 26, 29",
+    "area": "511, 144, 52, 58",
+    "file": "./tasks/main_page/res/quest/quest_virtual.png",
+    "description": "协作邀请现世标记位置"
+  },
+  {
+    "name": "virtual_invite",
+    "type": "image",
+    "roi": "444, 360, 38, 46",
+    "area": "125, 340, 1015, 88",
+    "file": "./tasks/main_page/res/quest/virtual_invite.png",
+    "description": "现世共享+"
+  }
+]

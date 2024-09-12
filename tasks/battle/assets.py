@@ -8,12 +8,6 @@ from module.image_processing.rule_click import RuleClick
 class BattleAssets: 
 
 	# Image Rule Assets
-	# 战斗/突破/宝箱奖励领取图标 
-	I_BATTLE_REWARD = RuleImage(
-		roi=(565, 444, 137, 165),
-		area=(497, 376, 273, 301),
-		file="./tasks/battle/res/battle_reward.png"
-	)
 	# 战斗准备 
 	I_BATTLE_READY = RuleImage(
 		roi=(1135, 565, 87, 46),

@@ -66,6 +66,7 @@ class ImageProcessor:
 
             return {
                 'name': "",
+                'type': "image",
                 'roi': f"{roi[0]}, {roi[1]}, {roi[2]}, {roi[3]}",
                 'area': f"{area[0]}, {area[1]}, {area[2]}, {area[3]}",
                 'file': f"{path}",

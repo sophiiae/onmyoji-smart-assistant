@@ -1,0 +1,114 @@
+[
+  {
+    "name": "sa_ent",
+    "type": "image",
+    "roi": "378, 172, 50, 37",
+    "area": "300, 134, 206, 113",
+    "file": "./tasks/shikigami_activity/res/sa_ent.png",
+    "description": "庭院活动入口"
+  },
+  {
+    "name": "sa_fight_ent",
+    "type": "image",
+    "roi": "896, 205, 33, 158",
+    "area": "880, 189, 65, 190",
+    "file": "./tasks/shikigami_activity/res/sa_fight_ent.png",
+    "description": "爬塔入口"
+  },
+  {
+    "name": "sa_check",
+    "type": "image",
+    "roi": "91, 14, 180, 44",
+    "area": "69, 0, 224, 88",
+    "file": "./tasks/shikigami_activity/res/sa_check.png",
+    "description": "活动页面确认"
+  },
+  {
+    "name": "sa_fight_check",
+    "type": "image",
+    "roi": "88, 17, 173, 40",
+    "area": "68, 0, 213, 80",
+    "file": "./tasks/shikigami_activity/res/sa_fight_check.png",
+    "description": "爬塔页面确认"
+  },
+  {
+    "name": "sa_ep",
+    "type": "image",
+    "roi": "1127, 505, 34, 29",
+    "area": "1113, 491, 62, 57",
+    "file": "./tasks/shikigami_activity/res/sa_ep.png",
+    "description": "使用体力"
+  },
+  {
+    "name": "sa_ticket",
+    "type": "image",
+    "roi": "1126, 509, 35, 23",
+    "area": "1114, 497, 59, 47",
+    "file": "./tasks/shikigami_activity/res/sa_ticket.png",
+    "description": "使用爬塔门票"
+  },
+  {
+    "name": "sa_switch",
+    "type": "image",
+    "roi": "1223, 508, 28, 27",
+    "area": "1209, 494, 56, 55",
+    "file": "./tasks/shikigami_activity/res/sa_switch.png",
+    "description": "体力门票转换"
+  },
+  {
+    "name": "sa_team_unlock",
+    "type": "image",
+    "roi": "806, 650, 17, 24",
+    "area": "798, 642, 33, 40",
+    "file": "./tasks/shikigami_activity/res/sa_team_unlock.png",
+    "description": "队伍不锁定"
+  },
+  {
+    "name": "sa_team_lock",
+    "type": "image",
+    "roi": "805, 649, 18, 26",
+    "area": "796, 640, 36, 44",
+    "file": "./tasks/shikigami_activity/res/sa_team_lock.png",
+    "description": "队伍锁定"
+  },
+  {
+    "name": "sa_fight",
+    "type": "image",
+    "roi": "1124, 589, 102, 83",
+    "area": "1082, 547, 186, 167",
+    "file": "./tasks/shikigami_activity/res/sa_fight.png",
+    "description": "战斗"
+  },
+  {
+    "name": "sa_exit",
+    "type": "image",
+    "roi": "20, 16, 42, 41",
+    "area": "0, 0, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "退出"
+  },
+  {
+    "name": "sa_no_tickets",
+    "type": "image",
+    "roi": "675, 27, 135, 26",
+    "area": "662, 14, 161, 52",
+    "file": "./tasks/shikigami_activity/res/sa_no_tickets.png",
+    "description": "没票了"
+  },
+  {
+    "name": "sa_gain_reward",
+    "type": "image",
+    "roi": "476, 233, 329, 42",
+    "area": "400, 160, 500, 170",
+    "file": "./tasks/general/res/gain_reward.png",
+    "description": "获得奖励"
+  },
+  {
+    "name": "sa_battle_win",
+    "type": "image",
+    "roi": "411, 122, 172, 129",
+    "area": "347, 58, 300, 257",
+    "file": "./tasks/battle/res/battle_win.png",
+    "description": "胜利"
+  }
+]

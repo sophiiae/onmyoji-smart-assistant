@@ -7,7 +7,6 @@ from tasks.general.assets import GeneralAssets
 from tasks.general.page import *
 from tasks.general.page_map import PageMap
 from tasks.main_page.assets import MainPageAssets
-from tasks.exploration.assets import ExplorationAssets
 from tasks.task_base import TaskBase
 
 class General(TaskBase, GeneralAssets, PageMap):
@@ -62,9 +61,12 @@ class General(TaskBase, GeneralAssets, PageMap):
         logger.critical("Starting from current page is not supported")
         raise GamePageUnknownError
 
-    def goto(self, destination: Page, waiting_limit=0):
-        self.get_current_page()
-        path = self.find_path(self.ui_current, destination)
+    def goto(self, destination: Page, current: Page = None):
+        if not current:
+            self.get_current_page()
+            current = self.ui_current
+
+        path = self.find_path(current, destination)
 
         logger.info(f"[PATH] Start following the path: {
                     [p.name for p in path]}")
