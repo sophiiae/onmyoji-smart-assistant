@@ -1,5 +1,6 @@
 import time
 import random
+import numpy as np
 from module.base.logger import logger
 from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_exp, page_shikigami
@@ -10,40 +11,48 @@ class TaskScript(Battle, SA):
 
     def run(self):
         # 进入式神活动页面
-        if not self.check_page_appear(page_shikigami):
+        if not (self.appear(self.I_SA_FIGHT_CHECK) or self.check_page_appear(page_shikigami)):
             self.goto(page_shikigami)
+            time.sleep(1)
 
-        time.sleep(1)
+        if not self.appear(self.I_SA_FIGHT_CHECK):
+            # 进入爬塔页面
+            while 1:
+                time.sleep(0.3)
+                self.screenshot()
+                if not self.appear(self.I_SA_FIGHT_ENT):
+                    break
 
-        # 进入爬塔页面
-        while 1:
-            time.sleep(0.3)
-            self.screenshot()
-            if not self.appear(self.I_SA_FIGHT_ENT):
-                break
-
-            if self.appear(self.I_SA_FIGHT_ENT):
-                self.click(self.I_SA_FIGHT_ENT)
+                if self.appear(self.I_SA_FIGHT_ENT):
+                    self.click(self.I_SA_FIGHT_ENT)
+                    continue
 
         self.toggle_team()
-        no_ticket = self.appear(self.I_SA_NO_TICKETS)
-        if not no_ticket:
-            self.switch_mode(False)
 
-        while not no_ticket:
-            self.start_battle()
-            if self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
-                no_ticket = self.appear(self.I_SA_NO_TICKETS)
-            else:
-                raise RequestHumanTakeover
+        # 每天指定御魂不一样，不一定刷，先关了这一块
+        # no_ticket = self.appear(self.I_SA_NO_TICKETS)
+        # if not no_ticket:
+        #     self.switch_mode(False)
 
+        # while not no_ticket:
+        #     self.start_battle()
+        #     if self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
+        #         no_ticket = self.appear(self.I_SA_NO_TICKETS)
+        #     else:
+        #         raise RequestHumanTakeover
         self.switch_mode()
 
         # 用体力刷999
         count = 0
         while count < 999:
+            if count > 0 and count % 50 == 0:
+                wait = np.random.randint(1, 200)
+                logger.info(f"wating for {wait} seconds")
+                time.sleep(wait)
+
             logger.info(f"======== Round {count + 1} by EP =========")
             self.start_battle()
+            count += 1
             if not self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
                 raise RequestHumanTakeover
 
@@ -57,6 +66,7 @@ class TaskScript(Battle, SA):
                 self.click(self.I_SA_EXIT)
 
     def start_battle(self):
+        # 开始战斗
         while 1:
             time.sleep(0.4)
             self.screenshot()
@@ -75,7 +85,7 @@ class TaskScript(Battle, SA):
             if self.appear(self.I_SA_GAIN_REWARD):
                 # 如果出现领奖励
                 action_click = random.choice(
-                    [self.C_REWARD_1, self.C_REWARD_2])
+                    [self.C_SA_REWARD_LEFT, self.C_SA_REWARD_BOTTOM, self.C_SA_REWARD_RIGHT])
                 if self.appear(self.I_SA_GAIN_REWARD):
                     self.click(action_click)
                     continue

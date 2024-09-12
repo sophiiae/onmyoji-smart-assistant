@@ -68,6 +68,8 @@ class Colla(EXP):
                     break
             # 普通怪挑战
             if self.appear_then_click(self.I_EXP_BATTLE):
+                if self.wait_until_appear(self.I_EXP_C_CHAPTER, 1):
+                    continue
                 c += 1
                 self.run_battle()
 

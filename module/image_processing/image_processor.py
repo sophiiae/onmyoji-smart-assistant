@@ -167,7 +167,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if len(sys.argv) == 2:
             target = sys.argv[1]   # paht of target image
-            config = Config("qian")
+            config = Config("nian")
             cn = Connection(config)
             screenshot = cn.get_screenshot()
         else:

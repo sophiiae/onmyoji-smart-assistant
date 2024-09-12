@@ -134,5 +134,13 @@
     "area": "511, 144, 52, 58",
     "file": "./tasks/main_page/res/quest/quest_virtual.png",
     "description": "协作邀请现世标记位置"
+  },
+  {
+    "name": "virtual_invite",
+    "type": "image",
+    "roi": "444, 360, 38, 46",
+    "area": "125, 340, 1015, 88",
+    "file": "./tasks/main_page/res/quest/virtual_invite.png",
+    "description": "现世共享+"
   }
 ]

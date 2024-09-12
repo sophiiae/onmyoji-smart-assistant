@@ -101,6 +101,12 @@ class MainPageAssets:
 		area=(220, 450, 830, 120),
 		file="./tasks/main_page/res/regions/region_shenzhi.png"
 	)
+	# 有龙则灵 
+	I_REGION_YOULONG = RuleImage(
+		roi=(919, 488, 63, 51),
+		area=(220, 450, 830, 120),
+		file="./tasks/main_page/res/regions/region_youlong.png"
+	)
 
 	# Image Rule Assets
 	# 邮件 

@@ -107,5 +107,13 @@
     "area": "220, 450, 830, 120",
     "file": "./tasks/main_page/res/regions/region_shenzhi.png",
     "description": "神之晚宴"
+  },
+  {
+    "name": "region_youlong",
+    "type": "image",
+    "roi": "919, 488, 63, 51",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/main_page/res/regions/region_youlong.png",
+    "description": "有龙则灵"
   }
 ]
