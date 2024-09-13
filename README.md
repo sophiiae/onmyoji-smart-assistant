@@ -46,6 +46,12 @@
 
 例如： `py ./activity.py osa`
 
+### 清厕纸
+
+运行 `py ./errand.py [script_name] -s`
+
+例如: `py ./errand.py osa -s`
+
 ![run](./assets/run.png)
 
 这样就是运行成功了：
