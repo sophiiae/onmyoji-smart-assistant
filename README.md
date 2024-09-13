@@ -21,6 +21,10 @@
 ![goto_dir](./assets/goto_dir.png)
 
 ##### 基本安装
+建新新的python环境：
+`python -v venv .venv`
+
+安装库
 `pip install -r requirement.txt`
 
 ![install](./assets/install.png)
@@ -33,6 +37,9 @@
 ### 修改配置
 打开 config目录下的osa.json，修改对应的端口号
 需要多号运行的，直接复制一份改名，改端口号就行
+
+### 启动py环境
+`.\venv\Scripts\activate`
 
 ### 周年庆 999
 直接端口运行 `py ./activity.py [script_name]`
