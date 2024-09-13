@@ -1,7 +1,12 @@
 # Onmyoji Smart Assistant
 
-一个简单的阴阳师小助手， 下面是十分潦草的第一版说明
-前端基于Flet，但是Flet目前生成含cv2的程序会出错，所以UI开发停滞了
+一个简单的阴阳师小助手， 下面是十分潦草的第一版说明  
+- 前端基于Flet，但是Flet目前生成含cv2的程序会出错，所以UI开发停滞了
+- 仅支持**MUMU 12 模拟器**
+- 截图模式ABD
+- 点击位置随机（防封）
+
+⚠️ 脚本仍在调试升级中，部分功能可能出错
 
 ##### Credits
 主要参考 [OnmyojiAutoScript](https://github.com/runhey/OnmyojiAutoScript).
@@ -17,10 +22,10 @@
 3. （Windows） 打开 Command Promp 或者 Terminal
 4. 输入 `cd [复制的路径]`  -> 回车
 
-差不多长这样：
+运行完差不多长这样：
 ![goto_dir](./assets/goto_dir.png)
 
-##### 基本安装
+##### Installation 基本安装
 建新新的python环境：
 `python -v venv .venv`
 
@@ -32,9 +37,9 @@
 等待安装完成
 ![finish_install](./assets//finish_install.png)
 
-# 运行
+# Run 运行
 
-### 修改配置
+### Configuration 修改配置
 打开 config目录下的osa.json，修改对应的端口号
 需要多号运行的，直接复制一份改名，改端口号就行
 
