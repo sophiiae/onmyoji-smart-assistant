@@ -1,6 +1,7 @@
 # Onmyoji Smart Assistant
 
 一个简单的阴阳师小助手， 下面是十分潦草的第一版说明
+前端基于Flet，但是Flet目前生成含cv2的程序会出错，所以UI开发停滞了
 
 ##### Credits
 主要参考 [OnmyojiAutoScript](https://github.com/runhey/OnmyojiAutoScript).
