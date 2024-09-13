@@ -22,7 +22,7 @@ class Summon(General):
         r = (ticket - 10) // 10
         for i in range(r):
             logger.info(f"Summon round {i + 1}")
-            if not self.wait_until_appear(self.I_SUMMON_AGAIN, 10, 1):
+            if not self.wait_until_click(self.I_SUMMON_AGAIN):
                 break
         self.goto(page_main, page_summon)
         exit()
