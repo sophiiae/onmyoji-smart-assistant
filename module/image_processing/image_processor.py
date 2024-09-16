@@ -64,8 +64,10 @@ class ImageProcessor:
             self.draw_rectange(
                 (area[0], area[1]), (area[0] + area[2], area[1] + area[3]), self.area_rectangle_color)
 
+            name = self.get_name_from_path(path)
+            path = path.replace('\\', '/')
             return {
-                'name': "",
+                'name': f"{name}",
                 'type': "image",
                 'roi': f"{roi[0]}, {roi[1]}, {roi[2]}, {roi[3]}",
                 'area': f"{area[0]}, {area[1]}, {area[2]}, {area[3]}",
@@ -74,6 +76,10 @@ class ImageProcessor:
             }
         else:
             print("Error: no target found.")
+
+    def get_name_from_path(self, path: str):
+        file = path.split('\\')[-1]
+        return file.split('.')[0]
 
     def find_target(self, target):
         # 目標取樣
@@ -166,8 +172,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         if len(sys.argv) == 2:
-            target = sys.argv[1]   # paht of target image
-            config = Config("nian")
+            target = sys.argv[1]   # path of target image
+            config = Config("osa")
             cn = Connection(config)
             screenshot = cn.get_screenshot()
         else:

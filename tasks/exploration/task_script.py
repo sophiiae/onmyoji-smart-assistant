@@ -121,6 +121,7 @@ class TaskScript(EA, Battle):
         time.sleep(1)
         while 1:
             time.sleep(0.3)
+            self.screenshot()
             if self.appear(self.I_C_EXP) or self.appear(self.I_C_EXP_MODAL):
                 break
 

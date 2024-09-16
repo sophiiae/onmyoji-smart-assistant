@@ -61,12 +61,6 @@ class GeneralAssets:
 	)
 
 	# Image Rule Assets
-	# 登录界面适龄提示 
-	I_C_LOGIN = RuleImage(
-		roi=(13, 563, 53, 71),
-		area=(0, 528, 106, 142),
-		file="./tasks/general/res/check/c_login.png"
-	)
 	# 主界面 
 	I_C_MAIN = RuleImage(
 		roi=(905, 134, 48, 48),

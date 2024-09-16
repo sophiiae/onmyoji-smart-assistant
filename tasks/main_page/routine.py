@@ -9,9 +9,11 @@ from module.base.logger import logger
 class Routine(Colla, MainPage):
 
     def run(self):
-        regions = [self.I_REGION_HUAHUO,
-                   self.I_REGION_SHENZHI,
-                   self.I_REGION_MAOCHUAN]
+        regions = [
+            self.I_REGION_HUAHUO,
+            self.I_REGION_SHENZHI,
+            self.I_REGION_MAOCHUAN
+        ]
 
         for region in regions:
             self.switch_region(region)
@@ -49,8 +51,11 @@ class Routine(Colla, MainPage):
         while 1:
             time.sleep(0.3)
             self.screenshot()
+            if self.appear(self.I_STORE_DAILY_REWARD):
+                break
 
-            if self.appear_then_click(self.I_STORE_REC):
+            if self.appear(self.I_STORE_REC):
+                self.click(self.I_STORE_REC)
                 continue
 
             if self.appear_then_click(self.I_C_GIFT_SHOP):
@@ -60,13 +65,12 @@ class Routine(Colla, MainPage):
         while 1:
             time.sleep(0.3)
             self.screenshot()
-            if not self.appear(self.I_STORE_DAILY_REWARD):
+            if self.appear(self.I_REWARD):
+                self.get_reward()
                 break
 
-            if self.appear_then_click(self.I_STORE_DAILY_REWARD):
-                if self.appear(self.I_REWARD):
-                    got_gift = True
-                    self.random_click_right()
+            if self.appear(self.I_STORE_DAILY_REWARD):
+                self.click(self.I_STORE_DAILY_REWARD)
 
         if got_gift:
             logger.info("==>>> Got daily store gift")
@@ -113,6 +117,10 @@ class Routine(Colla, MainPage):
         while 1:
             time.sleep(0.3)
             self.screenshot()
+
+            if not self.appear(self.I_MAIL_HEADER):
+                break
+
             if not (self.appear(self.I_GET_ALL_MAIL) or self.appear(self.I_UNREAD_MAIL, 0.98)):
                 self.appear_then_click(self.I_MAIL_EXIT)
                 break
@@ -147,6 +155,10 @@ class Routine(Colla, MainPage):
                 if self.wait_until_appear(self.I_GAIN_REWARD, 2):
                     got_gift = True
                     self.random_click_right()
+                    time.sleep(0.3)
+                    self.screenshot()
+                    if self.appear(self.I_CLOSE_DAILY_SIGN):
+                        self.click(self.I_CLOSE_DAILY_SIGN)
                     continue
 
             if self.appear(self.I_DAILY_EP):
@@ -241,7 +253,7 @@ class Routine(Colla, MainPage):
             if self.appear(self.I_OWN_CHARACTERS):
                 break
 
-            if self.appear(self.I_LOGIN_WARNING):
+            if self.appear(self.I_LOGIN_WARNING) and not self.appear(self.I_PICK_REGION):
                 self.click(self.C_REGION)
                 continue
 

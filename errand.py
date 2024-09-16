@@ -41,8 +41,8 @@ def RunDailyRountine(name):
     c = Config(name)
     d = Device(c)
     r = Routine(c, d)
-    r.run()
-    # r.run_single_account()
+    # r.run()
+    r.run_single_account()
     # r.quest_invite()
 
 def RunThreeWindRealmRaid(config_name: str):
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         logger.warning(
             "Agrs[1]: -s: run regular summon | -c: run daily collaboration")
         logger.warning(
-            "Agrs[1]: -m: run minamoto | -w: wating model | -d: daily routine(colla)")
+            "Agrs[1]: -m: run minamoto | -w: waiting mode | -d: daily routine(colla)")
     else:
         name, t = sys.argv[1:]
         match t:
@@ -101,4 +101,5 @@ if __name__ == "__main__":
             case '-d':
                 RunDailyRountine(name)
             case _:
-                logger.warning("Missing args, try 'help' for instruction")
+                logger.warning(
+                    "Missing args, try 'py ./errand.py' for instruction")

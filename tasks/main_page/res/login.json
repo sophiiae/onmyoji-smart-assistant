@@ -19,7 +19,7 @@
     "name": "login_warning",
     "type": "image",
     "roi": "165, 565, 52, 69",
-    "area": "139, 539, 104, 121",
+    "area": "0, 539, 300, 121",
     "file": "./tasks/main_page/res/login/login_warning.png",
     "description": "适龄提示"
   },

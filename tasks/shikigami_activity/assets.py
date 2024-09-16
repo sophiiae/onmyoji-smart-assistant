@@ -105,8 +105,8 @@ class ShikigamiActivityAssets:
 	# Ocr Rule Assets
 	# 爬塔门票数量 
 	O_TICKET_COUNT = RuleOcr(
-		roi=(710, 25, 44, 31),
-		area=(710, 25, 44, 31),
+		roi=(711, 26, 99, 28),
+		area=(711, 26, 99, 28),
 		keyword="",
 		name="ticket_count"
 	)

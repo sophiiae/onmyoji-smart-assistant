@@ -2,8 +2,8 @@
   {
     "name": "ticket_count",
     "type": "text",
-    "roi": "710, 25, 44, 31",
-    "area": "710, 25, 44, 31",
+    "roi": "711, 26, 99, 28",
+    "area": "711, 26, 99, 28",
     "keyword": "",
     "description": "爬塔门票数量"
   },

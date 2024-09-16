@@ -32,7 +32,7 @@ class MainPageAssets:
 	# 适龄提示 
 	I_LOGIN_WARNING = RuleImage(
 		roi=(165, 565, 52, 69),
-		area=(139, 539, 104, 121),
+		area=(0, 539, 300, 121),
 		file="./tasks/main_page/res/login/login_warning.png"
 	)
 	# 账号登录 
@@ -362,6 +362,12 @@ class MainPageAssets:
 		roi=(524, 159, 26, 29),
 		area=(511, 144, 52, 58),
 		file="./tasks/main_page/res/quest/quest_virtual.png"
+	)
+	# 现世共享+ 
+	I_VIRTUAL_INVITE = RuleImage(
+		roi=(444, 360, 38, 46),
+		area=(125, 340, 1015, 88),
+		file="./tasks/main_page/res/quest/virtual_invite.png"
 	)
 
 

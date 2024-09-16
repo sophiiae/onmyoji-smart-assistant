@@ -27,25 +27,22 @@ class TaskScript(Battle, SA):
                     self.click(self.I_SA_FIGHT_ENT)
                     continue
 
-        self.toggle_team()
+        # self.toggle_team()
 
         # 每天指定御魂不一样，不一定刷，先关了这一块
-        # no_ticket = self.appear(self.I_SA_NO_TICKETS)
-        # if not no_ticket:
-        #     self.switch_mode(False)
+        ticket = self.get_ticket_count()
+        if ticket > 0:
+            self.switch_mode(False)
+        for i in range(ticket):
+            logger.info(f"======== Round {i + 1} by ticket =========")
+            self.start_battle()
 
-        # while not no_ticket:
-        #     self.start_battle()
-        #     if self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
-        #         no_ticket = self.appear(self.I_SA_NO_TICKETS)
-        #     else:
-        #         raise RequestHumanTakeover
         self.switch_mode()
 
         # 用体力刷999
         count = 0
         while count < 999:
-            if count > 0 and count % 50 == 0:
+            if count > 0 and count % 100 == 0:
                 wait = np.random.randint(1, 200)
                 logger.info(f"wating for {wait} seconds")
                 time.sleep(wait)
@@ -53,8 +50,9 @@ class TaskScript(Battle, SA):
             logger.info(f"======== Round {count + 1} by EP =========")
             self.start_battle()
             count += 1
-            if not self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
-                raise RequestHumanTakeover
+
+            # if not self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
+            #     raise RequestHumanTakeover
 
         # 返回庭院
         while 1:
@@ -65,7 +63,12 @@ class TaskScript(Battle, SA):
             if self.appear(self.I_SA_EXIT):
                 self.click(self.I_SA_EXIT)
 
-    def start_battle(self):
+    def get_ticket_count(self):
+        image = self.screenshot()
+        count, total = self.O_TICKET_COUNT.digit_counter(image)
+        return count
+
+    def start_battle(self) -> bool:
         # 开始战斗
         while 1:
             time.sleep(0.4)
@@ -77,10 +80,10 @@ class TaskScript(Battle, SA):
                 self.click(self.I_SA_FIGHT)
 
         while 1:
-            time.sleep(0.4)
+            time.sleep(0.2)
             self.screenshot()
             if self.appear(self.I_SA_FIGHT_CHECK):
-                break
+                return False
 
             if self.appear(self.I_SA_GAIN_REWARD):
                 # 如果出现领奖励
@@ -95,6 +98,7 @@ class TaskScript(Battle, SA):
                 action_click = random.choice(
                     [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
                 self.click(action_click)
+        return True
 
     def switch_mode(self, use_ep: bool = True):
         if use_ep:

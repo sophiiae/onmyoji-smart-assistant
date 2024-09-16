@@ -57,19 +57,25 @@ class Battle(General, Buff, BattleAssets):
             if got_reward and not self.appear(self.I_REWARD):
                 break
 
-            # 如果出现领奖励
-            action_click = random.choice(
-                [self.C_REWARD_1, self.C_REWARD_2])
             if self.appear(self.I_REWARD):
-                self.click(action_click)
+                self.get_reward()
                 got_reward = True
                 continue
 
             if self.appear(self.I_BATTLE_WIN):
+                action_click = random.choice(
+                    [self.C_REWARD_1, self.C_REWARD_2])
                 self.click(action_click)
 
         time.sleep(1)
         return win
+
+    def get_reward(self):
+        """领奖励
+        """
+        action_click = random.choice(
+            [self.C_REWARD_1, self.C_REWARD_2])
+        self.click(action_click)
 
     def run_battle_quit(self):
         """
