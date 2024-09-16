@@ -27,9 +27,9 @@ class TaskScript(Battle, SA):
                     self.click(self.I_SA_FIGHT_ENT)
                     continue
 
-        # self.toggle_team()
+        self.toggle_team()
 
-        # 每天指定御魂不一样，不一定刷，先关了这一块
+        # 每天指定御魂不一样，不刷的话，就先关了这一块
         ticket = self.get_ticket_count()
         if ticket > 0:
             self.switch_mode(False)
